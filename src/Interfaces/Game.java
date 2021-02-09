@@ -65,7 +65,7 @@ public interface Game {
      * @throws InvalidMoveException
      * @throws MoveNotAvailableException 
      */
-    public void playerMadeMove() throws GameStateException, InvalidMoveException, MoveNotAvailableException;
+   // public void playerMadeMove() throws GameStateException, InvalidMoveException;
 
     
     /** Initiates a new game and will progress in doing so until the game ends.

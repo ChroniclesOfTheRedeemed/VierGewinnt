@@ -30,8 +30,10 @@ public interface Player <Zug> {
      * and given a reference to the game he participates in.
      * 
      * @param gameRef 
+     * @param inputListener 
+     * @param moveListener 
      */
-    void gameStarted(Game gameRef);
+    void gameStarted(Game gameRef, InputListener<Zug> inputListener);
 
     /**The Player will be notified of the move of the enemy and is asked to calculate his next move now.
      * After the calculation are complete and a Move is available for further progression of the game
@@ -41,14 +43,6 @@ public interface Player <Zug> {
      */
     void makeMove(Zug enemyMove);
 
-    /**After calculation of a Move the Game Instance will try to access it through this function.
-     * To avoid eventual misbehaviour the Player should throw a MoveNotAvailableException if he
-     * has not yet calculated his Move.
-     * 
-     * @return
-     * @throws MoveNotAvailableException 
-     */
-    Zug getMove() throws MoveNotAvailableException;
 
     /**The Player will be notified that the game ended, as well as what the last Move was and
      * how the game counts the result.

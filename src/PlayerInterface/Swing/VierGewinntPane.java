@@ -5,6 +5,7 @@
  */
 package PlayerInterface.Swing;
 
+import Exceptions.GameStateException;
 import Exceptions.InvalidMoveException;
 import Interfaces.Game;
 import Interfaces.InputListener;
@@ -15,6 +16,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import PlayerInterface.VierGewinntFeld;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * possible extension function: revert move according to gamerule (incorrect
@@ -81,6 +84,8 @@ public class VierGewinntPane extends Container implements VierGewinntFeld {
                     inputGiven.inputGiven(finalint);
                 } catch (InvalidMoveException ex) {
                     System.err.println("Manual Error ViergewinntPane");
+                } catch (GameStateException ex) {
+                    Logger.getLogger(VierGewinntPane.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
         }

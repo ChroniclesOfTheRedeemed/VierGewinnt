@@ -10,7 +10,9 @@ import Exceptions.MoveNotAvailableException;
 import Games.Chomp.ChompPlayer;
 import Games.Chomp.ChompWatcher;
 import Interfaces.Game;
+import Interfaces.InputListener;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,20 +30,25 @@ public class ChompManager implements ChompPlayer, ChompWatcher {
     private boolean gameStillProgressing = false;
     private Dimension currentMove = MOVENOTAVAILABLE;
     private int movesDone;
-
+    ArrayList<InputListener<Dimension>> inputListener = new ArrayList<>();
+    
     public ChompManager(ChompField gameField) {
         myField = gameField;
         myField.setInputListener((Dimension move) -> {
             try {
                 currentMove = move;
                 updateMoveOnField(move);
-                gameRef.playerMadeMove();
+                if (currentMove == MOVENOTAVAILABLE) {
+                    throw new MoveNotAvailableException();
+                } else {
+                    inputListener.get(player1turn || inputListener.size() == 1 ? 0 : 1 ).inputGiven(move);
+                }
             } catch (GameStateException | MoveNotAvailableException ex) {
                 Logger.getLogger(VierGewinntManager.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
-
+    
     @Override
     public void gameStarted(Game gameRef) {
         if (!gameStillProgressing) {
@@ -52,20 +59,21 @@ public class ChompManager implements ChompPlayer, ChompWatcher {
             myField.resetField();
         }
     }
+    @Override
+    public void gameStarted(Game gameRef, InputListener<Dimension> inputListener) {
+        this.inputListener.add(inputListener);
+        if (!gameStillProgressing) {
+            this.gameRef = gameRef;
+            gameStillProgressing = true;
+            movesDone = 0;
+            player1turn = true;
+            myField.resetField();
+        }}
 
     @Override
     public void makeMove(Dimension enemyMove) {
         if (!uptodate()) {
             updateMoveOnField(enemyMove);
-        }
-    }
-
-    @Override
-    public Dimension getMove() throws MoveNotAvailableException {
-        if (currentMove == MOVENOTAVAILABLE) {
-            throw new MoveNotAvailableException();
-        } else {
-            return currentMove;
         }
     }
 
@@ -78,6 +86,7 @@ public class ChompManager implements ChompPlayer, ChompWatcher {
             }
             myField.showResultOnField(gameResult);
         }
+        inputListener.clear();
     }
 
     @Override
@@ -101,4 +110,5 @@ public class ChompManager implements ChompPlayer, ChompWatcher {
         movesDone++;
         player1turn = !player1turn;
     }
+
 }

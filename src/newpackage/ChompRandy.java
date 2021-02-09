@@ -7,10 +7,9 @@ package newpackage;
 
 import Exceptions.GameStateException;
 import Exceptions.InvalidMoveException;
-import Exceptions.MoveNotAvailableException;
 import Games.Chomp.ChompPlayer;
-import Games.VierGewinnt.VierGewinntSpiel;
 import Interfaces.Game;
+import Interfaces.InputListener;
 import java.awt.Dimension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,12 +21,14 @@ import java.util.logging.Logger;
  */
 public class ChompRandy implements ChompPlayer {
 
+    InputListener<Dimension> inputListener;
     Game gameReGame;
     Dimension myMove = new Dimension();
     Dimension outerRing;
 
     @Override
-    public void gameStarted(Game gameRef) {
+    public void gameStarted(Game gameRef, InputListener<Dimension> inputListener) {
+        this.inputListener = inputListener;
         gameReGame = gameRef;
     }
 
@@ -37,8 +38,8 @@ public class ChompRandy implements ChompPlayer {
             outerRing = new Dimension(gameReGame.getSpielFeldBreite(), gameReGame.getSpielFeldBreite());
             myMove.width = (int) (Math.random() * outerRing.width);
             myMove.height = (int) (Math.random() * outerRing.height);
-            gameReGame.playerMadeMove();
-        } catch (GameStateException | MoveNotAvailableException ex) {
+            inputListener.inputGiven(myMove);
+        } catch (GameStateException ex) {
             System.err.println("Uncaught Manual ChompRandy.MakeMove Exception ");
         } catch (InvalidMoveException ex) {
             reCalcMove();
@@ -54,17 +55,12 @@ public class ChompRandy implements ChompPlayer {
             }
             myMove.width = (int) (Math.random() * outerRing.width);
             myMove.height = (int) (Math.random() * outerRing.height);
-            gameReGame.playerMadeMove();
-        } catch (GameStateException | MoveNotAvailableException ex) {
+            inputListener.inputGiven(myMove);
+        } catch (GameStateException ex) {
             Logger.getLogger(ChompRandy.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidMoveException ex) {
             reCalcMove();
         }
-    }
-
-    @Override
-    public Dimension getMove() throws MoveNotAvailableException {
-        return myMove;
     }
 
     @Override
@@ -76,4 +72,5 @@ public class ChompRandy implements ChompPlayer {
     public String toString() {
         return "Randy";
     }
+
 }

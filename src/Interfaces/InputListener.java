@@ -6,6 +6,7 @@
 
 package Interfaces;
 
+import Exceptions.GameStateException;
 import Exceptions.InvalidMoveException;
 
 /**__DATE__ , __TIME__
@@ -15,5 +16,5 @@ import Exceptions.InvalidMoveException;
 
 public interface InputListener <Zug>{
     //Expects Valid Input, because your Field will be updated with this input
-    void inputGiven(Zug validMove) throws InvalidMoveException;
+    void inputGiven(Zug validMove) throws InvalidMoveException, GameStateException;
 }

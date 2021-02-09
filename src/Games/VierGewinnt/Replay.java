@@ -75,13 +75,6 @@ public class Replay implements Game {
         return movesDone;
     }
 
-    @Override
-    public void playerMadeMove() throws GameStateException, InvalidMoveException, MoveNotAvailableException {
-        if (!gameInProgress) {
-            throw new GameStateException();
-        }
-    }
-
     private void initiateGame() {
         movesDone = 0;
         gameInProgress = true;

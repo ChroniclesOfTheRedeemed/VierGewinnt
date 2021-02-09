@@ -30,6 +30,7 @@ import Statistics.Statistic;
 import Games.GameType;
 import viergewinntpraxis.GameParticipants;
 import Games.VierGewinnt.VierGewinntSpiel;
+import Interfaces.InputListener;
 import java.awt.event.ActionListener;
 
 /**
@@ -175,17 +176,12 @@ public class UltimateControl extends JFrame implements GameWatcher<Object> {
         selectedGameType = type;
         currentGameParticipants = new GameParticipants(new Player() {
             @Override
-            public void gameStarted(Game gameRef) {
+            public void gameStarted(Game gameRef, InputListener inputListener) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
             public void makeMove(Object enemyMove) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public Integer getMove() throws MoveNotAvailableException {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
@@ -193,19 +189,14 @@ public class UltimateControl extends JFrame implements GameWatcher<Object> {
             public void gameEnded(Object finishingMove, GameResult gameResult) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
-        }, new Player() {
+        },new Player() {
             @Override
-            public void gameStarted(Game gameRef) {
+            public void gameStarted(Game gameRef, InputListener inputListener) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
             public void makeMove(Object enemyMove) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public Integer getMove() throws MoveNotAvailableException {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 

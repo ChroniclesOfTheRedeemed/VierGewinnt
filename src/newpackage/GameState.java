@@ -14,6 +14,10 @@ import java.util.ArrayList;
 public class GameState {
     public ArrayList<ArrayList<Integer>> SpielFeld = new ArrayList<>();
     public boolean player1turn = true;
-    public int player1won = -1;
+    public STATUS result = STATUS.GameGoesOn;
+    
+    public enum STATUS {
+        GameGoesOn, Draw, GameWonByMe, GameWonByEnemy
+    }
 }
 

@@ -5,6 +5,7 @@
  */
 package PlayerInterface.Swing;
 
+import Exceptions.GameStateException;
 import Exceptions.InvalidMoveException;
 import Interfaces.Game;
 import Interfaces.InputListener;
@@ -14,6 +15,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 
 /**
@@ -89,6 +92,8 @@ public class ChompSwingPane extends Container implements ChompField {
                     inputGiven.inputGiven(new Dimension(Coloumn, Row));
                 } catch (InvalidMoveException ex) {
                     System.err.println("Manual Error ChompPane");
+                } catch (GameStateException ex) {
+                    Logger.getLogger(ChompSwingPane.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
             }

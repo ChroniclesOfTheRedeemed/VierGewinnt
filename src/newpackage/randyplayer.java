@@ -14,6 +14,7 @@ import Exceptions.MoveNotAvailableException;
 import Interfaces.Game;
 import Interfaces.Player;
 import Games.VierGewinnt.VierGewinntSpiel;
+import Interfaces.InputListener;
 
 /**__DATE__ , __TIME__
  *
@@ -22,25 +23,26 @@ import Games.VierGewinnt.VierGewinntSpiel;
 public class randyplayer implements Games.VierGewinnt.VierGewinntPlayer {
 
     Game gameref;
+    InputListener<Integer> inputListener;
+    //private Game gameRef;
+
     @Override
-    public void gameStarted(Game gameRef) {
-        gameref = gameRef;
+    public void gameStarted(Game gameRef, InputListener<Integer> inputListener) {
+        this.gameref = gameRef;
+        this.inputListener = inputListener;
+        
     }
 
     @Override
     public void makeMove(Integer enemyMove) {
         try {
-            gameref.playerMadeMove();
-        } catch (GameStateException | MoveNotAvailableException ex) {
-            Logger.getLogger(randyplayer.class.getName()).log(Level.SEVERE, null, ex);
+            inputListener.inputGiven(
+                    (int) (Math.random() * (VierGewinntSpiel.SpielFeldBreite)));//must be less than Spielfeldbreite and will be floored anyway = nice)
         } catch (InvalidMoveException ex) {
             makeMove(enemyMove);
+        } catch (GameStateException ex) {
+            Logger.getLogger(randyplayer.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @Override
-    public Integer getMove() throws MoveNotAvailableException {
-        return (int) (Math.random() * (VierGewinntSpiel.SpielFeldBreite));//must be less than Spielfeldbreite and will be floored anyway = nice)
     }
 
     @Override
@@ -52,7 +54,4 @@ public class randyplayer implements Games.VierGewinnt.VierGewinntPlayer {
     public String toString() {
         return "Randy"; //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
-
 }

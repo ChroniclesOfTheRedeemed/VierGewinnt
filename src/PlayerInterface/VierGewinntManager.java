@@ -15,6 +15,8 @@ import Interfaces.GameWatcher;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Games.VierGewinnt.VierGewinntPlayer;
+import Interfaces.InputListener;
+import java.util.ArrayList;
 
 /**__DATE__ , __TIME__
  *
@@ -30,6 +32,7 @@ public class VierGewinntManager implements VierGewinntPlayer, VierGewinntWatcher
     private boolean gameStillProgressing = false;
     private int currentMove = MOVENOTAVAILABLE;
     private int movesDone;
+    ArrayList<InputListener<Integer>> inputListener = new ArrayList<>();
 
     public VierGewinntManager(VierGewinntFeld gameField) {
         myField = gameField;
@@ -37,7 +40,12 @@ public class VierGewinntManager implements VierGewinntPlayer, VierGewinntWatcher
             try {
                 currentMove = move;
                 updateMoveOnField(move);
-                gameRef.playerMadeMove();
+                if (currentMove == MOVENOTAVAILABLE) {
+                    throw new MoveNotAvailableException();
+                } else {
+                    System.out.println(inputListener.size());
+                    inputListener.get(player1turn || inputListener.size() == 1 ? 0 : 1 ).inputGiven(move);
+                }
             } catch (GameStateException | MoveNotAvailableException ex) {
                 Logger.getLogger(VierGewinntManager.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -45,29 +53,9 @@ public class VierGewinntManager implements VierGewinntPlayer, VierGewinntWatcher
     }
 
     @Override
-    public void gameStarted(Game gameRef) {
-        if (!gameStillProgressing) {
-            this.gameRef = gameRef;
-            gameStillProgressing = true;
-            movesDone = 0;         
-            player1turn = true;
-            myField.resetField();
-        }
-    }
-    
-    @Override
     public void makeMove(Integer enemyMove) {
         if (!uptodate()) {
             updateMoveOnField(enemyMove);
-        }
-    }
-
-    @Override
-    public Integer getMove() throws MoveNotAvailableException {
-        if (currentMove == MOVENOTAVAILABLE) {
-            throw new MoveNotAvailableException();
-        } else {
-            return currentMove;
         }
     }
 
@@ -80,6 +68,7 @@ public class VierGewinntManager implements VierGewinntPlayer, VierGewinntWatcher
             }
             myField.showResultOnField(gameResult);
         }
+        inputListener.clear();
     }
 
     @Override
@@ -102,5 +91,29 @@ public class VierGewinntManager implements VierGewinntPlayer, VierGewinntWatcher
         myField.updateMoveOnField(move, player1turn);
         movesDone++;
         player1turn = !player1turn;
+    }
+
+    @Override
+    public void gameStarted(Game gameRef, InputListener<Integer> inputListener) {
+        this.inputListener.add(inputListener);
+        if (!gameStillProgressing) {
+            this.gameRef = gameRef;
+            gameStillProgressing = true;
+            movesDone = 0;         
+            player1turn = true;
+            myField.resetField();
+        }
+    }
+
+    @Override
+    public void gameStarted(Game gameRef) {
+        
+        if (!gameStillProgressing) {
+            this.gameRef = gameRef;
+            gameStillProgressing = true;
+            movesDone = 0;         
+            player1turn = true;
+            myField.resetField();
+        }
     }
 }

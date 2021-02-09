@@ -12,6 +12,7 @@ import Exceptions.MoveNotAvailableException;
 import Interfaces.Game;
 import static Interfaces.Game.Player1hasFirstMove;
 import Interfaces.GameWatcher;
+import Interfaces.InputListener;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -80,15 +81,8 @@ public class ChompGame implements Game{
         }
     }
 
-    @Override
-    public void playerMadeMove() throws GameStateException, InvalidMoveException, MoveNotAvailableException {
+    private void playerMadeMove(Dimension move) throws GameStateException, InvalidMoveException {
         if (gameStillProgressing) {
-            Dimension move;
-            if (player1turn) {
-                move = player1.getMove();
-            } else {
-                move = player2.getMove();
-            }
             
             checkMove(move);  
             updateSpielFeld(move);//previous makeMoveOnSpielFeld
@@ -179,8 +173,22 @@ public class ChompGame implements Game{
     }
 
     private void notifyGameStarted() {
-        player1.gameStarted(this);
-        player2.gameStarted(this);
+        InputListener<Dimension> player1moveListener = (Dimension validMove) -> {
+            if(player1turn){
+                playerMadeMove(validMove);
+            } else {
+                throw new GameStateException();
+            }
+        };
+        InputListener<Dimension> player2moveListener = (Dimension validMove) -> {
+            if(!player1turn){
+                playerMadeMove(validMove);
+            } else {
+                throw new GameStateException();
+            }
+        };
+        player1.gameStarted(this, player1moveListener);
+        player2.gameStarted(this, player2moveListener);
         //do not change to functional operation, because spectator can leave the queue during the loop
         for (GameWatcher spectator : spectators) {
             spectator.gameStarted(this);

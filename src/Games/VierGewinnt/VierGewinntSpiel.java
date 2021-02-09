@@ -7,9 +7,9 @@ package Games.VierGewinnt;
 
 import Exceptions.InvalidMoveException;
 import Exceptions.GameStateException;
-import Exceptions.MoveNotAvailableException;
 import Interfaces.Game;
 import Interfaces.GameWatcher;
+import Interfaces.InputListener;
 import java.util.ArrayList;
 import java.util.Objects;
 import viergewinntpraxis.GameParticipants;
@@ -75,16 +75,10 @@ public class VierGewinntSpiel implements Game{
             throw new GameStateException();
         }
     }
-
-    @Override
-    public void playerMadeMove() throws GameStateException, InvalidMoveException, MoveNotAvailableException {
+    
+    private void playerMadeMove(int move) throws GameStateException, InvalidMoveException {
         if (gameStillProgressing/*currentGameStatus == GameResult.GameInProgress*/) {
-            int move;
-            if (player1turn) {
-                move = player1.getMove();
-            } else {
-                move = player2.getMove();
-            }
+            
             
             checkMove(move);  
             int levelOfMove = updateSpielFeld(move);//previous makeMoveOnSpielFeld
@@ -276,8 +270,22 @@ public class VierGewinntSpiel implements Game{
     }
 
     private void notifyGameStarted() {
-        player1.gameStarted(this);
-        player2.gameStarted(this);
+        InputListener<Integer> player1moveListener = (Integer validMove) -> {
+            if(player1turn){
+                playerMadeMove(validMove);
+            } else {
+                throw new GameStateException();
+            }
+        };
+        InputListener<Integer> player2moveListener = (Integer validMove) -> {
+            if(!player1turn){
+                playerMadeMove(validMove);
+            } else {
+                throw new GameStateException();
+            }
+        };
+        player1.gameStarted(this,player1moveListener);
+        player2.gameStarted(this, player2moveListener);
         //do not change to functional operation, because spectator can leave the queue during the loop
         for (GameWatcher spectator : spectators) {
             spectator.gameStarted(this);

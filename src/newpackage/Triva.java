@@ -11,6 +11,7 @@ import Exceptions.MoveNotAvailableException;
 import Games.Chomp.ChompPlayer;
 import Games.VierGewinnt.VierGewinntSpiel;
 import Interfaces.Game;
+import Interfaces.InputListener;
 import java.awt.Dimension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,13 +24,16 @@ import java.util.logging.Logger;
 public class Triva implements ChompPlayer {
 
     Game gameReGame;
+    InputListener<Dimension> inputListener;
     Dimension myMove;
 
-    @Override
-    public void gameStarted(Game gameRef) {
-        gameReGame = gameRef;
-    }
 
+    @Override
+    public void gameStarted(Game gameRef, InputListener<Dimension> inputListener) {
+        gameReGame = gameRef;
+        this.inputListener = inputListener;
+    }
+    
     @Override
     public void makeMove(Dimension enemyMove) {
         try {
@@ -53,17 +57,12 @@ public class Triva implements ChompPlayer {
                     break;
             }
             myMove = new Dimension(width, height);
-            gameReGame.playerMadeMove();
-        } catch (GameStateException | MoveNotAvailableException ex) {
+            inputListener.inputGiven(enemyMove);
+        } catch (GameStateException ex) {
             Logger.getLogger(randyplayer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidMoveException ex) {
             makeMove(enemyMove);
         }
-    }
-
-    @Override
-    public Dimension getMove() throws MoveNotAvailableException {
-        return myMove;
     }
 
     @Override
