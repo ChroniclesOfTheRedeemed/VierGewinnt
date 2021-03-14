@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Games.VierGewinnt;
+package newpackage;
 
+import Games.VierGewinnt.*;
 import Exceptions.InvalidMoveException;
 import Exceptions.GameStateException;
 import Interfaces.Game;
@@ -18,35 +19,39 @@ import viergewinntpraxis.GameParticipants;
  *
  * @author Mike
  */
-public class VierGewinntSpiel implements Game{
+public class Dev4GSpiel implements Game{
     
     public static final int SpielFeldBreite = 7;
     public static final int SpielFeldHöhe = 6;
-    private static final Boolean FeldLeer = null, Spieler1Markierung = false, Spieler2Markierung = true;   
-    private static final int Four = 4;
+    protected static final Boolean FeldLeer = null, Spieler1Markierung = false, Spieler2Markierung = true;   
+    protected static final int Four = 4;
+    
+    //Der Typ des Feldes spielt zwar keine Rolle, aus XML-SpeicherGründen belass ich es aber mal bei Integern oder Strings (dafuq, du musst es dir selbst Speichern, xd)
+    //spielt eh kaum eine Rolle, weil das Spielfeld aus der Sicht des Towers nicht preisgegeben wird
+    //Prinzipiell wäre für uns auch das große Boolean perfekt 
     
     //Spiel ablaufsVariablen
     public final int MaxMoves; //realitätsgebunden, denn manchmal reichen die Chips einfach nicht für ein ganzes Spiel
     public static Integer FirstMove = -1;
-    private int movesDone;
-    private boolean player1turn;
-    private Boolean[][] SpielFeld; //Coordinate element access  Implementation
-    private boolean gameStillProgressing = false;
-    private GameResult lastGameResult; 
+    protected int movesDone;
+    protected boolean player1turn;
+    protected Boolean[][] SpielFeld; //Coordinate element access  Implementation
+    protected boolean gameStillProgressing = false;
+    protected GameResult lastGameResult; 
     
     //Interfaces
-    private final VierGewinntPlayer player1;
-    private final VierGewinntPlayer player2;
-    private final ArrayList<GameWatcher> spectators;
+    protected final VierGewinntPlayer player1;
+    protected final VierGewinntPlayer player2;
+    protected final ArrayList<GameWatcher> spectators;
     
-    public VierGewinntSpiel(int maxMoves, GameParticipants gameParticipants) {
+    public Dev4GSpiel(int maxMoves, GameParticipants gameParticipants) {
         this.player1 = (VierGewinntPlayer) gameParticipants.player1;
         this.player2 = (VierGewinntPlayer) gameParticipants.player2;
         this.spectators = gameParticipants.spectators;
         this.MaxMoves = Math.min(maxMoves, SpielFeldBreite * SpielFeldHöhe);
     }
 
-    public VierGewinntSpiel(GameParticipants gameParticipants) {
+    public Dev4GSpiel(GameParticipants gameParticipants) {
         this.player1 = (VierGewinntPlayer) gameParticipants.player1;
         this.player2 = (VierGewinntPlayer) gameParticipants.player2;
         this.spectators = gameParticipants.spectators;
@@ -72,16 +77,17 @@ public class VierGewinntSpiel implements Game{
         }
     }
     
-    private void playerMadeMove(int move) throws GameStateException, InvalidMoveException {
+    protected void playerMadeMove(int move) throws GameStateException, InvalidMoveException {
         if (gameStillProgressing/*currentGameStatus == GameResult.GameInProgress*/) {
             
-            
+            domeAFavor(SpielFeld);
             checkMove(move);  
             int levelOfMove = updateSpielFeld(move);//previous makeMoveOnSpielFeld
             
             updateGamestatus(move, levelOfMove);//honor to previous version with boolean gameEnded (it didn't specify that it'll update the gamestatus though)
       
             if (!gameStillProgressing/*currentGameStatus != GameResult.GameInProgress*/) {
+                
                 notifyGameEnded(move);
             } else {
                 notifyMoveSet(move);
@@ -90,7 +96,24 @@ public class VierGewinntSpiel implements Game{
             throw new GameStateException();
         }
     }
-    
+
+    public static void domeAFavor(Boolean[][] field) {
+//        for (int col = field[0].length-1; col >= 0 ; col--) {
+//            for (int row = 0; row < field.length; row++) {
+//                if (field[row][col] == null) {
+//                    System.out.print("0");
+//                } else if (!field[row][col]) {
+//                    System.out.print("2");
+//                } else {
+//                    System.out.print("1");
+//                }
+//            }
+//            System.out.println("");
+//        }
+//            System.out.println("");
+//            System.out.println("");
+//            System.out.println("");
+    }
     /** Technically redundant, but might still stay awhile
      * returns the amount of moves that have been done this game
      * 
@@ -101,7 +124,7 @@ public class VierGewinntSpiel implements Game{
         return movesDone;
     }
 
-    private void initializeVariables(){
+    protected void initializeVariables(){
         SpielFeld = new Boolean[SpielFeldBreite][SpielFeldHöhe];
        // Arrays.fill(Arrays.fill(SpielFeld, this), FirstMove, four, this);
         player1turn = Player1hasFirstMove;
@@ -109,7 +132,7 @@ public class VierGewinntSpiel implements Game{
         movesDone = 0;
     }
   
-    private void checkMove(int move) throws InvalidMoveException {
+    protected void checkMove(int move) throws InvalidMoveException {
         if (move >= 0 && move < SpielFeldBreite) {
             if (!Objects.equals(SpielFeld[move][SpielFeldHöhe - 1], FeldLeer)) {
                 throw new InvalidMoveException(move);
@@ -121,7 +144,7 @@ public class VierGewinntSpiel implements Game{
     
     //Considers game can possibly only end in victory for the moving player or in draw.
     //Should be very efficient because it is called for every move;
-    private void updateGamestatus(int move, int levelOfMove) {
+    protected void updateGamestatus(int move, int levelOfMove) {
         if (gameWon(move, levelOfMove)) {
             if (Objects.equals(getMarkOfLastMove(move), Spieler2Markierung)) {//redundant to some degree
                 lastGameResult = GameResult.GameWonForPlayer2;
@@ -137,7 +160,7 @@ public class VierGewinntSpiel implements Game{
         }
     }
 
-    private boolean gameWon(int move, int level) {
+    protected boolean gameWon(int move, int level) {
         boolean result;
         Boolean Mark = getMarkOfLastMove(move);
 
@@ -151,7 +174,7 @@ public class VierGewinntSpiel implements Game{
 
     
     
-    private boolean wonThroughVerticalConnect(int move, int levelOfMove, Boolean Mark) {
+    protected boolean wonThroughVerticalConnect(int move, int levelOfMove, Boolean Mark) {
         int connect = 1;
         for (int row = levelOfMove - 1; row >= 0; row--) {
             if (Objects.equals(SpielFeld[move][row], Mark)) {
@@ -166,7 +189,7 @@ public class VierGewinntSpiel implements Game{
 
     
     //uncheckedc
-    private boolean wonNotVertically(int move, int level, Boolean Mark) {
+    protected boolean wonNotVertically(int move, int level, Boolean Mark) {
         int connect;
         final int directions = 3;
         int coordinateC;
@@ -216,12 +239,12 @@ public class VierGewinntSpiel implements Game{
     }
 
     //doesn't exclude that the game has been won, so it has to be treated carefully and always after gamewon has been specified
-    private boolean gameDraw(){
+    protected boolean gameDraw(){
         return movesDone == MaxMoves;
     }
     
     //should be ideally redundant, and destroyed
-    private Boolean getMarkOfLastMove(int move){
+    protected Boolean getMarkOfLastMove(int move){
         Boolean result = FeldLeer;
         for (int row = 0; row < SpielFeldHöhe; row++) {
             if (Objects.equals(SpielFeld[move][row], FeldLeer)) {
@@ -233,11 +256,11 @@ public class VierGewinntSpiel implements Game{
         return result;
     }
     
-    private boolean inBoundaries(int Coloumn, int Row){
+    protected boolean inBoundaries(int Coloumn, int Row){
         return Coloumn >= 0 && Coloumn < SpielFeldBreite && Row >= 0 && Row < SpielFeldHöhe;
     }
 
-    private int updateSpielFeld(int checkedMove) {
+    protected int updateSpielFeld(int checkedMove) {
         Boolean Mark;
         //Mark = player1turn;
         if (player1turn) {
@@ -257,7 +280,7 @@ public class VierGewinntSpiel implements Game{
         return level;
     }
     
-    private void notifyGameEnded(int spaltenNummer) {
+    protected void notifyGameEnded(int spaltenNummer) {
         player1.gameEnded(spaltenNummer, lastGameResult);
         player2.gameEnded(spaltenNummer, lastGameResult);
         for (GameWatcher spectator : spectators) { // I hope order will be kept
@@ -265,7 +288,7 @@ public class VierGewinntSpiel implements Game{
         }
     }
 
-    private void notifyGameStarted() {
+    protected void notifyGameStarted() {
         InputListener<Integer> player1moveListener = (Integer validMove) -> {
             if(player1turn){
                 playerMadeMove(validMove);
@@ -280,7 +303,7 @@ public class VierGewinntSpiel implements Game{
                 throw new GameStateException();
             }
         };
-        player1.gameStarted(this,player1moveListener, true);
+        player1.gameStarted(this, player1moveListener, true);
         player2.gameStarted(this, player2moveListener, false);
         //do not change to functional operation, because spectator can leave the queue during the loop
         for (GameWatcher spectator : spectators) {
@@ -288,7 +311,7 @@ public class VierGewinntSpiel implements Game{
         }
     }
 
-    private void notifyMoveSet(int spaltenNummer) {
+    protected void notifyMoveSet(int spaltenNummer) {
     //if player wants to know enemy move sooner he can just implement himself as spectator, it's just not necessary to let the spectators wait until the player found  counter move
     //to the move they don't even yet know of
 

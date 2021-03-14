@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package SwingController.Menu;
-
-import Enums.GameType;
+package newpackage;
 
 /**
  *
- * @author Mike
+ * @author absea
  */
-public interface GameChangedListener {
-    
-    public void gameChanged(GameType type);
+public enum PersonalResult {
+    IWIN, ILOSE, DRAW;
 }

@@ -94,7 +94,7 @@ public class VierGewinntManager implements VierGewinntPlayer, VierGewinntWatcher
     }
 
     @Override
-    public void gameStarted(Game gameRef, InputListener<Integer> inputListener) {
+    public void gameStarted(Game gameRef, InputListener<Integer> inputListener, boolean youHaveFirstMove) {
         this.inputListener.add(inputListener);
         if (!gameStillProgressing) {
             this.gameRef = gameRef;

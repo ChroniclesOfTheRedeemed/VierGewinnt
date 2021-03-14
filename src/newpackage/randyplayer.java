@@ -27,7 +27,7 @@ public class randyplayer implements Games.VierGewinnt.VierGewinntPlayer {
     //private Game gameRef;
 
     @Override
-    public void gameStarted(Game gameRef, InputListener<Integer> inputListener) {
+    public void gameStarted(Game gameRef, InputListener<Integer> inputListener, boolean youHaveFirstMove) {
         this.gameref = gameRef;
         this.inputListener = inputListener;
         

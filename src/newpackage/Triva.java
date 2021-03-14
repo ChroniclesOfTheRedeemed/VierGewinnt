@@ -29,7 +29,7 @@ public class Triva implements ChompPlayer {
 
 
     @Override
-    public void gameStarted(Game gameRef, InputListener<Dimension> inputListener) {
+    public void gameStarted(Game gameRef, InputListener<Dimension> inputListener, boolean youHaveFirstMove) {
         gameReGame = gameRef;
         this.inputListener = inputListener;
     }

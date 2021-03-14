@@ -60,7 +60,7 @@ public class ChompManager implements ChompPlayer, ChompWatcher {
         }
     }
     @Override
-    public void gameStarted(Game gameRef, InputListener<Dimension> inputListener) {
+    public void gameStarted(Game gameRef, InputListener<Dimension> inputListener, boolean youHaveFirstMove) {
         this.inputListener.add(inputListener);
         if (!gameStillProgressing) {
             this.gameRef = gameRef;

@@ -27,7 +27,7 @@ public class ChompRandy implements ChompPlayer {
     Dimension outerRing;
 
     @Override
-    public void gameStarted(Game gameRef, InputListener<Dimension> inputListener) {
+    public void gameStarted(Game gameRef, InputListener<Dimension> inputListener, boolean youHaveFirstMove) {
         this.inputListener = inputListener;
         gameReGame = gameRef;
     }

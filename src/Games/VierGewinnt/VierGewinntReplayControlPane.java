@@ -39,7 +39,7 @@ public class VierGewinntReplayControlPane extends ControlPane {
         add(getBottomContainer(), BorderLayout.SOUTH);
         selectedPlayer1 = new VierGewinntPlayer() {
             @Override
-            public void gameStarted(Game gameRef, InputListener<Integer> inputListener) {
+            public void gameStarted(Game gameRef, InputListener<Integer> inputListener, boolean youHaveFirstMove) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
@@ -56,7 +56,7 @@ public class VierGewinntReplayControlPane extends ControlPane {
         
         selectedPlayer2 = new VierGewinntPlayer() {
             @Override
-            public void gameStarted(Game gameRef, InputListener<Integer> inputListener) {
+            public void gameStarted(Game gameRef, InputListener<Integer> inputListener, boolean youHaveFirstMove) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 

@@ -34,10 +34,6 @@ public class ChompGame implements Game{
     public static final Dimension FirstMove = null;
     private static final boolean FeldLeer = false, FeldBelegt = true;
     
-    //Der Typ des Feldes spielt zwar keine Rolle, aus XML-SpeicherGründen belass ich es aber mal bei Integern oder Strings (dafuq, du musst es dir selbst Speichern, xd)
-    //spielt eh kaum eine Rolle, weil das Spielfeld aus der Sicht des Towers nicht preisgegeben wird
-    //Prinzipiell wäre für uns auch das große Boolean perfekt 
-    
     //Spiel ablaufsVariablen
     private int movesDone;
     private boolean player1turn;
@@ -187,8 +183,8 @@ public class ChompGame implements Game{
                 throw new GameStateException();
             }
         };
-        player1.gameStarted(this, player1moveListener);
-        player2.gameStarted(this, player2moveListener);
+        player1.gameStarted(this, player1moveListener, true);
+        player2.gameStarted(this, player2moveListener, false);
         //do not change to functional operation, because spectator can leave the queue during the loop
         for (GameWatcher spectator : spectators) {
             spectator.gameStarted(this);

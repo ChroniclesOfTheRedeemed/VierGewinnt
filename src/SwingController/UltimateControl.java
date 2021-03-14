@@ -27,7 +27,7 @@ import newpackage.randyplayer;
 import Games.VierGewinnt.Recorder;
 import Games.VierGewinnt.Replay;
 import Statistics.Statistic;
-import Games.GameType;
+import Enums.GameType;
 import viergewinntpraxis.GameParticipants;
 import Games.VierGewinnt.VierGewinntSpiel;
 import Interfaces.InputListener;
@@ -176,7 +176,7 @@ public class UltimateControl extends JFrame implements GameWatcher<Object> {
         selectedGameType = type;
         currentGameParticipants = new GameParticipants(new Player() {
             @Override
-            public void gameStarted(Game gameRef, InputListener inputListener) {
+            public void gameStarted(Game gameRef, InputListener inputListener, boolean youHaveFirstMove) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
@@ -191,7 +191,7 @@ public class UltimateControl extends JFrame implements GameWatcher<Object> {
             }
         },new Player() {
             @Override
-            public void gameStarted(Game gameRef, InputListener inputListener) {
+            public void gameStarted(Game gameRef, InputListener inputListener, boolean youHaveFirstMove) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 

@@ -33,7 +33,7 @@ public interface Player <Zug> {
      * @param inputListener 
      * @param moveListener 
      */
-    void gameStarted(Game gameRef, InputListener<Zug> inputListener);
+    void gameStarted(Game gameRef, InputListener<Zug> inputListener, boolean youHaveFirstMove);
 
     /**The Player will be notified of the move of the enemy and is asked to calculate his next move now.
      * After the calculation are complete and a Move is available for further progression of the game

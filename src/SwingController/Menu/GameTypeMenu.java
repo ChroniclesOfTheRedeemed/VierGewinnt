@@ -15,7 +15,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JRadioButtonMenuItem;
-import Games.GameType;
+import Enums.GameType;
 import java.awt.event.ActionListener;
 
 /**

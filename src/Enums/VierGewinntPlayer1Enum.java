@@ -8,6 +8,7 @@ package Enums;
 
 import Games.VierGewinnt.SteadyClass;
 import Interfaces.Player;
+import newpackage.Brutus;
 import newpackage.randyplayer;
 
 /**__DATE__ , __TIME__
@@ -18,7 +19,7 @@ public enum VierGewinntPlayer1Enum {
     
     ContainerPlayer(SteadyClass.containerPlayer),
     RandyBot(new randyplayer()),
-    RandyBoft(new randyplayer());
+    RandyBoft(new Brutus());
     
     VierGewinntPlayer1Enum(Player exactplayer){
         thePlayer = exactplayer;

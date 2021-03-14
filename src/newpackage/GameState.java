@@ -5,6 +5,7 @@
  */
 package newpackage;
 
+import Interfaces.Game;
 import java.util.ArrayList;
 
 /**
@@ -12,12 +13,25 @@ import java.util.ArrayList;
  * @author absea
  */
 public class GameState {
-    public ArrayList<ArrayList<Integer>> SpielFeld = new ArrayList<>();
+    public Boolean[][] SpielFeld;
     public boolean player1turn = true;
-    public STATUS result = STATUS.GameGoesOn;
-    
-    public enum STATUS {
-        GameGoesOn, Draw, GameWonByMe, GameWonByEnemy
+    public Game.GameResult lastGameResult;
+    public boolean gameInProgress = true;
+
+    public GameState(Boolean[][] SpielFeld, Game.GameResult lastGameResult) {
+        this.SpielFeld = SpielFeld;
+        this.lastGameResult = lastGameResult;
+        gameInProgress = false;
     }
+    
+    public GameState(Boolean[][] SpielFeld) {
+        this.SpielFeld = SpielFeld;
+    }
+
+    public GameState() {
+    }
+    
+    
+    
 }
 
