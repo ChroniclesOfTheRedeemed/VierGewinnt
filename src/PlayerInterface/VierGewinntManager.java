@@ -44,7 +44,7 @@ public class VierGewinntManager implements VierGewinntPlayer, VierGewinntWatcher
                     throw new MoveNotAvailableException();
                 } else {
                     System.out.println(inputListener.size());
-                    inputListener.get(player1turn || inputListener.size() == 1 ? 0 : 1 ).inputGiven(move);
+                    inputListener.get(!player1turn || inputListener.size() == 1 ? 0 : 1).inputGiven(move);
                 }
             } catch (GameStateException | MoveNotAvailableException ex) {
                 Logger.getLogger(VierGewinntManager.class.getName()).log(Level.SEVERE, null, ex);

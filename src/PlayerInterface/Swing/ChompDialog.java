@@ -23,12 +23,12 @@ public class ChompDialog<Zug> extends EasyDialog implements PlayerInterface.Chom
     GameField gameField;
     
     public  ChompDialog(Container content, GameField field){
-        super(content, Game.GameName + " Pane");
+        super(content, /*Game.GameName +*/ " Pane");
         gameField = field;
     }
    
     public <FieldPane extends Container & GameField > ChompDialog(FieldPane fieldPane) {
-        super(fieldPane, Game.GameName + " Pane");
+        super(fieldPane, /*Game.GameName +*/ " Pane");
         gameField = fieldPane;
     }
 

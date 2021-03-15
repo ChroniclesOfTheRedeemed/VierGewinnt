@@ -16,11 +16,10 @@ public interface Game {
     //Constants
     public int getSpielFeldBreite();
     public int getSpielFeldHöhe();
-    public final String GameName = "Vier Gewinnt";
     public static final boolean Player1hasFirstMove = true;
 
     public static enum GameResult {
-        GameWonForPlayer1, GameWonForPlayer2, Draw
+        GameWonForPlayer1, GameWonForPlayer2, Draw, GameStillProgressing
     }
 
     public String getNameOfPlayer(boolean player1);

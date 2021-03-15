@@ -57,7 +57,7 @@ public abstract class Statistic implements GameWatcher {
                 getCategoryAxisLabel(), getValueAxisLabel(),
                 data,
                 PlotOrientation.VERTICAL,
-                true, true, false)), Game.GameName + " Statistic");
+                true, true, false)), /*Game.GameName +*/ " Statistic");
     }
 
 }

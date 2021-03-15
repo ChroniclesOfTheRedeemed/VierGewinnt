@@ -31,8 +31,7 @@ public class VierGewinntSpiel implements Game{
     private int movesDone;
     private boolean player1turn;
     private Boolean[][] SpielFeld; //Coordinate element access  Implementation
-    private boolean gameStillProgressing = false;
-    private GameResult lastGameResult; 
+    private GameResult currentGameStatus; 
     
     //Interfaces
     private final VierGewinntPlayer player1;
@@ -59,7 +58,7 @@ public class VierGewinntSpiel implements Game{
      */
     @Override
     public void playNewGame() throws GameStateException {
-        if (!gameStillProgressing/*currentGameStatus != GameResult.GameInProgress*/) {
+        if (currentGameStatus != GameResult.GameStillProgressing) {
             initializeVariables();
             notifyGameStarted();
             if (Player1hasFirstMove) {
@@ -73,7 +72,7 @@ public class VierGewinntSpiel implements Game{
     }
     
     private void playerMadeMove(int move) throws GameStateException, InvalidMoveException {
-        if (gameStillProgressing/*currentGameStatus == GameResult.GameInProgress*/) {
+        if (currentGameStatus == GameResult.GameStillProgressing) {
             
             
             checkMove(move);  
@@ -81,7 +80,7 @@ public class VierGewinntSpiel implements Game{
             
             updateGamestatus(move, levelOfMove);//honor to previous version with boolean gameEnded (it didn't specify that it'll update the gamestatus though)
       
-            if (!gameStillProgressing/*currentGameStatus != GameResult.GameInProgress*/) {
+            if (currentGameStatus != GameResult.GameStillProgressing) {
                 notifyGameEnded(move);
             } else {
                 notifyMoveSet(move);
@@ -105,7 +104,7 @@ public class VierGewinntSpiel implements Game{
         SpielFeld = new Boolean[SpielFeldBreite][SpielFeldHöhe];
        // Arrays.fill(Arrays.fill(SpielFeld, this), FirstMove, four, this);
         player1turn = Player1hasFirstMove;
-        gameStillProgressing = true;
+        currentGameStatus = GameResult.GameStillProgressing;
         movesDone = 0;
     }
   
@@ -124,15 +123,15 @@ public class VierGewinntSpiel implements Game{
     private void updateGamestatus(int move, int levelOfMove) {
         if (gameWon(move, levelOfMove)) {
             if (Objects.equals(getMarkOfLastMove(move), Spieler2Markierung)) {//redundant to some degree
-                lastGameResult = GameResult.GameWonForPlayer2;
+                currentGameStatus = GameResult.GameWonForPlayer2;
             } else {
-                lastGameResult = GameResult.GameWonForPlayer1;
+                currentGameStatus = GameResult.GameWonForPlayer1;
             }
-            gameStillProgressing = false;
+            //gameStillProgressing = false;
         } else {
             if (gameDraw()) {
-                lastGameResult = GameResult.Draw;
-                gameStillProgressing = false;
+                currentGameStatus = GameResult.Draw;
+                //gameStillProgressing = false;
             }
         }
     }
@@ -258,10 +257,10 @@ public class VierGewinntSpiel implements Game{
     }
     
     private void notifyGameEnded(int spaltenNummer) {
-        player1.gameEnded(spaltenNummer, lastGameResult);
-        player2.gameEnded(spaltenNummer, lastGameResult);
+        player1.gameEnded(spaltenNummer, currentGameStatus);
+        player2.gameEnded(spaltenNummer, currentGameStatus);
         for (GameWatcher spectator : spectators) { // I hope order will be kept
-            spectator.gameEnded(spaltenNummer, lastGameResult);
+            spectator.gameEnded(spaltenNummer, currentGameStatus);
         }
     }
 

@@ -21,12 +21,12 @@ public class VierGewinntDialog<Zug> extends EasyDialog implements PlayerInterfac
     GameField gameField;
     
     public  VierGewinntDialog(Container content, GameField field){
-        super(content, Game.GameName + " Pane");
+        super(content, /*Game.GameName + */" Pane");
         gameField = field;
     }
    
     public <FieldPane extends Container & GameField > VierGewinntDialog(FieldPane fieldPane) {
-        super(fieldPane, Game.GameName + " Pane");
+        super(fieldPane, /*Game.GameName + */" Pane");
         gameField = fieldPane;
     }
 

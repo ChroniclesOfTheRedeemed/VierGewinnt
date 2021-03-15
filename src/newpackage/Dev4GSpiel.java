@@ -35,9 +35,8 @@ public class Dev4GSpiel implements Game{
     public static Integer FirstMove = -1;
     protected int movesDone;
     protected boolean player1turn;
-    protected Boolean[][] SpielFeld; //Coordinate element access  Implementation
-    protected boolean gameStillProgressing = false;
-    protected GameResult lastGameResult; 
+    protected Boolean[][] SpielFeld; //Coordinate element access Implementation
+    protected GameResult currentGameStatus; 
     
     //Interfaces
     protected final VierGewinntPlayer player1;
@@ -64,7 +63,7 @@ public class Dev4GSpiel implements Game{
      */
     @Override
     public void playNewGame() throws GameStateException {
-        if (!gameStillProgressing/*currentGameStatus != GameResult.GameInProgress*/) {
+        if (currentGameStatus != GameResult.GameStillProgressing) {
             initializeVariables();
             notifyGameStarted();
             if (Player1hasFirstMove) {
@@ -78,7 +77,7 @@ public class Dev4GSpiel implements Game{
     }
     
     protected void playerMadeMove(int move) throws GameStateException, InvalidMoveException {
-        if (gameStillProgressing/*currentGameStatus == GameResult.GameInProgress*/) {
+        if (currentGameStatus == GameResult.GameStillProgressing) {
             
             domeAFavor(SpielFeld);
             checkMove(move);  
@@ -86,7 +85,7 @@ public class Dev4GSpiel implements Game{
             
             updateGamestatus(move, levelOfMove);//honor to previous version with boolean gameEnded (it didn't specify that it'll update the gamestatus though)
       
-            if (!gameStillProgressing/*currentGameStatus != GameResult.GameInProgress*/) {
+            if (currentGameStatus != GameResult.GameStillProgressing) {
                 
                 notifyGameEnded(move);
             } else {
@@ -128,7 +127,8 @@ public class Dev4GSpiel implements Game{
         SpielFeld = new Boolean[SpielFeldBreite][SpielFeldHöhe];
        // Arrays.fill(Arrays.fill(SpielFeld, this), FirstMove, four, this);
         player1turn = Player1hasFirstMove;
-        gameStillProgressing = true;
+        currentGameStatus = GameResult.GameStillProgressing;
+        //gameStillProgressing = true;
         movesDone = 0;
     }
   
@@ -147,15 +147,15 @@ public class Dev4GSpiel implements Game{
     protected void updateGamestatus(int move, int levelOfMove) {
         if (gameWon(move, levelOfMove)) {
             if (Objects.equals(getMarkOfLastMove(move), Spieler2Markierung)) {//redundant to some degree
-                lastGameResult = GameResult.GameWonForPlayer2;
+                currentGameStatus = GameResult.GameWonForPlayer2;
             } else {
-                lastGameResult = GameResult.GameWonForPlayer1;
+                currentGameStatus = GameResult.GameWonForPlayer1;
             }
-            gameStillProgressing = false;
+            //gameStillProgressing = false;
         } else {
             if (gameDraw()) {
-                lastGameResult = GameResult.Draw;
-                gameStillProgressing = false;
+                currentGameStatus = GameResult.Draw;
+               // gameStillProgressing = false;
             }
         }
     }
@@ -281,10 +281,10 @@ public class Dev4GSpiel implements Game{
     }
     
     protected void notifyGameEnded(int spaltenNummer) {
-        player1.gameEnded(spaltenNummer, lastGameResult);
-        player2.gameEnded(spaltenNummer, lastGameResult);
+        player1.gameEnded(spaltenNummer, currentGameStatus);
+        player2.gameEnded(spaltenNummer, currentGameStatus);
         for (GameWatcher spectator : spectators) { // I hope order will be kept
-            spectator.gameEnded(spaltenNummer, lastGameResult);
+            spectator.gameEnded(spaltenNummer, currentGameStatus);
         }
     }
 

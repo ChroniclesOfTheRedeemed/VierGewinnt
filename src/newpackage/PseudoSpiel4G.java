@@ -32,8 +32,8 @@ public class PseudoSpiel4G extends Dev4GSpiel {
     public void setGameState(GameState state){
         this.SpielFeld = deepCopy(state.SpielFeld);
         this.player1turn = state.player1turn;
-        this.lastGameResult = state.lastGameResult;
-        this.gameStillProgressing = state.gameInProgress;
+        this.currentGameStatus = state.lastGameResult;
+        //this.gameStillProgressing = state.gameInProgress;
     }
     
     //doesnt use copy (yet)
@@ -41,8 +41,8 @@ public class PseudoSpiel4G extends Dev4GSpiel {
         GameState result = new GameState();
         result.SpielFeld = SpielFeld;
         result.player1turn = this.player1turn;
-        result.lastGameResult = this.lastGameResult;
-        result.gameInProgress = this.gameStillProgressing;
+        result.lastGameResult = this.currentGameStatus;
+       // result.gameInProgress = this.gameStillProgressing;
         return result;
     }
     public void move(int move) throws InvalidMoveException, GameStateException{

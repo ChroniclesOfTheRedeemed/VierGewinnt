@@ -10,7 +10,6 @@ package SwingController;
 import Games.VierGewinnt.TempoPlayer;
 import SwingController.Menu.ControlMenuBar;
 import Exceptions.GameStateException;
-import Exceptions.MoveNotAvailableException;
 import Games.Chomp.ChompGame;
 import Interfaces.Game;
 import Interfaces.Game.GameResult;

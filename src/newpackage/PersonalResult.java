@@ -10,5 +10,5 @@ package newpackage;
  * @author absea
  */
 public enum PersonalResult {
-    IWIN, ILOSE, DRAW;
+    IWIN, ILOSE, DRAW, GAMEGOESON;
 }
