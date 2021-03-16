@@ -30,7 +30,6 @@ public class randyplayer implements Games.VierGewinnt.VierGewinntPlayer {
     public void gameStarted(Game gameRef, InputListener<Integer> inputListener, boolean youHaveFirstMove) {
         this.gameref = gameRef;
         this.inputListener = inputListener;
-        
     }
 
     @Override
