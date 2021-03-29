@@ -37,7 +37,7 @@ import java.awt.event.ActionListener;
  *
  * @author Mike
  */
-public class UltimateControl extends JFrame implements GameWatcher<Object> {
+public class UltimateControl extends JFrame implements GameWatcher {
 
     //i dont want this globally...
     private ControlMenuBar cMenu;
@@ -66,7 +66,7 @@ public class UltimateControl extends JFrame implements GameWatcher<Object> {
             spectators.add(HI);
             spectators.add(new Recorder());
 
-            UltimateControl FGC = new UltimateControl(player1s, player2s, spectators);
+            UltimateControl FGC = new UltimateControl(spectators);
             FGC.setVisible(true);
         });
     }
@@ -77,11 +77,22 @@ public class UltimateControl extends JFrame implements GameWatcher<Object> {
      * @param desiredSpectators
      */
     public UltimateControl(Player[] possiblePlayer1s, Player[] possiblePlayer2s, ArrayList<GameWatcher> desiredSpectators) {
-        setupFrame(desiredSpectators);
+         setupFrame(possiblePlayer1s, possiblePlayer2s, new ArrayList<>());
     }
 
     public UltimateControl(Player[] possiblePlayer1s, Player[] possiblePlayer2s) {
-        setupFrame( new ArrayList<>());
+        setupFrame(possiblePlayer1s, possiblePlayer2s, new ArrayList<>());
+    }
+        public UltimateControl(ArrayList<GameWatcher> desiredSpectators) {
+        Player[] possiblePlayer1s = new Player[0];
+        Player[] possiblePlayer2s = new Player[0];
+        setupFrame(possiblePlayer1s, possiblePlayer2s, desiredSpectators);
+    }
+        
+    public UltimateControl() {
+        Player[] possiblePlayer1s = new Player[0];
+        Player[] possiblePlayer2s = new Player[0];
+        setupFrame(possiblePlayer1s, possiblePlayer2s, new ArrayList<>());
     }
 
     @Override
@@ -112,13 +123,14 @@ public class UltimateControl extends JFrame implements GameWatcher<Object> {
         }
     }
 
-    private void setupFrame( ArrayList<GameWatcher> desiredSpectators) {
+    private void setupFrame(Player[] possiblePlayer1s, Player[] possiblePlayer2s, ArrayList<GameWatcher> desiredSpectators) {
         setTitle("4C Control");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(400, 300);
         setLocationRelativeTo(null);
+        
         cMenu = new ControlMenuBar(desiredSpectators, (GameType type1) -> {
-            setupGameControl(type1);
+            setupGameControl(type1, possiblePlayer1s, possiblePlayer2s);
         });
         this.setJMenuBar(cMenu);
 
@@ -170,7 +182,7 @@ public class UltimateControl extends JFrame implements GameWatcher<Object> {
         }
     }
 
-    private void setupGameControl(GameType type) {
+    private void setupGameControl(GameType type, Player[] possiblePlayer1s, Player[] possiblePlayer2s) {
         System.out.println("gameisbeeing changedd");
         selectedGameType = type;
         currentGameParticipants = new GameParticipants(new Player() {
@@ -211,13 +223,22 @@ public class UltimateControl extends JFrame implements GameWatcher<Object> {
         //Auslagern in Game - VierGewinnt United Packages For Reference Usage
         switch (type) {
             case VierGewinnt:
-                Player[] mayPLayer1s = new Player[Enums.VierGewinntPlayer1Enum.values().length];
-                for (int i = 0; i < mayPLayer1s.length; i++) {
+                Player[] mayPLayer1s = new Player[Enums.VierGewinntPlayer1Enum.values().length + possiblePlayer1s.length];
+                for (int i = 0; i < Enums.VierGewinntPlayer1Enum.values().length; i++) {
                     mayPLayer1s[i] = Enums.VierGewinntPlayer1Enum.values()[i].thePlayer;
                 }
-                Player[] mayPLayer2s = new Player[Enums.VierGewinntPlayer2Enum.values().length];
-                for (int i = 0; i < mayPLayer2s.length; i++) {
+                for (int i = Enums.VierGewinntPlayer1Enum.values().length; i < mayPLayer1s.length; i++) {
+                    mayPLayer1s[i] = possiblePlayer1s[i-Enums.VierGewinntPlayer1Enum.values().length];
+                }
+                
+                
+                
+                Player[] mayPLayer2s = new Player[Enums.VierGewinntPlayer2Enum.values().length + possiblePlayer2s.length];
+                for (int i = 0; i < Enums.VierGewinntPlayer2Enum.values().length; i++) {
                     mayPLayer2s[i] = Enums.VierGewinntPlayer2Enum.values()[i].thePlayer;
+                }
+                for (int i = Enums.VierGewinntPlayer2Enum.values().length; i < mayPLayer2s.length; i++) {
+                    mayPLayer2s[i] = possiblePlayer2s[i-Enums.VierGewinntPlayer2Enum.values().length];
                 }
                 type.myControl.buildUpContainer(mayPLayer1s, mayPLayer2s, start);
                 break;
@@ -287,8 +308,3 @@ public class UltimateControl extends JFrame implements GameWatcher<Object> {
  * archived as memorial./*
  *
  */
-class ReplayOutcast {
-
-    private Recorder recorder;
-    private Replay storedReplay;
-}

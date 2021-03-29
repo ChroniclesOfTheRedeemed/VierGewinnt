@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
 
-    int maxDepth = 7+1;
+    int maxDepth = 5+1;
     boolean amPlayer1;
     GameState concurrentGameState = new GameState(new Boolean[SpielFeldBreite][SpielFeldHöhe], GameResult.GameStillProgressing);
     PseudoSpiel4G myGame = new PseudoSpiel4G();
@@ -39,9 +39,10 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
     @Override
     public void makeMove(Integer enemyMove) {
         try {
+            
             myGame.move(enemyMove);
         } catch (InvalidMoveException ex) {
-            Logger.getLogger(Brutus.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Brutus.class.getName()).log(Level.SEVERE, null, ex);
         } catch (GameStateException ex) {
             Logger.getLogger(Brutus.class.getName()).log(Level.SEVERE, null, ex);
         }

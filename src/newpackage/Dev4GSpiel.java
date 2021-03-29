@@ -138,6 +138,7 @@ public class Dev4GSpiel implements Game{
                 throw new InvalidMoveException(move);
             }
         } else {
+            System.err.println(move);
             throw new InvalidMoveException(move);
         }
     }
