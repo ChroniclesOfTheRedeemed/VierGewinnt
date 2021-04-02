@@ -7,9 +7,6 @@ package SwingController.Menu;
 
 import Enums.StatisticEnum;
 import Statistics.Statistic;
-import Statistics.TimePerMove;
-import Statistics.TimePerMoveNano;
-import Statistics.WinStatistic;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JCheckBoxMenuItem;

@@ -5,18 +5,11 @@
  */
 package SwingController.Menu;
 
-import Statistics.Statistic;
-import Statistics.TimePerMove;
-import Statistics.TimePerMoveNano;
-import Statistics.WinStatistic;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import javax.swing.ButtonGroup;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JRadioButtonMenuItem;
 import Enums.GameType;
-import java.awt.event.ActionListener;
 
 /**
  * __DATE__ , __TIME__

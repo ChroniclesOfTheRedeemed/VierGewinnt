@@ -6,12 +6,10 @@
 
 package PlayerInterface;
 
-import Interfaces.Player;
 import Exceptions.GameStateException;
 import Exceptions.MoveNotAvailableException;
 import Games.VierGewinnt.VierGewinntWatcher;
 import Interfaces.Game;
-import Interfaces.GameWatcher;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Games.VierGewinnt.VierGewinntPlayer;

@@ -8,8 +8,6 @@
 package Games.VierGewinnt;
 
 import Exceptions.GameStateException;
-import Exceptions.InvalidMoveException;
-import Exceptions.MoveNotAvailableException;
 import Interfaces.Game;
 import Interfaces.GameWatcher;
 import java.util.ArrayList;

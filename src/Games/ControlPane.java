@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import Games.VierGewinnt.VierGewinntPlayer;
+import java.util.ArrayList;
 
 /**
  * __DATE__ , __TIME__
@@ -30,15 +31,15 @@ abstract public class ControlPane extends Container {
 
     //Me too actually
     protected ActionListener startu;
-    protected Player[] player1s;
-    protected Player[] player2s;
+    protected ArrayList<Player> player1s;
+    protected ArrayList<Player> player2s;
 
     //KILL ME pliz
     protected Player selectedPlayer1;
     protected Player selectedPlayer2;
     protected int concussive = 1;
 
-    public void buildUpContainer(Player[] possiblePlayer1s, Player[] possiblePlayer2s, ActionListener gameStartListener) {
+    public void buildUpContainer(ArrayList<Player> possiblePlayer1s, ArrayList<Player> possiblePlayer2s, ActionListener gameStartListener) {
 
         player1s = possiblePlayer1s;
         player2s = possiblePlayer2s;

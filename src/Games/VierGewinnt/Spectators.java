@@ -7,7 +7,6 @@
 package Games.VierGewinnt;
 
 import Interfaces.GameWatcher;
-import newpackage.randyplayer;
 
 /**__DATE__ , __TIME__
  *

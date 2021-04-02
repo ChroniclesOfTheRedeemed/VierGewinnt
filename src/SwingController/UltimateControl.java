@@ -24,7 +24,6 @@ import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import newpackage.randyplayer;
 import Games.VierGewinnt.Recorder;
-import Games.VierGewinnt.Replay;
 import Statistics.Statistic;
 import Enums.GameType;
 import viergewinntpraxis.GameParticipants;
@@ -76,22 +75,22 @@ public class UltimateControl extends JFrame implements GameWatcher {
      * @param possiblePlayer2s
      * @param desiredSpectators
      */
-    public UltimateControl(Player[] possiblePlayer1s, Player[] possiblePlayer2s, ArrayList<GameWatcher> desiredSpectators) {
+    public UltimateControl(ArrayList<Player> possiblePlayer1s, ArrayList<Player> possiblePlayer2s, ArrayList<GameWatcher> desiredSpectators) {
          setupFrame(possiblePlayer1s, possiblePlayer2s, new ArrayList<>());
     }
 
-    public UltimateControl(Player[] possiblePlayer1s, Player[] possiblePlayer2s) {
+    public UltimateControl(ArrayList<Player> possiblePlayer1s, ArrayList<Player> possiblePlayer2s) {
         setupFrame(possiblePlayer1s, possiblePlayer2s, new ArrayList<>());
     }
         public UltimateControl(ArrayList<GameWatcher> desiredSpectators) {
-        Player[] possiblePlayer1s = new Player[0];
-        Player[] possiblePlayer2s = new Player[0];
+        ArrayList<Player> possiblePlayer1s = new ArrayList<>();
+        ArrayList<Player> possiblePlayer2s = new ArrayList<>();
         setupFrame(possiblePlayer1s, possiblePlayer2s, desiredSpectators);
     }
         
     public UltimateControl() {
-        Player[] possiblePlayer1s = new Player[0];
-        Player[] possiblePlayer2s = new Player[0];
+        ArrayList<Player> possiblePlayer1s = new ArrayList<>();
+        ArrayList<Player> possiblePlayer2s = new ArrayList<>();
         setupFrame(possiblePlayer1s, possiblePlayer2s, new ArrayList<>());
     }
 
@@ -123,7 +122,7 @@ public class UltimateControl extends JFrame implements GameWatcher {
         }
     }
 
-    private void setupFrame(Player[] possiblePlayer1s, Player[] possiblePlayer2s, ArrayList<GameWatcher> desiredSpectators) {
+    private void setupFrame(ArrayList<Player> possiblePlayer1s, ArrayList<Player> possiblePlayer2s, ArrayList<GameWatcher> desiredSpectators) {
         setTitle("4C Control");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(400, 300);
@@ -182,7 +181,7 @@ public class UltimateControl extends JFrame implements GameWatcher {
         }
     }
 
-    private void setupGameControl(GameType type, Player[] possiblePlayer1s, Player[] possiblePlayer2s) {
+    private void setupGameControl(GameType type, ArrayList<Player> possiblePlayer1s, ArrayList<Player> possiblePlayer2s) {
         System.out.println("gameisbeeing changedd");
         selectedGameType = type;
         currentGameParticipants = new GameParticipants(new Player() {
@@ -223,36 +222,36 @@ public class UltimateControl extends JFrame implements GameWatcher {
         //Auslagern in Game - VierGewinnt United Packages For Reference Usage
         switch (type) {
             case VierGewinnt:
-                Player[] mayPLayer1s = new Player[Enums.VierGewinntPlayer1Enum.values().length + possiblePlayer1s.length];
+                ArrayList<Player> mayPLayer1s = new ArrayList<>();//Player[Enums.VierGewinntPlayer1Enum.values().length + possiblePlayer1s.length];
                 for (int i = 0; i < Enums.VierGewinntPlayer1Enum.values().length; i++) {
-                    mayPLayer1s[i] = Enums.VierGewinntPlayer1Enum.values()[i].thePlayer;
+                    mayPLayer1s.add(Enums.VierGewinntPlayer1Enum.values()[i].thePlayer);
                 }
-                for (int i = Enums.VierGewinntPlayer1Enum.values().length; i < mayPLayer1s.length; i++) {
-                    mayPLayer1s[i] = possiblePlayer1s[i-Enums.VierGewinntPlayer1Enum.values().length];
+                for (int i = Enums.VierGewinntPlayer1Enum.values().length; i < mayPLayer1s.size(); i++) {
+                    mayPLayer1s.add(possiblePlayer1s.get(i-Enums.VierGewinntPlayer1Enum.values().length));
                 }
                 
                 
                 
-                Player[] mayPLayer2s = new Player[Enums.VierGewinntPlayer2Enum.values().length + possiblePlayer2s.length];
+                ArrayList<Player> mayPLayer2s = new ArrayList<>();//Player[Enums.VierGewinntPlayer2Enum.values().length + possiblePlayer2s.length];
                 for (int i = 0; i < Enums.VierGewinntPlayer2Enum.values().length; i++) {
-                    mayPLayer2s[i] = Enums.VierGewinntPlayer2Enum.values()[i].thePlayer;
+                    mayPLayer2s.add(Enums.VierGewinntPlayer2Enum.values()[i].thePlayer);
                 }
-                for (int i = Enums.VierGewinntPlayer2Enum.values().length; i < mayPLayer2s.length; i++) {
-                    mayPLayer2s[i] = possiblePlayer2s[i-Enums.VierGewinntPlayer2Enum.values().length];
+                for (int i = Enums.VierGewinntPlayer2Enum.values().length; i < mayPLayer2s.size(); i++) {
+                    mayPLayer2s.add(possiblePlayer2s.get(i-Enums.VierGewinntPlayer2Enum.values().length));
                 }
                 type.myControl.buildUpContainer(mayPLayer1s, mayPLayer2s, start);
                 break;
             case VierGewinntReplay:
-                type.myControl.buildUpContainer(new Player[0], new Player[0], start);
+                type.myControl.buildUpContainer(new ArrayList<>(), new ArrayList<>(), start);// 02.04.21 questionable ? 
                 break;
             case Chomp:
-                Player[] mayPLayer1ss = new Player[Enums.ChompPlayer1Enum.values().length];
-                for (int i = 0; i < mayPLayer1ss.length; i++) {
-                    mayPLayer1ss[i] = Enums.ChompPlayer1Enum.values()[i].thePlayer;
+                ArrayList<Player> mayPLayer1ss = new ArrayList<>();//[Enums.ChompPlayer1Enum.values().length];
+                for (int i = 0; i < mayPLayer1ss.size(); i++) {
+                    mayPLayer1ss.add(Enums.ChompPlayer1Enum.values()[i].thePlayer);
                 }
-                Player[] mayPLayer2ss = new Player[Enums.ChompPlayer2Enum.values().length];
-                for (int i = 0; i < mayPLayer2ss.length; i++) {
-                    mayPLayer2ss[i] = Enums.ChompPlayer2Enum.values()[i].thePlayer;
+                ArrayList<Player> mayPLayer2ss = new ArrayList<>();//Player[Enums.ChompPlayer2Enum.values().length];
+                for (int i = 0; i < mayPLayer2ss.size(); i++) {
+                    mayPLayer2ss.add(Enums.ChompPlayer2Enum.values()[i].thePlayer);
                 }
                 type.myControl.buildUpContainer(mayPLayer1ss, mayPLayer2ss, start);
                 break;

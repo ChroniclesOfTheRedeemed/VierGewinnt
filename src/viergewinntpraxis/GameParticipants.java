@@ -9,7 +9,6 @@ package viergewinntpraxis;
 import Interfaces.GameWatcher;
 import Interfaces.Player;
 import java.util.ArrayList;
-import Games.VierGewinnt.VierGewinntPlayer;
 
 /**__DATE__ , __TIME__
  *
