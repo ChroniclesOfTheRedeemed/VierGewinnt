@@ -10,6 +10,7 @@ import Interfaces.Game.GameResult;
 /**
  * Extensionalität ist es ein perfektes System mit Leichtigkeit zu einem neuen perfekten System zu verändern, dass neuen Anforderungen standhält
  * @author Mike
+ * @param <Zug>
  */
 public interface GameWatcher < Zug >{
     //<editor-fold defaultstate="collapsed" desc="gameRef Security"> 

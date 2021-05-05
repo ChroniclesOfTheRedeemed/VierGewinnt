@@ -5,7 +5,6 @@
  */
 package Statistics;
 
-import Interfaces.Game;
 import Interfaces.GameWatcher;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;

@@ -7,9 +7,7 @@ package newpackage;
 
 import Exceptions.GameStateException;
 import Exceptions.InvalidMoveException;
-import Exceptions.MoveNotAvailableException;
 import Games.Chomp.ChompPlayer;
-import Games.VierGewinnt.VierGewinntSpiel;
 import Interfaces.Game;
 import Interfaces.InputListener;
 import java.awt.Dimension;

@@ -8,7 +8,6 @@ package SwingController.Menu;
 
 import Interfaces.GameWatcher;
 import Statistics.Statistic;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JMenuBar;
 

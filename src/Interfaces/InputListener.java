@@ -12,6 +12,7 @@ import Exceptions.InvalidMoveException;
 /**__DATE__ , __TIME__
  *
  * @author Mike
+ * @param <Zug>
  */
 
 public interface InputListener <Zug>{

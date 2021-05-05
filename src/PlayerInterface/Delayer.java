@@ -15,6 +15,7 @@ import java.util.TimerTask;
  * __DATE__ , __TIME__
  *
  * @author Mike
+ * @param <Zug>
  */
 public class Delayer<Zug> implements GameField<Zug> {
 

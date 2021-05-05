@@ -5,7 +5,6 @@
  */
 package Interfaces;
 
-import Exceptions.MoveNotAvailableException;
 import Interfaces.Game.GameResult;
 
 /**
@@ -31,7 +30,7 @@ public interface Player <Zug> {
      * 
      * @param gameRef 
      * @param inputListener 
-     * @param moveListener 
+     * @param youHaveFirstMove 
      */
     void gameStarted(Game gameRef, InputListener<Zug> inputListener, boolean youHaveFirstMove);
 

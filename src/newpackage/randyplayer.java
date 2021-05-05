@@ -10,9 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Exceptions.GameStateException;
 import Exceptions.InvalidMoveException;
-import Exceptions.MoveNotAvailableException;
 import Interfaces.Game;
-import Interfaces.Player;
 import Games.VierGewinnt.VierGewinntSpiel;
 import Interfaces.InputListener;
 

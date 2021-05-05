@@ -6,7 +6,6 @@
 
 package Games.VierGewinnt;
 
-import Exceptions.MoveNotAvailableException;
 import Games.ControlPane;
 import Interfaces.Game;
 import Interfaces.InputListener;

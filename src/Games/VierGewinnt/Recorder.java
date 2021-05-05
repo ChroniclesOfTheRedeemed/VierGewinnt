@@ -6,7 +6,6 @@
 package Games.VierGewinnt;
 
 import Interfaces.Game;
-import Interfaces.GameWatcher;
 import java.util.ArrayList;
 
 /**

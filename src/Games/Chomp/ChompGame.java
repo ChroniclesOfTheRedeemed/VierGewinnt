@@ -8,7 +8,6 @@ package Games.Chomp;
 
 import Exceptions.GameStateException;
 import Exceptions.InvalidMoveException;
-import Exceptions.MoveNotAvailableException;
 import Interfaces.Game;
 import static Interfaces.Game.Player1hasFirstMove;
 import Interfaces.GameWatcher;
