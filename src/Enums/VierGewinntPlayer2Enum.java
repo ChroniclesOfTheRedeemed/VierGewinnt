@@ -8,8 +8,8 @@ package Enums;
 
 import Games.VierGewinnt.SteadyClass;
 import Interfaces.Player;
-import newpackage.Brutus;
-import newpackage.randyplayer;
+import VierGewinntPlayers.Brutus;
+import VierGewinntPlayers.randyplayer;
 
 /**__DATE__ , __TIME__
  *

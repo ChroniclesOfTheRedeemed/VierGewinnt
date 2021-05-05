@@ -16,8 +16,8 @@ import Interfaces.Player;
 public enum ChompPlayer2Enum {
     
     ContainerPlayer(SteadyClass.containerPlayer),
-    Randy(new newpackage.ChompRandy()),
-    Triva(new newpackage.Triva());
+    Randy(new VierGewinntPlayers.ChompRandy()),
+    Triva(new VierGewinntPlayers.Triva());
     
     ChompPlayer2Enum(Player exactplayer){
         thePlayer = exactplayer;

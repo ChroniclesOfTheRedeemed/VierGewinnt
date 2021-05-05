@@ -22,7 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
-import newpackage.randyplayer;
+import VierGewinntPlayers.randyplayer;
 import Games.VierGewinnt.Recorder;
 import Statistics.Statistic;
 import Enums.GameType;
@@ -184,37 +184,10 @@ public class UltimateControl extends JFrame implements GameWatcher {
     private void setupGameControl(GameType type, ArrayList<Player> possiblePlayer1s, ArrayList<Player> possiblePlayer2s) {
         System.out.println("gameisbeeing changedd");
         selectedGameType = type;
-        currentGameParticipants = new GameParticipants(new Player() {
-            @Override
-            public void gameStarted(Game gameRef, InputListener inputListener, boolean youHaveFirstMove) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void makeMove(Object enemyMove) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void gameEnded(Object finishingMove, GameResult gameResult) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        },new Player() {
-            @Override
-            public void gameStarted(Game gameRef, InputListener inputListener, boolean youHaveFirstMove) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void makeMove(Object enemyMove) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void gameEnded(Object finishingMove, GameResult gameResult) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        }, new ArrayList());
+        currentGameParticipants = new GameParticipants(
+                new VierGewinntPlayers.PseudoVierGewinntPlayer(),
+                 new VierGewinntPlayers.PseudoVierGewinntPlayer(),
+                 new ArrayList());
 
         ActionListener start = (ActionEvent e) -> {
             startPlay();

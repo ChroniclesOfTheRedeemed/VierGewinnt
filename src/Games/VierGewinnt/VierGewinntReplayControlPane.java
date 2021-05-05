@@ -7,8 +7,6 @@
 package Games.VierGewinnt;
 
 import Games.ControlPane;
-import Interfaces.Game;
-import Interfaces.InputListener;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -36,41 +34,12 @@ public class VierGewinntReplayControlPane extends ControlPane {
         add(getMiddleContainer(), BorderLayout.CENTER);
         add(getRightContainer(), BorderLayout.EAST);
         add(getBottomContainer(), BorderLayout.SOUTH);
-        selectedPlayer1 = new VierGewinntPlayer() {
-            @Override
-            public void gameStarted(Game gameRef, InputListener<Integer> inputListener, boolean youHaveFirstMove) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
 
-            @Override
-            public void makeMove(Integer enemyMove) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
+        selectedPlayer1 = new VierGewinntPlayers.PseudoVierGewinntPlayer();
 
-            @Override
-            public void gameEnded(Integer finishingMove, Game.GameResult gameResult) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        };
-        
-        selectedPlayer2 = new VierGewinntPlayer() {
-            @Override
-            public void gameStarted(Game gameRef, InputListener<Integer> inputListener, boolean youHaveFirstMove) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void makeMove(Integer enemyMove) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void gameEnded(Integer finishingMove, Game.GameResult gameResult) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        };
+        selectedPlayer2 = new VierGewinntPlayers.PseudoVierGewinntPlayer();
     }
-    
+
 
     private JButton getStartGameButton() {
         JButton startGameButton = new JButton("Start");

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package newpackage;
+package VierGewinntPlayers;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
