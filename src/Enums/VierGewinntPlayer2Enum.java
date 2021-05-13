@@ -7,7 +7,7 @@
 package Enums;
 
 import Games.VierGewinnt.SteadyClass;
-import Interfaces.Player;
+import Interfaces.BotFactory;
 import VierGewinntPlayers.Brutus;
 import VierGewinntPlayers.randyplayer;
 
@@ -17,12 +17,13 @@ import VierGewinntPlayers.randyplayer;
  */
 public enum VierGewinntPlayer2Enum {
  
-    ContainerPlayer(SteadyClass.containerPlayer),
-    RandyBot(new randyplayer()),
-    RandyBoft(new Brutus());
+    ContainerPlayer(() -> SteadyClass.containerPlayer),
+    RandyBot(() -> new randyplayer()),
+    RandyBoft(() -> new Brutus());
     
-    VierGewinntPlayer2Enum(Player exactplayer){
+    VierGewinntPlayer2Enum(BotFactory exactplayer){
         thePlayer = exactplayer;
     }
-    public final Player thePlayer;
+    
+    public final BotFactory thePlayer;
 }

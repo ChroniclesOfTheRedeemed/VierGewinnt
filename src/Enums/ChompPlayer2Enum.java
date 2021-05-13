@@ -7,7 +7,7 @@
 package Enums;
 
 import Games.Chomp.SteadyClass;
-import Interfaces.Player;
+import Interfaces.BotFactory;
 
 /**__DATE__ , __TIME__
  *
@@ -15,12 +15,13 @@ import Interfaces.Player;
  */
 public enum ChompPlayer2Enum {
     
-    ContainerPlayer(SteadyClass.containerPlayer),
-    Randy(new VierGewinntPlayers.ChompRandy()),
-    Triva(new VierGewinntPlayers.Triva());
+    ContainerPlayer(() -> SteadyClass.containerPlayer),
+    Randy(() -> new VierGewinntPlayers.ChompRandy()),
+    Triva(() -> new VierGewinntPlayers.Triva());
     
-    ChompPlayer2Enum(Player exactplayer){
+    ChompPlayer2Enum(BotFactory exactplayer){
         thePlayer = exactplayer;
     }
-    public final Player thePlayer;
+    
+    public final BotFactory thePlayer;
 }

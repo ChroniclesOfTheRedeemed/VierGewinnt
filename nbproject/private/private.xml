@@ -3,10 +3,53 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Mike/Documents/Java/gitchros/VierGewinnt/src/Enums/ChompPlayer1Enum.java</file>
-            <file>file:/C:/Users/Mike/Documents/Java/gitchros/VierGewinnt/src/Enums/GameType.java</file>
-            <file>file:/C:/Users/Mike/Documents/Java/gitchros/VierGewinnt/src/Enums/StatisticEnum.java</file>
-            <file>file:/C:/Users/Mike/Documents/Java/gitchros/VierGewinnt/src/Games/ControlPane.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Enums/VierGewinntPlayer2Enum.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/PlayerInterface/VierGewinntManager.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/Chomp/SteadyClass.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/VierGewinnt/GameData.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/PlayerInterface/VierGewinntFeld.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Enums/ChompPlayer1Enum.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/VierGewinnt/VierGewinntPlayer.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/PlayerInterface/ChompManager.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Enums/VierGewinntPlayer1Enum.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/VierGewinnt/Recorder.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Enums/ChompPlayer2Enum.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Exceptions/InvalidMoveException.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Interfaces/BotFactory.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Interfaces/Game.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/VierGewinnt/TempoPlayer.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/SwingController/Menu/GameChangedListener.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/Chomp/ChompWatcher.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/Chomp/ChompPlayer.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/Chomp/ChompControl.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/ControlPane.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/VierGewinnt/VierGewinntSpiel.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Interfaces/GameWatcher.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/VierGewinnt/Spectators.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Exceptions/MoveNotAvailableException.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/Chomp/ChompGame.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/SwingController/UltimateControl.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Statistics/TimePerMove.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/VierGewinnt/VierGewinntWatcher.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/PlayerInterface/Swing/VierGewinntPane.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Enums/StatisticEnum.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Exceptions/GameStateException.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Enums/GameType.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/VierGewinnt/Replay.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/VierGewinnt/SteadyClass.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/Chomp/TempoPlayer.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/VierGewinnt/VierGewinntReplayControlPane.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/PlayerInterface/Delayer.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/PlayerInterface/Swing/ChompSwingPane.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/viergewinntpraxis/GameParticipants.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Games/VierGewinnt/VierGewinntControlPane.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Interfaces/Player.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/PlayerInterface/ChompField.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Statistics/Statistic.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/Statistics/StatFactory.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/PlayerInterface/Swing/VierGewinntDialog.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/PlayerInterface/Swing/ChompDialog.java</file>
+            <file>file:/C:/Users/absea/Documents/gitab/VierGewinnt/src/viergewinntpraxis/EasyDialog.java</file>
         </group>
     </open-files>
 </project-private>
