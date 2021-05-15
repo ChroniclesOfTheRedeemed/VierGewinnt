@@ -29,7 +29,4 @@ public class SimpleBuildAoo {
         player1.stone = 200;
         player1.gold = 100;
     }
-    
-  
-    
 }

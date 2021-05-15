@@ -14,6 +14,14 @@ import java.util.ArrayList;
  */
 public class Player {
     
+    Object teamBoni;
+    
+    Object completeBuildSheet; // (my civ + teamboni as parameter) init at game start, but can be manipulated by technologies
+    
+    Object InGameOverview; // Resources, Units, Building, Age, ?Technologies? 
+    
+    //what are
+    
     double wood;
     double food;
     double stone;
@@ -37,11 +45,11 @@ public class Player {
         stone += stonePerSecond*seconds;
         food += foodPerSecond*seconds;
         gold += goldPerSecond*seconds;
-        
-        
     }
     
-   
+   public void createTeam(ArrayList<Player> s){
+       
+   }
     
     
     

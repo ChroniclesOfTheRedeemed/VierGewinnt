@@ -1,3 +1,0 @@
-simplebuildaoo.Vil
-simplebuildaoo.Player
-simplebuildaoo.Building
