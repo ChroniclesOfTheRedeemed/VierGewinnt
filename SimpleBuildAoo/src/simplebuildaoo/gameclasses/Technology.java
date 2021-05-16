@@ -14,4 +14,6 @@ public abstract class Technology {
     double time;
     
     public abstract void overwriteTechTree(TechTreeSheet currentTechTree);
+    
+    public abstract void requirementsMet(InGameOverview IGO);
 }

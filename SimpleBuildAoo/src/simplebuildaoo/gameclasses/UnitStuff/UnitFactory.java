@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simplebuildaoo.gameclasses.buildingStuff;
+package simplebuildaoo.gameclasses.UnitStuff;
 
 /**
  *
  * @author absea
  */
-public class Farm extends Building{
+public abstract class UnitFactory {
 
-
-    
+    abstract public Unit createUnit();
+    abstract public String getName();
 }

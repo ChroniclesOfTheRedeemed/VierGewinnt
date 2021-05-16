@@ -7,7 +7,6 @@
 package simplebuildaoo.gameclasses.UnitStuff;
 
 import OtherStuff.Resource;
-import simplebuildaoo.AdaptedPlayer;
 import simplebuildaoo.Player;
 
 /**__DATE__ , __TIME__
@@ -15,6 +14,6 @@ import simplebuildaoo.Player;
  * @author Mike
  */
 public abstract class Unit {
-    public Resource cost;
-    public AdaptedPlayer ownedBy;
+
+    public Player ownedBy;
 }

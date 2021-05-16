@@ -8,6 +8,7 @@ package simplebuildaoo.gameclasses;
 import OtherStuff.Resource;
 import java.util.ArrayList;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;
+import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
 import simplebuildaoo.gameclasses.buildingStuff.Building;
 
 /**
@@ -19,8 +20,10 @@ public class InGameOverview {
     public Resource currentResources;
     public ArrayList<Building> buildings;
     public ArrayList<Unit> units;
+    public ArrayList<Villager> collectingVillagers;
     
     public Resource resourcePerSecond;
-   
-    
+
+
+
 }

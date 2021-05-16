@@ -7,29 +7,29 @@
 package simplebuildaoo.gameclasses.UnitStuff.allunits;
 
 import OtherStuff.ResourceType;
+import java.util.ArrayList;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;
 import simplebuildaoo.gameclasses.buildingStuff.Building;
+import simplebuildaoo.gameclasses.buildingStuff.BuildingFactory;
 
 /**__DATE__ , __TIME__
  *
  * @author Mike
  */
-public class Villager extends Unit {
+public class VillagerTemplate extends Unit {
     
-    public VillagerTemplate tmp;
     public ResourceType currentlyCollecting;
     
+    public ArrayList<BuildingFactory> possibleBuildings;
     public void build(String buildingName){
-        //tmp.possibleBuildings
+        
     }
 
-    public Villager(VillagerTemplate tmp, ResourceType currentlyCollecting) {
-        this.tmp = tmp;
+    public VillagerTemplate(ResourceType currentlyCollecting, ArrayList<BuildingFactory> possibleBuildings) {
         this.currentlyCollecting = currentlyCollecting;
+        this.possibleBuildings = possibleBuildings;
     }
-    
-    
     
     
     

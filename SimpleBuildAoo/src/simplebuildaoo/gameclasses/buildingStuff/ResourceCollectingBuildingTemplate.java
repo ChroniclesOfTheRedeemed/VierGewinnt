@@ -3,23 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package simplebuildaoo.gameclasses.buildingStuff;
 
 import OtherStuff.Resource;
 import java.util.ArrayList;
-import simplebuildaoo.Player;
-import simplebuildaoo.hedgfbhjrt;
 import simplebuildaoo.gameclasses.Technology;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;
+import simplebuildaoo.gameclasses.UnitStuff.UnitFactory;
 
-/**__DATE__ , __TIME__
+/**
  *
- * @author Mike
+ * @author absea
  */
-public abstract class Building {
-
-   
-    public Player ownedBy;
-
+public class ResourceCollectingBuildingTemplate extends BuildingTemplate {
+        public ResourceCollectingBuildingTemplate(Resource cost, ArrayList<UnitFactory> deploy, ArrayList<Technology> upgrades) {
+        super(cost, deploy, upgrades);
+    }
 }

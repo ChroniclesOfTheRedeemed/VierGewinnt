@@ -16,14 +16,14 @@ public class SimpleBuildAoo {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Player player1 = new Player();
+        hedgfbhjrt player1 = new hedgfbhjrt();
         initStartResources(player1);
         
         CostumBuilder1 f = new CostumBuilder1(player1);
         
     }
     
-    private static void initStartResources(Player player1){
+    private static void initStartResources(hedgfbhjrt player1){
         player1.food = 200;
         player1.wood = 200;
         player1.stone = 200;

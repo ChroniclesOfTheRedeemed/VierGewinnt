@@ -14,9 +14,18 @@ import simplebuildaoo.gameclasses.buildingStuff.ResourceCollectingBuilding;
  */
 public class TownCenter extends ResourceCollectingBuilding {
 
+    
+    public TownCenterTemplate tmp;
     @Override
     public boolean collectableHere(ResourceType res) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //add exception in future ;) fish and so
+        return true;
+        
     }
+
+    public TownCenter(TownCenterTemplate tmp) {
+        this.tmp = tmp;
+    }
+    
     
 }

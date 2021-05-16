@@ -6,40 +6,61 @@
 package simplebuildaoo.gameclasses;
 
 import OtherStuff.Resource;
+import OtherStuff.ResourceType;
 import simplebuildaoo.gameclasses.buildingStuff.Building;
 import java.util.ArrayList;
-import simplebuildaoo.gameclasses.buildingStuff.MilitaryBuilding;
-import simplebuildaoo.gameclasses.buildingStuff.UnitTechCombo;
+import simplebuildaoo.gameclasses.UnitStuff.Unit;
+import simplebuildaoo.gameclasses.UnitStuff.UnitFactory;
+import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
+import simplebuildaoo.gameclasses.UnitStuff.allunits.VillagerTemplate;
+import simplebuildaoo.gameclasses.buildingStuff.BuildingFactory;
+import simplebuildaoo.gameclasses.buildingStuff.allbuilding.TownCenter;
+import simplebuildaoo.gameclasses.buildingStuff.allbuilding.TownCenterTemplate;
 
 /**
  *
  * @author absea
  */
 public class TechTreeSheet {
-    ArrayList<Building> buildingsThatQualifyForFeudal;
-    ArrayList<Building> buildingsThatQualifyForCastle;
-    ArrayList<Building> buildingsThatQualifyForImperial;
+    public ArrayList<BuildingFactory> buildingsThatQualifyForFeudal;
+    public ArrayList<BuildingFactory> buildingsThatQualifyForCastle;
+    public ArrayList<BuildingFactory> buildingsThatQualifyForImperial;
     
-    Resource startResources = new Resource(200, 200, 100, 200, 0, 0);
+    public Resource startResources = new Resource(200, 200, 100, 200, 0, 0);
     
-    MilitaryBuilding ArcherRange = new MilitaryBuilding() {
+    public VillagerTemplate vtmp = new VillagerTemplate(ResourceType.NONE, new ArrayList<>());
+    
+    public TownCenterTemplate tctmp = new TownCenterTemplate(startResources, new ArrayList<>(), new ArrayList<>());
+
+    
+    public UnitFactory VillagerFactory = new UnitFactory() {
         @Override
-        public UnitTechCombo getStandardUnit() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        public Unit createUnit() {
+            return new Villager(vtmp, ResourceType.NONE);
         }
 
         @Override
-        public UnitTechCombo getSelfCounteringUnit() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public UnitTechCombo getCounterCounteringUnit() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        public String getName() {
+            return Villager.class.getName();
         }
     };
     
-    Building house = new Building() {};
+    public BuildingFactory townCenterBuilder = new BuildingFactory() {
+        @Override
+        public Building createBuilding() {
+            TownCenter result = new TownCenter(tctmp);
+          //  TownCenter = new TownCenterTemplate();
+          
+            return result;
+        }
+
+        @Override
+        public String getName() {
+            return TownCenter.class.getName();
+        }
+    };
+    
+    public Building house = new Building() {};
 
     public TechTreeSheet() {
         
@@ -48,4 +69,63 @@ public class TechTreeSheet {
     public void test(){
         
     }
+    
+    public double boarcColectSpeed;
+    public double sheepCollectSpeed;
+    public double deerCollectSpeed;
+    public double berriesCollectSpeed;
+    public double farmCollectSpeed;
+    public double shorfishCollectSpeed;
+    public double woodCollectSpeed;
+    public double goldCollectSpeed;
+    public double goldByTradeCollectSpeed;
+    public double stoneCollectSpeed;
+    
+    
+    public double getCollectionSpeedByResouceType(ResourceType type){
+        double result;
+        switch (type) {
+            case BERRIES:
+                result = berriesCollectSpeed;
+                break;
+            case BOAR:
+                result = boarcColectSpeed;
+                break;
+            case DEER:
+                result = deerCollectSpeed;
+                break;
+            case FARM:
+                result = farmCollectSpeed;
+                break;
+            case GOLD:
+                result = goldCollectSpeed;
+                break;
+            case GOLDBYTRADE:
+                result = goldByTradeCollectSpeed;
+                break;
+            case SHEEP:
+                result = berriesCollectSpeed;
+                break;
+            case SHOREFISH:
+                result = shorfishCollectSpeed;
+                break;
+            case STONE:
+                result = stoneCollectSpeed;
+                break;
+            case WOOD:
+                result = woodCollectSpeed;
+                break;
+            case NONE:
+                result = 0;
+                break;
+            default:
+                result = 1/0;
+        }
+        return result;
+    }
+
+    public Technology feudal;
+    public Technology castle;
+    public Technology imperial;
+
 }

@@ -10,5 +10,5 @@ package simplebuildaoo.gameclasses.UnitStuff.allunits;
  * @author absea
  */
 public class MarktKarren {
-    
+    public MarktKarrenTemplate tmp;
 }

@@ -22,7 +22,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class CostumBuilder1 {
 
-    private Player player1;
+    private hedgfbhjrt player1;
     private DefaultCategoryDataset woodLine = new DefaultCategoryDataset();
     private DefaultCategoryDataset foodLine = new DefaultCategoryDataset();
     private DefaultCategoryDataset stoneLine = new DefaultCategoryDataset();
@@ -49,7 +49,7 @@ public class CostumBuilder1 {
     }
     
     
-    public CostumBuilder1(Player player) {
+    public CostumBuilder1(hedgfbhjrt player) {
         player1 = player;
         freeVils.add(0);
         freeVils.add(0);

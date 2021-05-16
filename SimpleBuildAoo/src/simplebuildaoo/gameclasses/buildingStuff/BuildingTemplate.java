@@ -1,0 +1,31 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package simplebuildaoo.gameclasses.buildingStuff;
+
+import OtherStuff.Resource;
+import java.util.ArrayList;
+import simplebuildaoo.gameclasses.Technology;
+import simplebuildaoo.gameclasses.UnitStuff.Unit;
+import simplebuildaoo.gameclasses.UnitStuff.UnitFactory;
+
+/**
+ *
+ * @author absea
+ */
+public class BuildingTemplate {
+    
+    public Resource cost;
+    public ArrayList<UnitFactory> deploy;
+    public ArrayList<Technology> upgrades;
+
+    public BuildingTemplate(Resource cost, ArrayList<UnitFactory> deploy, ArrayList<Technology> upgrades) {
+        this.cost = cost;
+        this.deploy = deploy;
+        this.upgrades = upgrades;
+    }
+    
+   
+}

@@ -11,9 +11,4 @@ package simplebuildaoo.gameclasses.buildingStuff;
  */
 public abstract class MilitaryBuilding extends Building {
 
-    public abstract UnitTechCombo getStandardUnit();
-
-    public abstract UnitTechCombo getSelfCounteringUnit();
-
-    public abstract UnitTechCombo getCounterCounteringUnit();
 }

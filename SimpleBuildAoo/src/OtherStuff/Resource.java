@@ -11,14 +11,9 @@ package OtherStuff;
  */
 public class Resource {
 
-    public int food;
-    public int wood;
-    public int gold;
-    public int stone;
-    public int popLimit;
-    public int time;
+    public double food,  wood, gold, stone, popLimit, time;
     
-    public Resource(int food, int wood, int gold,  int stone, int popLimit, int time){
+    public Resource(double food, double wood, double gold,  double stone, double popLimit, double time){
         this.food = food;
         this.wood = wood;
         this.gold = gold;
