@@ -6,16 +6,22 @@
 package simplebuildaoo.gameclasses;
 
 import OtherStuff.Resource;
-import OtherStuff.ResourceType;
+import OtherStuff.Resources;
+import OtherStuff.VillagerActivities;
+import OtherStuff.VillagerGatherableResource;
 import simplebuildaoo.gameclasses.buildingStuff.Building;
 import java.util.ArrayList;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;
 import simplebuildaoo.gameclasses.UnitStuff.UnitFactory;
 import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
 import simplebuildaoo.gameclasses.UnitStuff.allunits.VillagerTemplate;
+import simplebuildaoo.gameclasses.UnitStuff.allunits.military.Scout;
+import simplebuildaoo.gameclasses.UnitStuff.allunits.military.ScoutTemplate;
 import simplebuildaoo.gameclasses.buildingStuff.BuildingFactory;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.TownCenter;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.TownCenterTemplate;
+import simplebuildaoo.gameclasses.technologies.DarkAge;
+import simplebuildaoo.gameclasses.technologies.Feudal;
 
 /**
  *
@@ -28,15 +34,24 @@ public class TechTreeSheet {
     
     public Resource startResources = new Resource(200, 200, 100, 200, 0, 0);
     
-    public VillagerTemplate vtmp = new VillagerTemplate(ResourceType.NONE, new ArrayList<>());
+    public VillagerTemplate vtmp = new VillagerTemplate(VillagerGatherableResource.NONE, new ArrayList<>());
     
-    public TownCenterTemplate tctmp = new TownCenterTemplate(startResources, new ArrayList<>(), new ArrayList<>());
+    public ScoutTemplate sctmp = new ScoutTemplate();
+    
+    public TownCenterTemplate tctmp = new TownCenterTemplate();
 
+    public TechTreeSheet(Civ civ){
+        
+    }
+    
+    public Technology darkAge = new DarkAge();
+    public Technology feudal = new Feudal();
+    
     
     public UnitFactory VillagerFactory = new UnitFactory() {
         @Override
         public Unit createUnit() {
-            return new Villager(vtmp, ResourceType.NONE);
+            return new Villager(vtmp, VillagerActivities.NONE);
         }
 
         @Override
@@ -45,6 +60,18 @@ public class TechTreeSheet {
         }
     };
     
+    public UnitFactory scoutFactory = new UnitFactory() {
+        @Override
+        public Unit createUnit() {
+            return new Scout(sctmp);
+        }
+
+        @Override
+        public String getName() {
+            return Scout.class.getName();
+        }
+    };
+
     public BuildingFactory townCenterBuilder = new BuildingFactory() {
         @Override
         public Building createBuilding() {
@@ -58,11 +85,16 @@ public class TechTreeSheet {
         public String getName() {
             return TownCenter.class.getName();
         }
+
+        @Override
+        public Resource getCost() {
+            return tctmp.cost;
+        }
     };
     
     public Building house = new Building() {};
 
-    public TechTreeSheet() {
+    public TechTreeSheet(ArrayList<Civ> AlliedCivs, Civ completeBuildSheet) {
         
     }
     
@@ -82,7 +114,7 @@ public class TechTreeSheet {
     public double stoneCollectSpeed;
     
     
-    public double getCollectionSpeedByResouceType(ResourceType type){
+    public double getCollectionSpeedByResouceType(VillagerGatherableResource type){
         double result;
         switch (type) {
             case BERRIES:
@@ -99,9 +131,6 @@ public class TechTreeSheet {
                 break;
             case GOLD:
                 result = goldCollectSpeed;
-                break;
-            case GOLDBYTRADE:
-                result = goldByTradeCollectSpeed;
                 break;
             case SHEEP:
                 result = berriesCollectSpeed;
@@ -124,7 +153,7 @@ public class TechTreeSheet {
         return result;
     }
 
-    public Technology feudal;
+    public Technology feudalo;
     public Technology castle;
     public Technology imperial;
 

@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simplebuildaoo.gameclasses.UnitStuff;
+package simplebuildaoo.gameclasses.buildingStuff.allbuilding;
 
-import OtherStuff.Resource;
+import simplebuildaoo.gameclasses.buildingStuff.Building;
 
 /**
  *
  * @author absea
  */
-public class UnitTemplate {
-    public Resource cost = new Resource();
-         
+public class House extends Building{
+    public HouseTemplate htmp;
 }

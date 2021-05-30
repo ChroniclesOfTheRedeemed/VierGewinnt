@@ -6,31 +6,27 @@
 
 package simplebuildaoo.gameclasses.UnitStuff.allunits;
 
-import OtherStuff.ResourceType;
+import OtherStuff.VillagerGatherableResource;
 import java.util.ArrayList;
-import simplebuildaoo.gameclasses.UnitStuff.Unit;
-import simplebuildaoo.gameclasses.UnitStuff.Unit;
-import simplebuildaoo.gameclasses.buildingStuff.Building;
+import simplebuildaoo.gameclasses.UnitStuff.UnitTemplate;
 import simplebuildaoo.gameclasses.buildingStuff.BuildingFactory;
 
 /**__DATE__ , __TIME__
  *
  * @author Mike
  */
-public class VillagerTemplate extends Unit {
+public class VillagerTemplate extends UnitTemplate {
     
-    public ResourceType currentlyCollecting;
+    public VillagerGatherableResource currentlyCollecting = VillagerGatherableResource.NONE;
     
-    public ArrayList<BuildingFactory> possibleBuildings;
+    public ArrayList<BuildingFactory> possibleBuildings = new ArrayList<>();
     public void build(String buildingName){
         
     }
 
-    public VillagerTemplate(ResourceType currentlyCollecting, ArrayList<BuildingFactory> possibleBuildings) {
+    public VillagerTemplate(VillagerGatherableResource currentlyCollecting, ArrayList<BuildingFactory> possibleBuildings) {
         this.currentlyCollecting = currentlyCollecting;
         this.possibleBuildings = possibleBuildings;
     }
-    
-    
     
 }

@@ -5,7 +5,7 @@
  */
 package simplebuildaoo.gameclasses.buildingStuff;
 
-import OtherStuff.ResourceType;
+import OtherStuff.VillagerGatherableResource;
 import OtherStuff.Resources;
 import java.util.ArrayList;
 import simplebuildaoo.gameclasses.InGameOverview;
@@ -20,7 +20,7 @@ public abstract class ResourceCollectingBuilding extends Building {
     
     ArrayList<Villager> workingVillagers;
     
-    public void addVillager(ArrayList<Villager> vil, ResourceType res){
+    public void addVillager(ArrayList<Villager> vil, VillagerGatherableResource res){
         if(collectableHere(res)){
 
             
@@ -28,14 +28,14 @@ public abstract class ResourceCollectingBuilding extends Building {
         }
     }
     
-    public ArrayList<Villager> removeVillagerFrom(ResourceType res, int amount){
+    public ArrayList<Villager> removeVillagerFrom(VillagerGatherableResource res, int amount){
         ArrayList<Villager> result = new ArrayList<>();
         if(collectableHere(res)){
             //add to result
             ArrayList<Villager> freeVils = new ArrayList<>();
             ArrayList<Villager> rest = new ArrayList<>();
             for (Villager leaver: workingVillagers) {
-                if(leaver.currentlyCollecting.equals(ResourceType.NONE)){
+                if(leaver.currentlyCollecting.equals(VillagerGatherableResource.NONE)){
                     freeVils.add(leaver);
                 } else if (leaver.currentlyCollecting.equals(res)) {
                     rest.add(leaver);
@@ -63,5 +63,5 @@ public abstract class ResourceCollectingBuilding extends Building {
     }
 
 
-    public abstract boolean collectableHere(ResourceType res);
+    public abstract boolean collectableHere(VillagerGatherableResource res);
 }

@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simplebuildaoo.gameclasses.UnitStuff;
-
-import OtherStuff.Resource;
+package OtherStuff;
 
 /**
  *
  * @author absea
  */
-public class UnitTemplate {
-    public Resource cost = new Resource();
-         
+public class ResourceUnit {
+    public Resource currentHoldingResource = new Resource();
+    public Resource depletionSpeed = new Resource();
+    public VillagerGatherableResource meGather;
 }

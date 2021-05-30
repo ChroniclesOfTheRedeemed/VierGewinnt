@@ -3,22 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package OtherStuff;
+package simplebuildaoo.gameclasses.buildingStuff;
 
 /**
  *
  * @author absea
  */
-public enum ResourceType {
-    NONE,
-    DEER, 
-    BERRIES,
-    BOAR,
-    FARM,
-    SHOREFISH,
-    SHEEP,
-    WOOD,
-    GOLD,
-    GOLDBYTRADE,
-    STONE;
+public enum BuildingStatus {
+    CONSTRUCTING, IDLE, DEPLOYING
 }

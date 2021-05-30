@@ -8,6 +8,7 @@ package simplebuildaoo.gameclasses.UnitStuff;
 
 import OtherStuff.Resource;
 import simplebuildaoo.Player;
+import simplebuildaoo.gameclasses.buildingStuff.Building;
 
 /**__DATE__ , __TIME__
  *
@@ -16,4 +17,5 @@ import simplebuildaoo.Player;
 public abstract class Unit {
 
     public Player ownedBy;
+    public Building location;
 }

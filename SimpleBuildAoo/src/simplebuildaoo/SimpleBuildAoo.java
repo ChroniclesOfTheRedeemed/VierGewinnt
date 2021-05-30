@@ -5,6 +5,23 @@
  */
 package simplebuildaoo;
 
+import OtherStuff.Sheep;
+import OtherStuff.VillagerActivities;
+import OtherStuff.VillagerGatherableResource;
+import java.util.ArrayList;
+import javax.swing.JDialog;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import simplebuildaoo.gameclasses.Civ;
+import simplebuildaoo.gameclasses.InGameOverview;
+import simplebuildaoo.gameclasses.UnitStuff.Unit;
+import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
+import simplebuildaoo.gameclasses.buildingStuff.allbuilding.House;
+import simplebuildaoo.gameclasses.civs.Mongols;
+
 /**
  *
  * @author Mike
@@ -16,17 +33,42 @@ public class SimpleBuildAoo {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        hedgfbhjrt player1 = new hedgfbhjrt();
+        /*hedgfbhjrt player1 = new hedgfbhjrt();
         initStartResources(player1);
         
-        CostumBuilder1 f = new CostumBuilder1(player1);
-        
+        CostumBuilder1 f = new CostumBuilder1(player1);*/
+        Civ myCiv = new Mongols();
+        ArrayList<Civ> team = new ArrayList<>();
+        team.add(myCiv);
+        Player player1 = new Player(team, myCiv);
+        InGameOverview.dos();
+        ArrayList<Unit> vils = player1.IGO.getUnits(Villager.class.getName());
+
+        //wait
+        Sheep mySheep = new Sheep();
+        player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        player1.IGO.waitUp(25);
+        logResources(player1.IGO);
+        player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        player1.IGO.waitUp(25);
+        logResources(player1.IGO);
+        player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        player1.IGO.waitUp(25);
+        logResources(player1.IGO);
+        player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        player1.IGO.waitUp(25);
+        logResources(player1.IGO);
+        player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        player1.IGO.waitUp(25);
+        logResources(player1.IGO);
     }
     
-    private static void initStartResources(hedgfbhjrt player1){
-        player1.food = 200;
-        player1.wood = 200;
-        player1.stone = 200;
-        player1.gold = 100;
+    private static void logResources(InGameOverview igo){
+        System.out.println(igo.currentResources.food);
+        System.out.println(igo.resourcePerSecond.food);
+        System.out.println(igo.currentResources.time);
+        System.out.println("");
+        
     }
+
 }

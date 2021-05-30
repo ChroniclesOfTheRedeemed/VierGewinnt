@@ -21,4 +21,13 @@ public class Resource {
         this.popLimit = popLimit;
         this.time = time;
     }
+
+    public Resource() {
+        this.food = 0;
+        this.wood = 0;
+        this.gold = 0;
+        this.stone = 0;
+        this.popLimit = 0;
+        this.time = 0;
+    }
 }

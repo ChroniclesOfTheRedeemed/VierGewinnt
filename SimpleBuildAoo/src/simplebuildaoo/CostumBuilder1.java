@@ -6,7 +6,6 @@
 
 package simplebuildaoo;
 
-import java.awt.Dialog;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 import javax.swing.JDialog;

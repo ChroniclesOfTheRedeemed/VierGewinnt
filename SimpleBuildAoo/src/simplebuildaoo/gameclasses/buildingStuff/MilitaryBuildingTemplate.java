@@ -17,9 +17,9 @@ import simplebuildaoo.gameclasses.UnitStuff.UnitFactory;
  * @author absea
  */
 public class MilitaryBuildingTemplate extends BuildingTemplate {
-    public MilitaryBuildingTemplate(Resource cost, ArrayList<UnitFactory> deploy, ArrayList<Technology> upgrades) {
-        super(cost, deploy, upgrades);
-    }
+   // public MilitaryBuildingTemplate(Resource cost, ArrayList<UnitFactory> deploy, ArrayList<Technology> upgrades) {
+   //     super(cost, deploy, upgrades);
+   // }
 
      
 }

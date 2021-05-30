@@ -15,8 +15,9 @@ import simplebuildaoo.gameclasses.buildingStuff.ResourceCollectingBuildingTempla
  *
  * @author absea
  */
-public class TownCenterTemplate extends ResourceCollectingBuildingTemplate{
-            public TownCenterTemplate(Resource cost, ArrayList<UnitFactory> deploy, ArrayList<Technology> upgrades) {
-        super(cost, deploy, upgrades);
-    }
+public class TownCenterTemplate extends ResourceCollectingBuildingTemplate {
+
+  //  public TownCenterTemplate(Resource cost, ArrayList<UnitFactory> deploy, ArrayList<Technology> upgrades) {
+  //      super(cost, deploy, upgrades);
+  //  }
 }

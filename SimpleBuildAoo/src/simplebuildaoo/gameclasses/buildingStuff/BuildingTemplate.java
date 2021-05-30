@@ -8,7 +8,6 @@ package simplebuildaoo.gameclasses.buildingStuff;
 import OtherStuff.Resource;
 import java.util.ArrayList;
 import simplebuildaoo.gameclasses.Technology;
-import simplebuildaoo.gameclasses.UnitStuff.Unit;
 import simplebuildaoo.gameclasses.UnitStuff.UnitFactory;
 
 /**
@@ -17,15 +16,15 @@ import simplebuildaoo.gameclasses.UnitStuff.UnitFactory;
  */
 public class BuildingTemplate {
     
-    public Resource cost;
-    public ArrayList<UnitFactory> deploy;
-    public ArrayList<Technology> upgrades;
+    public Resource cost = new Resource();
+    public ArrayList<UnitFactory> deploy = new ArrayList<>();
+    public ArrayList<Technology> upgrades = new ArrayList<>();
 
-    public BuildingTemplate(Resource cost, ArrayList<UnitFactory> deploy, ArrayList<Technology> upgrades) {
-        this.cost = cost;
-        this.deploy = deploy;
-        this.upgrades = upgrades;
-    }
+  //  public BuildingTemplate(Resource cost, ArrayList<UnitFactory> deploy, ArrayList<Technology> upgrades) {
+  //      this.cost = cost;
+  //      this.deploy = deploy;
+  //      this.upgrades = upgrades;
+  //  }
     
    
 }

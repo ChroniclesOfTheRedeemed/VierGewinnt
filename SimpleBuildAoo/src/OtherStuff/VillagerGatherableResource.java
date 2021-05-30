@@ -3,15 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package simplebuildaoo.gameclasses.UnitStuff;
-
-import OtherStuff.Resource;
+package OtherStuff;
 
 /**
  *
  * @author absea
  */
-public class UnitTemplate {
-    public Resource cost = new Resource();
-         
+public enum VillagerGatherableResource {
+    NONE,
+    DEER, 
+    BERRIES,
+    BOAR,
+    FARM,
+    SHOREFISH,
+    SHEEP,
+    WOOD,
+    GOLD,
+    STONE;
 }

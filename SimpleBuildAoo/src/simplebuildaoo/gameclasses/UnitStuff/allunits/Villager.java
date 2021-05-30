@@ -6,7 +6,8 @@
 
 package simplebuildaoo.gameclasses.UnitStuff.allunits;
 
-import OtherStuff.ResourceType;
+import OtherStuff.VillagerActivities;
+import OtherStuff.VillagerGatherableResource;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;
 import simplebuildaoo.gameclasses.buildingStuff.Building;
@@ -18,15 +19,13 @@ import simplebuildaoo.gameclasses.buildingStuff.Building;
 public class Villager extends Unit {
     
     public VillagerTemplate tmp;
-    public ResourceType currentlyCollecting;
-    
-    public void build(String buildingName){
-        //tmp.possibleBuildings
-    }
+    public VillagerGatherableResource currentlyCollecting = VillagerGatherableResource.NONE;
+    public VillagerActivities task = VillagerActivities.NONE;
 
-    public Villager(VillagerTemplate tmp, ResourceType currentlyCollecting) {
+
+    public Villager(VillagerTemplate tmp, VillagerActivities task) {
         this.tmp = tmp;
-        this.currentlyCollecting = currentlyCollecting;
+        this.task = task;
     }
     
     

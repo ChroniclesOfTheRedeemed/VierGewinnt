@@ -19,7 +19,7 @@ import simplebuildaoo.gameclasses.buildingStuff.BuildingTemplate;
 public class FarmTemplate extends BuildingTemplate{
 
     double initialFood;
-        public FarmTemplate(Resource cost, ArrayList<UnitFactory> deploy, ArrayList<Technology> upgrades) {
-        super(cost, deploy, upgrades);
-    }
+ //       public FarmTemplate(Resource cost, ArrayList<UnitFactory> deploy, ArrayList<Technology> upgrades) {
+ //       super(cost, deploy, upgrades);
+ //   }
 }

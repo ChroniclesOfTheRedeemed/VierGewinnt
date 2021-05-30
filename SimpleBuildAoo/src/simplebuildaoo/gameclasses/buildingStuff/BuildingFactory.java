@@ -5,6 +5,9 @@
  */
 package simplebuildaoo.gameclasses.buildingStuff;
 
+import OtherStuff.Resource;
+import OtherStuff.Resources;
+
 /**
  *
  * @author absea
@@ -13,4 +16,5 @@ public abstract class BuildingFactory {
 
     abstract public Building createBuilding();
     abstract public String getName();
+    abstract public Resource getCost();
 }

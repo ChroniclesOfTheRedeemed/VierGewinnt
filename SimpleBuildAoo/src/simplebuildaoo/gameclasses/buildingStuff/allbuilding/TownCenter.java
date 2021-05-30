@@ -5,7 +5,7 @@
  */
 package simplebuildaoo.gameclasses.buildingStuff.allbuilding;
 
-import OtherStuff.ResourceType;
+import OtherStuff.VillagerGatherableResource;
 import simplebuildaoo.gameclasses.buildingStuff.ResourceCollectingBuilding;
 
 /**
@@ -17,7 +17,7 @@ public class TownCenter extends ResourceCollectingBuilding {
     
     public TownCenterTemplate tmp;
     @Override
-    public boolean collectableHere(ResourceType res) {
+    public boolean collectableHere(VillagerGatherableResource res) {
         //add exception in future ;) fish and so
         return true;
         

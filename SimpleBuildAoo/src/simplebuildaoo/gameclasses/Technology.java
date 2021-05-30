@@ -5,15 +5,17 @@
  */
 package simplebuildaoo.gameclasses;
 
+import OtherStuff.Resource;
+
 /**
  *
  * @author absea
  */
 public abstract class Technology {
-    int cost;
-    double time;
     
     public abstract void overwriteTechTree(TechTreeSheet currentTechTree);
     
-    public abstract void requirementsMet(InGameOverview IGO);
+    public abstract boolean requirementsMet(InGameOverview IGO, TechTreeSheet currentTechTree);
+    
+    public Resource cost = new Resource(); 
 }

@@ -55,11 +55,3 @@ public class hedgfbhjrt {
     
     
 }
-
-class Vil{
-    
-}
-
-class Building{
-    
-}

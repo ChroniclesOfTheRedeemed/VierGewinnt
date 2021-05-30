@@ -19,7 +19,8 @@ import simplebuildaoo.gameclasses.UnitStuff.Unit;
  */
 public abstract class Building {
 
-   
+    public BuildingStatus status = BuildingStatus.CONSTRUCTING;
     public Player ownedBy;
+    public ArrayList<Unit> unitsHere = new ArrayList<>();
 
 }
