@@ -19,7 +19,7 @@ public class DarkAge extends Technology {
     @Override
     public void overwriteTechTree(TechTreeSheet CTT) {
         CTT.vtmp.possibleBuildings.add(null);
-        CTT.vtmp.cost = new Resource(50, 0, 0, 0, 0, 25);
+        CTT.vtmp.cost = new Resource(50, 0, 0, 0, 1, 25);
         CTT.tctmp.deploy.add(CTT.VillagerFactory);
         
         CTT.sheepCollectSpeed = 1/3.3;

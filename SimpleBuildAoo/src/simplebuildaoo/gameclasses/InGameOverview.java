@@ -84,6 +84,10 @@ public class InGameOverview {
         return result;
     }
     
+    public void updateEvent(Event previous, Event now){
+        int index = this.events.indexOf(previous);
+        events.set(index, now);
+    }
     
     public void waitUp(int seconds) {
         for (int i = 0; i < seconds; i++) {

@@ -30,4 +30,11 @@ public class Resource {
         this.popLimit = 0;
         this.time = 0;
     }
+ 
+    public double total() {
+        return this.food
+                + this.wood
+                + this.gold
+                + this.stone;
+    }
 }

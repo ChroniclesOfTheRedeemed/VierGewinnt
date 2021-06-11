@@ -12,8 +12,8 @@ package OtherStuff;
 public class Sheep extends ResourceUnit {
 
     public Sheep() {
-        this.currentHoldingResource = new Resource(700, 0, 0, 0, 0, 0);
-        this.depletionSpeed = new Resource(10, 0, 0, 0, 0, 40);
+        this.currentHoldingResource = new Resource(100, 0, 0, 0, 0, 0);
+        this.depletionSpeed = new Resource(0, 0, 0, 0, 0, 40);
         this.meGather = VillagerGatherableResource.SHEEP;
     }
     

@@ -5,11 +5,13 @@
  */
 package simplebuildaoo;
 
+import OtherStuff.ResourceUnit;
 import OtherStuff.Sheep;
 import OtherStuff.VillagerActivities;
 import OtherStuff.VillagerGatherableResource;
 import java.util.ArrayList;
 import javax.swing.JDialog;
+import javax.swing.text.html.CSS;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -20,6 +22,7 @@ import simplebuildaoo.gameclasses.InGameOverview;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;
 import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.House;
+import simplebuildaoo.gameclasses.buildingStuff.allbuilding.TownCenter;
 import simplebuildaoo.gameclasses.civs.Mongols;
 
 /**
@@ -43,32 +46,44 @@ public class SimpleBuildAoo {
         Player player1 = new Player(team, myCiv);
         InGameOverview.dos();
         ArrayList<Unit> vils = player1.IGO.getUnits(Villager.class.getName());
-
+        TownCenter tc = (TownCenter) player1.IGO.getBuilding(TownCenter.class.getName());
         //wait
         Sheep mySheep = new Sheep();
-        player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        player1.toThing(mySheep, VillagerActivities.NONE, 3);
         player1.IGO.waitUp(25);
-        logResources(player1.IGO);
-        player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        logResources(player1.IGO, mySheep);
+        //player1.toThing(mySheep, VillagerActivities.NONE, 1);
         player1.IGO.waitUp(25);
-        logResources(player1.IGO);
-        player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        logResources(player1.IGO, mySheep);
+        //player1.toThing(mySheep, VillagerActivities.NONE, 1);
         player1.IGO.waitUp(25);
-        logResources(player1.IGO);
-        player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        logResources(player1.IGO, mySheep);
+        //player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        //tc.tmp.deploy.get(0).createUnit();
+        //tc.tmp.deploy.get(0).createUnit();
+        //tc.tmp.deploy.get(0).createUnit();
+        //tc.tmp.deploy.get(0).createUnit();
         player1.IGO.waitUp(25);
-        logResources(player1.IGO);
-        player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        logResources(player1.IGO, mySheep);
+        //player1.toThing(mySheep, VillagerActivities.NONE, 1);
         player1.IGO.waitUp(25);
-        logResources(player1.IGO);
+        logResources(player1.IGO, mySheep);
+        player1.IGO.waitUp(700);
+        logResources(player1.IGO, mySheep);
+       // player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        player1.IGO.waitUp(25);
+        logResources(player1.IGO, mySheep);
+        player1.IGO.waitUp(500);
+       // player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        player1.IGO.waitUp(500);
     }
     
-    private static void logResources(InGameOverview igo){
+    private static void logResources(InGameOverview igo, ResourceUnit unit){
         System.out.println(igo.currentResources.food);
         System.out.println(igo.resourcePerSecond.food);
         System.out.println(igo.currentResources.time);
+        System.out.println("unit has " + unit.currentHoldingResource.food);
         System.out.println("");
-        
     }
 
 }

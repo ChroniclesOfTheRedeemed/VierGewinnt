@@ -21,5 +21,4 @@ public enum VillagerActivities {
     STONEMINER,
     WOODCHOPPER,
     COLLECTOR
-    
 }

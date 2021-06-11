@@ -6,11 +6,13 @@
 package simplebuildaoo.gameclasses;
 
 import OtherStuff.Resource;
-import OtherStuff.Resources;
 import OtherStuff.VillagerActivities;
 import OtherStuff.VillagerGatherableResource;
 import simplebuildaoo.gameclasses.buildingStuff.Building;
 import java.util.ArrayList;
+import java.util.function.Consumer;
+import simplebuildaoo.Event;
+import simplebuildaoo.Player;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;
 import simplebuildaoo.gameclasses.UnitStuff.UnitFactory;
 import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
@@ -28,6 +30,9 @@ import simplebuildaoo.gameclasses.technologies.Feudal;
  * @author absea
  */
 public class TechTreeSheet {
+    
+    public Player ownedBy;
+    
     public ArrayList<BuildingFactory> buildingsThatQualifyForFeudal;
     public ArrayList<BuildingFactory> buildingsThatQualifyForCastle;
     public ArrayList<BuildingFactory> buildingsThatQualifyForImperial;
@@ -51,7 +56,15 @@ public class TechTreeSheet {
     public UnitFactory VillagerFactory = new UnitFactory() {
         @Override
         public Unit createUnit() {
-            return new Villager(vtmp, VillagerActivities.NONE);
+            Villager result = new Villager(vtmp, VillagerActivities.NONE);
+            result.ownedBy = ownedBy;
+            result.ownedBy.pay(vtmp.cost);
+            Event deployEvent = new Event((int) (vtmp.cost.time + 0.5), (Consumer) (Object t) -> {
+                ownedBy.IGO.freeVils.add(result);
+                ownedBy.IGO.units.add(result);
+            });
+            ownedBy.IGO.events.add(deployEvent);
+            return result;
         }
 
         @Override
@@ -76,6 +89,7 @@ public class TechTreeSheet {
         @Override
         public Building createBuilding() {
             TownCenter result = new TownCenter(tctmp);
+          //  tctmp.deploy.add(VillagerFactory);
           //  TownCenter = new TownCenterTemplate();
           
             return result;
@@ -114,41 +128,40 @@ public class TechTreeSheet {
     public double stoneCollectSpeed;
     
     
-    public double getCollectionSpeedByResouceType(VillagerGatherableResource type){
-        double result;
+    public Resource getCollectionSpeedByResouceType(VillagerGatherableResource type){
+        Resource result = new Resource();
         switch (type) {
             case BERRIES:
-                result = berriesCollectSpeed;
+                result.food = berriesCollectSpeed;
                 break;
             case BOAR:
-                result = boarcColectSpeed;
+                result.food = boarcColectSpeed;
                 break;
             case DEER:
-                result = deerCollectSpeed;
+                result.food = deerCollectSpeed;
                 break;
             case FARM:
-                result = farmCollectSpeed;
+                result.food = farmCollectSpeed;
                 break;
             case GOLD:
-                result = goldCollectSpeed;
+                result.gold = goldCollectSpeed;
                 break;
             case SHEEP:
-                result = berriesCollectSpeed;
+                result.food = sheepCollectSpeed;
                 break;
             case SHOREFISH:
-                result = shorfishCollectSpeed;
+                result.food = shorfishCollectSpeed;
                 break;
             case STONE:
-                result = stoneCollectSpeed;
+                result.stone = stoneCollectSpeed;
                 break;
             case WOOD:
-                result = woodCollectSpeed;
+                result.wood = woodCollectSpeed;
                 break;
             case NONE:
-                result = 0;
                 break;
             default:
-                result = 1/0;
+                result.food = 1/0;
         }
         return result;
     }

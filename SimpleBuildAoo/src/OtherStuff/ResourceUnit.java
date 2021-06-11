@@ -5,11 +5,19 @@
  */
 package OtherStuff;
 
+import java.util.ArrayList;
+import simplebuildaoo.Event;
+import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
+
 /**
  *
  * @author absea
  */
 public class ResourceUnit {
+
+    public Event depletionEvent;
+    public double lastlyUpdated = -1;
+    public ArrayList<Villager> gatheres = new ArrayList<>();
     public Resource currentHoldingResource = new Resource();
     public Resource depletionSpeed = new Resource();
     public VillagerGatherableResource meGather;

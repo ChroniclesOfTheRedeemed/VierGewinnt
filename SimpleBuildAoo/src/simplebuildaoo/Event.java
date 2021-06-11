@@ -12,7 +12,7 @@ import java.util.function.Consumer;
  * @author absea
  */
    public class Event {
-        public final int gameTime;
+        public int gameTime;
         public Consumer<Object> method;
 
         public Event(int gameTime, Consumer<Object> method) {
