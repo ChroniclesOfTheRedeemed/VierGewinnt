@@ -75,13 +75,16 @@ public class Player {
     }
 
     public void calculateResourcesPerSecond(InGameOverview InGameOverview) {
+        Resource newe = new Resource();
         for (Villager vil : InGameOverview.collectingVillagers) {
-            Resource newe = CTS.getCollectionSpeedByResouceType(vil.currentlyCollecting);
-            InGameOverview.resourcePerSecond.food += newe.food;
-            InGameOverview.resourcePerSecond.wood += newe.wood;
-            InGameOverview.resourcePerSecond.gold += newe.gold;
-            InGameOverview.resourcePerSecond.stone += newe.stone;
+            Resource news = CTS.getCollectionSpeedByResouceType(vil.currentlyCollecting);
+            newe.food += news.food;
+            newe.wood += news.wood;
+            newe.gold += news.gold;
+            newe.stone += news.stone;
         }
+
+        InGameOverview.resourcePerSecond = newe;
     }
 
     private void reassignTaskonVillagers(VillagerActivities from, VillagerActivities to, int count) {
