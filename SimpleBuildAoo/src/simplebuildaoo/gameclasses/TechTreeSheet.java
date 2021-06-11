@@ -5,9 +5,9 @@
  */
 package simplebuildaoo.gameclasses;
 
-import OtherStuff.Resource;
+import resources.Resource;
 import OtherStuff.VillagerActivities;
-import OtherStuff.VillagerGatherableResource;
+import resources.VillagerGatherableResource;
 import simplebuildaoo.gameclasses.buildingStuff.Building;
 import java.util.ArrayList;
 import java.util.function.Consumer;
@@ -20,6 +20,8 @@ import simplebuildaoo.gameclasses.UnitStuff.allunits.VillagerTemplate;
 import simplebuildaoo.gameclasses.UnitStuff.allunits.military.Scout;
 import simplebuildaoo.gameclasses.UnitStuff.allunits.military.ScoutTemplate;
 import simplebuildaoo.gameclasses.buildingStuff.BuildingFactory;
+import simplebuildaoo.gameclasses.buildingStuff.allbuilding.House;
+import simplebuildaoo.gameclasses.buildingStuff.allbuilding.HouseTemplate;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.TownCenter;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.TownCenterTemplate;
 import simplebuildaoo.gameclasses.technologies.DarkAge;
@@ -106,8 +108,25 @@ public class TechTreeSheet {
         }
     };
     
-    public Building house = new Building() {};
+    public HouseTemplate housetmp = new HouseTemplate();
+    
+    public BuildingFactory housebuilder = new BuildingFactory() {
+        @Override
+        public Building createBuilding() {
+            return new House(housetmp);
+        }
 
+        @Override
+        public String getName() {
+            return House.class.getName();
+        }
+
+        @Override
+        public Resource getCost() {
+            return housetmp.cost;
+        }
+    };
+    
     public TechTreeSheet(ArrayList<Civ> AlliedCivs, Civ completeBuildSheet) {
         
     }
@@ -116,6 +135,7 @@ public class TechTreeSheet {
         
     }
     
+    public double constructionSpeed;
     public double boarcColectSpeed;
     public double sheepCollectSpeed;
     public double deerCollectSpeed;

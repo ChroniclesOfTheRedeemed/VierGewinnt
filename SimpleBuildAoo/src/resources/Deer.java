@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package OtherStuff;
+package resources;
 
 /**
  *
@@ -14,5 +14,6 @@ public class Deer extends ResourceUnit{
     public Deer() {
         this.currentHoldingResource = new Resource(140, 0, 0, 0, 0, 0);
         this.depletionSpeed = new Resource(10, 0, 0, 0, 0, 40);
+        this.meGather = VillagerGatherableResource.DEER;
     }
 }

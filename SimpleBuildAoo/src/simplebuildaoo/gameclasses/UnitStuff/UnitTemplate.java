@@ -5,7 +5,7 @@
  */
 package simplebuildaoo.gameclasses.UnitStuff;
 
-import OtherStuff.Resource;
+import resources.Resource;
 
 /**
  *

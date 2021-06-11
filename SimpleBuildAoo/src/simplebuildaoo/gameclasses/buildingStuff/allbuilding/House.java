@@ -13,4 +13,8 @@ import simplebuildaoo.gameclasses.buildingStuff.Building;
  */
 public class House extends Building{
     public HouseTemplate htmp;
+    
+    public House (HouseTemplate tmp){
+        htmp = tmp;
+    }
 }

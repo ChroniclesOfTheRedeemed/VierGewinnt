@@ -5,18 +5,12 @@
  */
 package simplebuildaoo;
 
-import OtherStuff.Resource;
-import OtherStuff.ResourceUnit;
+import resources.Resource;
+import resources.ResourceUnit;
 import OtherStuff.VillagerActivities;
-import OtherStuff.VillagerGatherableResource;
+import resources.VillagerGatherableResource;
 import java.util.ArrayList;
 import java.util.function.Consumer;
-import javax.swing.JDialog;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
 import simplebuildaoo.gameclasses.Civ;
 import simplebuildaoo.gameclasses.InGameOverview;
 import simplebuildaoo.gameclasses.TechTreeSheet;
@@ -87,6 +81,8 @@ public class Player {
         InGameOverview.resourcePerSecond = newe;
     }
 
+    
+    //guess I have to do it correct once
     private void reassignTaskonVillagers(VillagerActivities from, VillagerActivities to, int count) {
 
         for (int i = 0; i < count; i++) {
@@ -100,10 +96,7 @@ public class Player {
             }
         }
     }
-
-    public void fromTof(ArrayList<Villager> from, Building building, int count) {
-
-    }
+    
 
     public void reassignStuff(VillagerActivities from, VillagerActivities to, ResourceUnit source, int amount) {
         ArrayList<Villager> fromVils = getDoingAct(from, amount);
@@ -198,10 +191,16 @@ public class Player {
             if (build.getName().equals(buildingName)) {
                 pay(build.getCost());
                 Event buildEvent = new Event((int) (build.getCost().time + 0.5), (Consumer) (Object t) -> {
+                    Building yes = build.createBuilding();
+                    this.IGO.buildings.add(yes);
+                this.reassignTaskonVillagers(VillagerActivities.BUILDER, VillagerActivities.NONE, amount);
+                    
+                    // do the villager coordination thing
+                    
                 });
-
+                this.reassignTaskonVillagers(from, VillagerActivities.BUILDER, amount);
+                this.IGO.events.add(buildEvent);
             }
-
         }
     }
 
@@ -211,11 +210,6 @@ public class Player {
         IGO.currentResources.stone -= res.stone;
         IGO.currentResources.gold -= res.gold;
         IGO.currentResources.popLimit -= res.popLimit;
-    }
-
-    public void toResourcge(ResourceUnit unit, VillagerGatherableResource from, int amount) {
-        //reassignTaskonVillagers(from, VillagerGatherableResource.SHEEP, amount);
-        ArrayList<Villager> result = getDoing(from, amount);
     }
 
     private ArrayList<Villager> getDoing(VillagerGatherableResource resource, int amount) {

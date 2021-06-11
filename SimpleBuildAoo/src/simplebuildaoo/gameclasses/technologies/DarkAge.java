@@ -5,7 +5,7 @@
  */
 package simplebuildaoo.gameclasses.technologies;
 
-import OtherStuff.Resource;
+import resources.Resource;
 import simplebuildaoo.gameclasses.InGameOverview;
 import simplebuildaoo.gameclasses.TechTreeSheet;
 import simplebuildaoo.gameclasses.Technology;
@@ -18,9 +18,13 @@ public class DarkAge extends Technology {
 
     @Override
     public void overwriteTechTree(TechTreeSheet CTT) {
-        CTT.vtmp.possibleBuildings.add(null);
         CTT.vtmp.cost = new Resource(50, 0, 0, 0, 1, 25);
+        CTT.housetmp.cost = new Resource(0, 40, 0, 0, -5, 40);
+        CTT.tctmp.cost = new Resource(0, 275, 0, 0, -5, 180);
         CTT.tctmp.deploy.add(CTT.VillagerFactory);
+        CTT.vtmp.possibleBuildings.add(CTT.housebuilder);
+        
+       // CTT.
         
         CTT.sheepCollectSpeed = 1/3.3;
         CTT.berriesCollectSpeed = 1/3.6;
@@ -29,6 +33,7 @@ public class DarkAge extends Technology {
         CTT.goldCollectSpeed = 1/3.2;
         CTT.boarcColectSpeed = 1/3.3;
         CTT.deerCollectSpeed = 1/3.3;
+        CTT.constructionSpeed = 1;
         
     }
 

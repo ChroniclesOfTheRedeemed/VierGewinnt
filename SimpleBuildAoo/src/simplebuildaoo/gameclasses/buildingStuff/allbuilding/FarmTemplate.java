@@ -5,7 +5,7 @@
  */
 package simplebuildaoo.gameclasses.buildingStuff.allbuilding;
 
-import OtherStuff.Resource;
+import resources.Resource;
 import java.util.ArrayList;
 import simplebuildaoo.gameclasses.Technology;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;

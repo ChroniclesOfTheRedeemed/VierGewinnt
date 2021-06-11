@@ -5,7 +5,7 @@
  */
 package simplebuildaoo.gameclasses.technologies;
 
-import OtherStuff.Resource;
+import resources.Resource;
 import simplebuildaoo.gameclasses.InGameOverview;
 import simplebuildaoo.gameclasses.TechTreeSheet;
 import simplebuildaoo.gameclasses.Technology;

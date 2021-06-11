@@ -5,7 +5,7 @@
  */
 package simplebuildaoo.gameclasses;
 
-import OtherStuff.Resource;
+import resources.Resource;
 import OtherStuff.VillagerActivities;
 import java.util.ArrayList;
 import java.util.function.Consumer;

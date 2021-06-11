@@ -7,7 +7,7 @@
 package simplebuildaoo.gameclasses.UnitStuff.allunits;
 
 import OtherStuff.VillagerActivities;
-import OtherStuff.VillagerGatherableResource;
+import resources.VillagerGatherableResource;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;
 import simplebuildaoo.gameclasses.buildingStuff.Building;

@@ -6,7 +6,7 @@
 
 package simplebuildaoo.gameclasses.UnitStuff.allunits;
 
-import OtherStuff.VillagerGatherableResource;
+import resources.VillagerGatherableResource;
 import java.util.ArrayList;
 import simplebuildaoo.gameclasses.UnitStuff.UnitTemplate;
 import simplebuildaoo.gameclasses.buildingStuff.BuildingFactory;

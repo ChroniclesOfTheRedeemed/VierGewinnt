@@ -6,7 +6,7 @@
 
 package simplebuildaoo.gameclasses.UnitStuff;
 
-import OtherStuff.Resource;
+import resources.Resource;
 import simplebuildaoo.Player;
 import simplebuildaoo.gameclasses.buildingStuff.Building;
 

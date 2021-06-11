@@ -6,11 +6,8 @@
 
 package simplebuildaoo.gameclasses.buildingStuff;
 
-import OtherStuff.Resource;
 import java.util.ArrayList;
 import simplebuildaoo.Player;
-import simplebuildaoo.hedgfbhjrt;
-import simplebuildaoo.gameclasses.Technology;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;
 
 /**__DATE__ , __TIME__
@@ -22,5 +19,7 @@ public abstract class Building {
     public BuildingStatus status = BuildingStatus.CONSTRUCTING;
     public Player ownedBy;
     public ArrayList<Unit> unitsHere = new ArrayList<>();
+    
+    
 
 }

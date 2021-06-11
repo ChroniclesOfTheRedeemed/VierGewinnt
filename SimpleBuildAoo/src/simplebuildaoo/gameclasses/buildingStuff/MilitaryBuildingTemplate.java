@@ -5,7 +5,7 @@
  */
 package simplebuildaoo.gameclasses.buildingStuff;
 
-import OtherStuff.Resource;
+import resources.Resource;
 import java.util.ArrayList;
 import org.jfree.data.time.Millisecond;
 import simplebuildaoo.gameclasses.Technology;

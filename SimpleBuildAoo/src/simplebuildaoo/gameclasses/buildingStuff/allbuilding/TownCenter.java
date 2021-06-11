@@ -5,7 +5,7 @@
  */
 package simplebuildaoo.gameclasses.buildingStuff.allbuilding;
 
-import OtherStuff.VillagerGatherableResource;
+import resources.VillagerGatherableResource;
 import simplebuildaoo.gameclasses.buildingStuff.ResourceCollectingBuilding;
 
 /**
