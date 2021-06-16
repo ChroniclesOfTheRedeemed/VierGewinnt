@@ -10,8 +10,9 @@ package simplebuildaoo;
  * @author absea
  */
 public class whatINeed {
-    public static void go(){
-      //  AdaptedPlayer player1 = new AdaptedPlayer();
+
+    public static void go() {
+        //  AdaptedPlayer player1 = new AdaptedPlayer();
 
     }
 }

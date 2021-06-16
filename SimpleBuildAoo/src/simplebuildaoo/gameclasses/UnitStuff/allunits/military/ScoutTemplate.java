@@ -5,7 +5,6 @@
  */
 package simplebuildaoo.gameclasses.UnitStuff.allunits.military;
 
-import simplebuildaoo.gameclasses.UnitStuff.Unit;
 import simplebuildaoo.gameclasses.UnitStuff.UnitTemplate;
 
 /**

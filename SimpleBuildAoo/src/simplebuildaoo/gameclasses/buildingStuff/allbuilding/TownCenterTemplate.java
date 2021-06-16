@@ -5,10 +5,6 @@
  */
 package simplebuildaoo.gameclasses.buildingStuff.allbuilding;
 
-import resources.Resource;
-import java.util.ArrayList;
-import simplebuildaoo.gameclasses.Technology;
-import simplebuildaoo.gameclasses.UnitStuff.UnitFactory;
 import simplebuildaoo.gameclasses.buildingStuff.ResourceCollectingBuildingTemplate;
 
 /**

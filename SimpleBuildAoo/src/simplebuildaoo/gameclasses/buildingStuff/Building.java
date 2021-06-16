@@ -14,12 +14,17 @@ import simplebuildaoo.gameclasses.UnitStuff.Unit;
  *
  * @author Mike
  */
-public abstract class Building {
+public class Building {
 
+    public BuildingTemplate tmp = new BuildingTemplate();
     public BuildingStatus status = BuildingStatus.CONSTRUCTING;
     public Player ownedBy;
     public ArrayList<Unit> unitsHere = new ArrayList<>();
+    public String name = this.getClass().getSimpleName();
     
-    
+    //revertable to abstract class
+    public Building(BuildingTemplate tmp){
+        this.tmp = tmp;
+    }
 
 }

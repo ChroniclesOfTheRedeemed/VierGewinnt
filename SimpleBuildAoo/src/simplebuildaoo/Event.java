@@ -11,12 +11,13 @@ import java.util.function.Consumer;
  *
  * @author absea
  */
-   public class Event {
-        public int gameTime;
-        public Consumer<Object> method;
+public class Event {
 
-        public Event(int gameTime, Consumer<Object> method) {
-            this.gameTime = gameTime;
-            this.method = method;
-        }
+    public int gameTime;
+    public Consumer<Object> method;
+
+    public Event(int gameTime, Consumer<Object> method) {
+        this.gameTime = gameTime;
+        this.method = method;
     }
+}

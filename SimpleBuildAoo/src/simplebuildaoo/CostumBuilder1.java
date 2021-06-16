@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package simplebuildaoo;
 
 import java.util.ArrayList;
@@ -15,7 +14,8 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-/**__DATE__ , __TIME__
+/**
+ * __DATE__ , __TIME__
  *
  * @author Mike
  */
@@ -26,7 +26,9 @@ public class CostumBuilder1 {
     private DefaultCategoryDataset foodLine = new DefaultCategoryDataset();
     private DefaultCategoryDataset stoneLine = new DefaultCategoryDataset();
     private DefaultCategoryDataset goldLine = new DefaultCategoryDataset();
-    
+
+    private DefaultCategoryDataset popLimit = new DefaultCategoryDataset();
+
     ArrayList freeVils = new ArrayList();
     ArrayList buildingVils = new ArrayList();
     ArrayList walkingVills = new ArrayList();
@@ -34,10 +36,11 @@ public class CostumBuilder1 {
     ArrayList foodVils = new ArrayList();
     ArrayList stoneVils = new ArrayList();
     ArrayList goldVils = new ArrayList();
-    
+
     ArrayList<Event> events = new ArrayList<>();
-    
+
     class Event {
+
         final int gameTime;
         Consumer<Object> method;
 
@@ -46,79 +49,90 @@ public class CostumBuilder1 {
             this.method = method;
         }
     }
-    
-    
+
     public CostumBuilder1(hedgfbhjrt player) {
         player1 = player;
         freeVils.add(0);
         freeVils.add(0);
         freeVils.add(0);
         createBuild();
-        JFreeChart lineChart = ChartFactory.createLineChart(
-                "Builder",
-                "Count", "Wood",
-                woodLine,
-                PlotOrientation.VERTICAL,
-                true, true, false);
+        {
+            JFreeChart lineChart = ChartFactory.createLineChart(
+                    "Builder",
+                    "Count", "Wood",
+                    woodLine,
+                    PlotOrientation.VERTICAL,
+                    true, true, false);
+            ChartPanel chartPanel = new ChartPanel(lineChart);
 
-      ChartPanel chartPanel = new ChartPanel( lineChart );
-      chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
-       JDialog x1 = new JDialog();
-              x1.setContentPane(chartPanel);
-              x1.pack();
-              x1.setVisible(true);
-              
-      
-      JFreeChart lineChart2 = ChartFactory.createLineChart(
-         "Builder",
-         "Count", "Food",
-         foodLine,
-         PlotOrientation.VERTICAL,
-         true,true,false);
-         
+            chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
+            JDialog x1 = new JDialog();
+            x1.setContentPane(chartPanel);
+            x1.pack();
+            x1.setVisible(true);
 
-      ChartPanel chartPanel2 = new ChartPanel( lineChart2 );
-      chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
-       JDialog x2 = new JDialog();
-              x2.setContentPane(chartPanel2);
-              x2.pack();
-              x2.setVisible(true);
-              
-      
-      JFreeChart lineChart3 = ChartFactory.createLineChart(
-         "Builder",
-         "Count", "Stone",
-         stoneLine,
-         PlotOrientation.VERTICAL,
-         true,true,false);
-         
+            JFreeChart lineChart2 = ChartFactory.createLineChart(
+                    "Builder",
+                    "Count", "Food",
+                    foodLine,
+                    PlotOrientation.VERTICAL,
+                    true, true, false);
 
-      ChartPanel chartPanel3 = new ChartPanel( lineChart3 );
-      chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
-       JDialog x3 = new JDialog();
-              x3.setContentPane(chartPanel3);
-              x3.pack();
-              x3.setVisible(true);
-              
-      
-      JFreeChart lineChart4 = ChartFactory.createLineChart(
-         "Builder",
-         "Count", "Gold",
-         goldLine,
-         PlotOrientation.VERTICAL,
-         true,true,false);
-         
+            ChartPanel chartPanel2 = new ChartPanel(lineChart2);
+            chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
+            JDialog x2 = new JDialog();
+            x2.setContentPane(chartPanel2);
+            x2.pack();
+            x2.setVisible(true);
 
-      ChartPanel chartPanel4 = new ChartPanel( lineChart4 );
-      chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
-      JDialog x4 = new JDialog();
-              x4.setContentPane(chartPanel4);
-              x4.pack();
-              x4.setVisible(true);
-              
+            JFreeChart lineChart3 = ChartFactory.createLineChart(
+                    "Builder",
+                    "Count", "Stone",
+                    stoneLine,
+                    PlotOrientation.VERTICAL,
+                    true, true, false);
+
+            ChartPanel chartPanel3 = new ChartPanel(lineChart3);
+            chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
+            JDialog x3 = new JDialog();
+            x3.setContentPane(chartPanel3);
+            x3.pack();
+            x3.setVisible(true);
+
+            JFreeChart lineChart5 = ChartFactory.createLineChart(
+                    "Builder",
+                    "Count", "Gold",
+                    goldLine,
+                    PlotOrientation.VERTICAL,
+                    true, true, false);
+
+            ChartPanel chartPanel5 = new ChartPanel(lineChart5);
+            chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
+            JDialog x4 = new JDialog();
+            x4.setContentPane(chartPanel5);
+            x4.pack();
+            x4.setVisible(true);
+        }
+        {
+            JFreeChart lineChart4 = ChartFactory.createLineChart(
+                    "Builder",
+                    "Count", "Poplimit",
+                    popLimit,
+                    PlotOrientation.VERTICAL,
+                    true, true, false);
+            ChartPanel chartPanel = new ChartPanel(lineChart4);
+
+            ChartPanel chartPanel4 = new ChartPanel(lineChart4);
+            chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
+            JDialog x4 = new JDialog();
+            x4.setContentPane(chartPanel4);
+            x4.pack();
+            x4.setVisible(true);
+       }
+        
     }
-    
-    private void createBuild(){
+
+    private void createBuild() {
         tcVill(11);//3
         buildHouse(freeVils);
         buildHouse(freeVils);
@@ -131,19 +145,19 @@ public class CostumBuilder1 {
         foodVils.add(0);
         foodVils.add(0);
         foodVils.add(0);
-        player1.foodPerSecond += 1/3.4*5;
+        player1.foodPerSecond += 1 / 3.4 * 5;
         waitUp(20);//5
         foodVils.add(0);
         waitUp(25);//6
         foodVils.add(0);
-        player1.foodPerSecond += 1/3.4;
+        player1.foodPerSecond += 1 / 3.4;
         //estimate sheep done at 7*60 seconds
         for (int i = 0; i < 6; i++) {
             waitUp(25);
             toWood(freeVils);
             System.out.println(player1.woodPerSecond);
         }//12
-        
+
         buildStuff(woodVils, 100, 1, 25);//Lumbercamp
         waitUp(25);//13
         buildHouse(freeVils);
@@ -152,12 +166,12 @@ public class CostumBuilder1 {
         freeVils.remove(0);
         walkingVills.add(0);
         walkingVills.add(0);
-        player1.gold-=50;
+        player1.gold -= 50;
         waitUp(25);
         tcVill(20);
-        
+
         waitUp(25);//15
-        
+
         buildStuff(freeVils, 100, 1, 25);//mill
         waitUp(25);//16
         toBerries(freeVils);
@@ -190,7 +204,7 @@ public class CostumBuilder1 {
         foodVils.add(0);
         walkingVills.remove(0);
         doBoar(foodVils, 8);
-        
+
         waitUp(25);//25
         toWood(freeVils);
         waitUp(25);//26
@@ -224,8 +238,8 @@ public class CostumBuilder1 {
         buildStuff(walkingVills, 175, 1, 50);
         buildHouse(walkingVills);
         //berries done
-        
-        player1.foodPerSecond-= 1/3.6*4;
+
+        player1.foodPerSecond -= 1 / 3.6 * 4;
         buildFarm(foodVils, 0);
         buildFarm(foodVils, 0);
         buildFarm(foodVils, 0);
@@ -239,8 +253,8 @@ public class CostumBuilder1 {
         buildFarm(freeVils, 0);
         waitUp(25);
         toGold(freeVils);
-        player1.food-= 800;//go next age.
-        player1.gold-= 200;//go next age.
+        player1.food -= 800;//go next age.
+        player1.gold -= 200;//go next age.
         fromWood(3);
         buildFarm(woodVils, 0);
         buildFarm(woodVils, 0);
@@ -250,24 +264,24 @@ public class CostumBuilder1 {
         tcVill(2);
         buildStuff(woodVils, 200, 2, 45);//uni
         buildStuff(walkingVills, 200, 1, 45);//werft
-        
+
         waitUp(25);
         toGold(freeVils);
         waitUp(25);
         toGold(freeVils);
-        player1.food-=1000;
-        player1.gold-=800;
+        player1.food -= 1000;
+        player1.gold -= 800;
         waitUp(90);
-        player1.food-=100; //f upgrade
+        player1.food -= 100; //f upgrade
         waitUp(50);
-        player1.food-=150; //f upgrade
-        player1.gold-=150; //f upgrade
+        player1.food -= 150; //f upgrade
+        player1.gold -= 150; //f upgrade
         buildStuff(walkingVills, 175, 1, 45);
         waitUp(50);
-        player1.food-=250; //f upgrade
-        player1.gold-=250; //f upgrade
+        player1.food -= 250; //f upgrade
+        player1.gold -= 250; //f upgrade
         waitUp(10);
-        
+
     }
 
     private void toGold(ArrayList who) {
@@ -275,6 +289,7 @@ public class CostumBuilder1 {
         who.remove(0);
         goldVils.add(0);
     }
+
     private void doBoar(ArrayList who, int howMany) {
         for (int i = 0; i < howMany; i++) {
             who.remove(0);
@@ -292,12 +307,13 @@ public class CostumBuilder1 {
 
         events.add(done);
     }
-    
-    private void toBerries(ArrayList who){
+
+    private void toBerries(ArrayList who) {
         who.remove(0);
         foodVils.add(0);
-        player1.foodPerSecond+=1/3.6;
+        player1.foodPerSecond += 1 / 3.6;
     }
+
     private void buildStuff(ArrayList who, int wood, int howMany, int timeNeeded) {
         player1.wood -= wood;
         for (int i = 0; i < howMany; i++) {
@@ -310,15 +326,16 @@ public class CostumBuilder1 {
                 buildingVils.remove(0);
             }
         });
-        
+
         events.add(done);
     }
+
     private void toWood(ArrayList who) {
         player1.woodPerSecond += 1.0 / 3.15;
         who.remove(0);
         woodVils.add(0);
     }
-    
+
     private void fromWood(int howMany) {
         player1.woodPerSecond -= 1.0 / 3.15 / howMany;
 
@@ -334,9 +351,9 @@ public class CostumBuilder1 {
         });
         events.add(done);
     }
-    
-    private void buildHouse(ArrayList who){
-        player1.wood-= 40;
+
+    private void buildHouse(ArrayList who) {
+        player1.wood -= 40;
         who.remove(0);
         buildingVils.add(0);
         Event done = new Event(player1.getGameTime() + 25, (Object t) -> {
@@ -345,10 +362,10 @@ public class CostumBuilder1 {
         });
         events.add(done);
     }
-    
-    private void buildFarm(ArrayList who, int upgrade){
+
+    private void buildFarm(ArrayList who, int upgrade) {
         int farmFood = 175;
-        switch(upgrade){
+        switch (upgrade) {
             case 1:
                 farmFood = 250;
                 break;
@@ -356,55 +373,41 @@ public class CostumBuilder1 {
                 farmFood = 375;
                 break;
         }
-        
-        player1.wood-= 60;
+
+        player1.wood -= 60;
         who.remove(0);
         foodVils.add(0);
-        
-        double farmingSpeed = 1/3.6;
+
+        double farmingSpeed = 1 / 3.6;
         player1.foodPerSecond += farmingSpeed;
-        int timeUntilRunOut = (int) (farmFood/farmingSpeed);
+        int timeUntilRunOut = (int) (farmFood / farmingSpeed);
         Event done = new Event(player1.getGameTime() + timeUntilRunOut, (Object t) -> {
-            player1.foodPerSecond-= farmingSpeed;
+            player1.foodPerSecond -= farmingSpeed;
             freeVils.add(0);
             foodVils.remove(0);
             buildFarm(who, upgrade);
         });
-        
+
         events.add(done);
     }
-    
+
     private void waitUp(int seconds) {
         for (int i = 0; i < seconds; i++) {
             for (int j = 0; j < events.size(); j++) {
-                if(events.get(j).gameTime <= player1.getGameTime()){
+                if (events.get(j).gameTime <= player1.getGameTime()) {
                     events.get(j).method.accept(null);
                     events.remove(j);
                     j--;
                 }
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
             woodLine.addValue(player1.wood, "Wood", Integer.valueOf(player1.getGameTime()));
             foodLine.addValue(player1.food, "Food", Integer.valueOf(player1.getGameTime()));
             stoneLine.addValue(player1.stone, "Stone", Integer.valueOf(player1.getGameTime()));
             goldLine.addValue(player1.gold, "Gold", Integer.valueOf(player1.getGameTime()));
+            //popLimit.addValue(this., "Poplimit", Double.valueOf(player1.getGameTime()));
             player1.wait(1);
         }
     }
-    
+
 }
-
-
-
-
-

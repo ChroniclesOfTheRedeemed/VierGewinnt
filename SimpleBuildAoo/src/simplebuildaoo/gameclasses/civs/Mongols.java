@@ -5,7 +5,6 @@
  */
 package simplebuildaoo.gameclasses.civs;
 
-import resources.Resource;
 import simplebuildaoo.gameclasses.Civ;
 import simplebuildaoo.gameclasses.InGameOverview;
 import simplebuildaoo.gameclasses.TechTreeSheet;

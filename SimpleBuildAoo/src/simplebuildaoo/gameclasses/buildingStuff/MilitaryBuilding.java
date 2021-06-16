@@ -9,6 +9,10 @@ package simplebuildaoo.gameclasses.buildingStuff;
  *
  * @author absea
  */
-public abstract class MilitaryBuilding extends Building {
+public class MilitaryBuilding extends Building {
+
+    public MilitaryBuilding(BuildingTemplate tmp) {
+        super(tmp);
+    }
 
 }

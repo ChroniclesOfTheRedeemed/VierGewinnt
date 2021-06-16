@@ -6,6 +6,7 @@
 package simplebuildaoo.gameclasses.buildingStuff.allbuilding;
 
 import simplebuildaoo.gameclasses.buildingStuff.Building;
+import simplebuildaoo.gameclasses.buildingStuff.BuildingTemplate;
 
 /**
  *
@@ -14,5 +15,9 @@ import simplebuildaoo.gameclasses.buildingStuff.Building;
 public class Farm extends Building{
 
     double currentFood;
+
+    public Farm(BuildingTemplate tmp) {
+        super(tmp);
+    }
     
 }

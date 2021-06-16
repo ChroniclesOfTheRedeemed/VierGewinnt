@@ -19,6 +19,10 @@ import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
 public abstract class ResourceCollectingBuilding extends Building {
     
     ArrayList<Villager> workingVillagers;
+
+    public ResourceCollectingBuilding(BuildingTemplate tmp) {
+        super(tmp);
+    }
     
     public void addVillager(ArrayList<Villager> vil, VillagerGatherableResource res){
         if(collectableHere(res)){

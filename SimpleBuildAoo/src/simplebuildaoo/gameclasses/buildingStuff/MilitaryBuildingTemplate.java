@@ -5,13 +5,6 @@
  */
 package simplebuildaoo.gameclasses.buildingStuff;
 
-import resources.Resource;
-import java.util.ArrayList;
-import org.jfree.data.time.Millisecond;
-import simplebuildaoo.gameclasses.Technology;
-import simplebuildaoo.gameclasses.UnitStuff.Unit;
-import simplebuildaoo.gameclasses.UnitStuff.UnitFactory;
-
 /**
  *
  * @author absea

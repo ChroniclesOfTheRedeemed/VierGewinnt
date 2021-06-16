@@ -13,6 +13,7 @@ import resources.Boar;
 import simplebuildaoo.gameclasses.Civ;
 import simplebuildaoo.gameclasses.InGameOverview;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;
+import simplebuildaoo.gameclasses.UnitStuff.UnitFactory;
 import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.House;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.TownCenter;
@@ -46,16 +47,20 @@ public class SimpleBuildAoo {
         Boar swwetBoar = new Boar();
         player1.toThing(mySheep, VillagerActivities.NONE, 1);
         player1.IGO.waitUp(25);
-        player1.build(House.class.getName(), VillagerActivities.NONE, 1);
+        player1.build(House.class.getSimpleName(), VillagerActivities.NONE, 1);
         logResources(player1.IGO, mySheep);
         player1.toThing(mySheep, VillagerActivities.NONE, 1);
         player1.IGO.waitUp(25);
-        player1.build(House.class.getName(), VillagerActivities.NONE, 2);
+        player1.build(House.class.getSimpleName(), VillagerActivities.NONE, 2);
         logResources(player1.IGO, mySheep);
         player1.toThing(mySheep, VillagerActivities.NONE, 1);
         player1.IGO.waitUp(25);
         logResources(player1.IGO, mySheep);
         player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        ArrayList<UnitFactory> f = new ArrayList<>();
+
+        TownCenter fr = new TownCenter(player1.CTS.townCenterBuilder.tmp);
+
         tc.tmp.deploy.get(0).createUnit();
         tc.tmp.deploy.get(0).createUnit();
         tc.tmp.deploy.get(0).createUnit();
@@ -72,17 +77,18 @@ public class SimpleBuildAoo {
         logResources(player1.IGO, mySheep);
         player1.IGO.waitUp(500);
         player1.toThing(mySheep, VillagerActivities.NONE, 1);
-        
+
+        System.out.println("fsudihojerzhdfjoir" + (new TownCenter(player1.CTS.townCenterBuilder.tmp).name));
         player1.toThing(swwetBoar, VillagerActivities.NONE, 5);
         player1.IGO.waitUp(500);
     }
-    
-    private static void logResources(InGameOverview igo, ResourceUnit unit){
-        System.out.println(igo.currentResources.food);
-        System.out.println(igo.resourcePerSecond.food);
-        System.out.println(igo.currentResources.time);
-        System.out.println("unit has " + unit.currentHoldingResource.food);
-        System.out.println("");
+
+    private static void logResources(InGameOverview igo, ResourceUnit unit) {
+//        System.out.println(igo.currentResources.food);
+//        System.out.println(igo.resourcePerSecond.food);
+//        System.out.println(igo.currentResources.time);
+//        System.out.println("unit has " + unit.currentHoldingResource.food);
+//        System.out.println("");
     }
 
 }

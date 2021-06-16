@@ -5,16 +5,20 @@
  */
 package simplebuildaoo.gameclasses.buildingStuff;
 
-import resources.Resource;
-import resources.Resources;
-
 /**
  *
  * @author absea
+ * @param <BuildingType>
  */
-public abstract class BuildingFactory {
+public abstract class BuildingFactory<BuildingType extends Building> {
 
-    abstract public Building createBuilding();
-    abstract public String getName();
-    abstract public Resource getCost();
+    public BuildingTemplate tmp = new BuildingTemplate();
+    
+    abstract public BuildingType createBuilding();
+
+    public BuildingFactory(String buildingName) {
+        tmp.buildingName = buildingName;
+    }
+    
+    
 }

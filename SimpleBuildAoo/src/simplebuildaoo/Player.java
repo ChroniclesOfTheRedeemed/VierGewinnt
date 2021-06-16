@@ -81,22 +81,57 @@ public class Player {
         InGameOverview.resourcePerSecond = newe;
     }
 
-    
     //guess I have to do it correct once
-    private void reassignTaskonVillagers(VillagerActivities from, VillagerActivities to, int count) {
+    private boolean reassignTaskonVillagers(VillagerActivities from, VillagerActivities to, int count) {
 
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < IGO.units.size() && count > 0; i++) {
             if (this.IGO.units.get(i) instanceof Villager) { // to be optimized - extract Villager from other Units
                 Villager vill = (Villager) this.IGO.units.get(i);
                 if (vill.task.equals(from)) {
+                    count--;
                     vill.task = to;
+                    boolean a = getAllVillagersFromTask(from).remove(vill);
+                    getAllVillagersFromTask(to).add(vill);
+                    System.out.println("Villager confverted from " + a + from.name() + " to " + to.name());
                     //vill.currentlyCollecting = to;
-
                 }
             }
         }
+        if (count > 0) {
+            System.err.println("Couldnt extract " + count + " villagers from " + from.name() + " at " + this.IGO.currentResources.time);
+            return false;
+        }
+        return true;
     }
-    
+
+    public ArrayList<Villager> getAllVillagersFromTask(VillagerActivities task) {
+        ArrayList<Villager> result = new ArrayList<>();
+        switch (task) {
+            case BUILDER:
+                result = IGO.buildingVils;
+                break;
+            case COLLECTOR:
+                result = IGO.collectingVillagers;
+                break;
+            case FARMER:
+            case FORAGER:
+            case GOLDMINER:
+            case HUNTER:
+            case SHEPHERDER:
+            case STONEMINER:
+            case WOODCHOPPER:
+                result = IGO.collectingVillagers;
+                break;
+            case NONE:
+                result = IGO.freeVils;
+                break;
+            case WALKING:
+                result = IGO.walkingVills;
+            default:
+            //error
+        }
+        return result;
+    }
 
     public void reassignStuff(VillagerActivities from, VillagerActivities to, ResourceUnit source, int amount) {
         ArrayList<Villager> fromVils = getDoingAct(from, amount);
@@ -110,32 +145,31 @@ public class Player {
             if (to.equals(VillagerActivities.COLLECTOR)) {
                 IGO.collectingVillagers.add(nes);
                 source.gatheres.add(nes);
-                
-                System.out.println("gatherer joined " + source.gatheres.size());  
+
             }
             nes.currentlyCollecting = source.meGather;
             toVils.add(nes);
         }
     }
 
-    public void updateHoldingOnResourceUnit(ResourceUnit unit){
+    public void updateHoldingOnResourceUnit(ResourceUnit unit) {
         double currentTime = this.IGO.currentResources.time;
-        
-        if(unit.lastlyUpdated == -1) {
+
+        if (unit.lastlyUpdated == -1) {
         } else {
             double differenceInTime = currentTime - unit.lastlyUpdated;
             double depletionSpeedv2 = (unit.gatheres.size() * this.CTS.getCollectionSpeedByResouceType(unit.meGather).total()
-                + unit.depletionSpeed.total() / unit.depletionSpeed.time);
+                    + unit.depletionSpeed.total() / unit.depletionSpeed.time);
             unit.currentHoldingResource.food = Math.max(unit.currentHoldingResource.food - differenceInTime * depletionSpeedv2, 0);
             unit.currentHoldingResource.wood = Math.max(unit.currentHoldingResource.wood - differenceInTime * depletionSpeedv2, 0);
             unit.currentHoldingResource.gold = Math.max(unit.currentHoldingResource.gold - differenceInTime * depletionSpeedv2, 0);
             unit.currentHoldingResource.stone = Math.max(unit.currentHoldingResource.stone - differenceInTime * depletionSpeedv2, 0);
-            
-        System.err.println("so networth is " + (300 - this.IGO.currentResources.food - unit.currentHoldingResource.food));
+
+            //System.err.println("so networth is " + (300 - this.IGO.currentResources.food - unit.currentHoldingResource.food));
             //resourceleft = resource there - timepassed * food/time
         }
     }
-    
+
     public void toThing(ResourceUnit unit, VillagerActivities from, int amount) {
         //Reassign all villager duties
         //reorganize Villager Arrays
@@ -151,16 +185,12 @@ public class Player {
             double gatherSpeed = unit.gatheres.size() * this.CTS.getCollectionSpeedByResouceType(unit.meGather).total();
             double depletionSpeed = unit.depletionSpeed.total() / unit.depletionSpeed.time;
             int timeUntilDepletion = (int) (resources / (gatherSpeed + depletionSpeed));
-            System.out.println("XXtime until depletion " + timeUntilDepletion);
-            System.out.println("XXremaining resource = " + unit.currentHoldingResource.total());
 
             Consumer resourceDepletedEvent = (stuuf) -> {
-                System.out.println("At me gathering are " + unit.gatheres.size());
                 //free em up
                 assert (unit.currentHoldingResource.total() < 1);
                 unit.currentHoldingResource = new Resource();
                 unit.gatheres.forEach((t) -> {
-                    System.out.println("gatherer left");
                     t.task = VillagerActivities.NONE;
                     t.currentlyCollecting = VillagerGatherableResource.NONE;
                     this.IGO.collectingVillagers.remove(t);
@@ -170,7 +200,6 @@ public class Player {
                 this.calculateResourcesPerSecond(IGO);
 
             };
-            System.out.println("At me gathering are " + unit.gatheres.size());
 
             if (unit.lastlyUpdated == -1) {
                 unit.depletionEvent = new Event((int) (IGO.currentResources.time + timeUntilDepletion), resourceDepletedEvent);
@@ -188,15 +217,14 @@ public class Player {
 
     public void build(String buildingName, VillagerActivities from, int amount) {
         for (BuildingFactory build : CTS.vtmp.possibleBuildings) {
-            if (build.getName().equals(buildingName)) {
-                pay(build.getCost());
-                Event buildEvent = new Event((int) (build.getCost().time + 0.5), (Consumer) (Object t) -> {
+            System.out.println("comparing " + build.tmp.buildingName + " " + buildingName);
+            if (build.tmp.buildingName.equals(buildingName)) {
+                pay(build.tmp.cost);
+                Event buildEvent = new Event((int) (build.tmp.cost.time + 0.5), (Consumer) (Object t) -> {
                     Building yes = build.createBuilding();
                     this.IGO.buildings.add(yes);
-                this.reassignTaskonVillagers(VillagerActivities.BUILDER, VillagerActivities.NONE, amount);
-                    
+                    this.reassignTaskonVillagers(VillagerActivities.BUILDER, VillagerActivities.NONE, amount);
                     // do the villager coordination thing
-                    
                 });
                 this.reassignTaskonVillagers(from, VillagerActivities.BUILDER, amount);
                 this.IGO.events.add(buildEvent);

@@ -10,21 +10,29 @@ import simplebuildaoo.gameclasses.buildingStuff.BuildingTemplate;
 import simplebuildaoo.gameclasses.buildingStuff.ResourceCollectingBuilding;
 
 /**
+ * __DATE__ , __TIME__
  *
- * @author absea
+ * @author Mike
  */
-public class TownCenter extends ResourceCollectingBuilding {
+public class Mill extends ResourceCollectingBuilding {
 
-    public TownCenter(BuildingTemplate tmp) {
+    public Mill(BuildingTemplate tmp) {
         super(tmp);
     }
 
+   
+
     @Override
     public boolean collectableHere(VillagerGatherableResource res) {
-        //add exception in future ;) fish and so
-        return true;
-        
+        switch (res) {
+            case BERRIES:
+            case BOAR:
+            case DEER:
+            case FARM:
+            case SHOREFISH:
+            case SHEEP:
+                return true;
+        }
+        return false;
     }
-
-    
 }

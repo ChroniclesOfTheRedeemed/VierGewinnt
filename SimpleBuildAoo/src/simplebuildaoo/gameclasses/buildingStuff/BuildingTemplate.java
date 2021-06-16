@@ -19,12 +19,19 @@ public class BuildingTemplate {
     public Resource cost = new Resource();
     public ArrayList<UnitFactory> deploy = new ArrayList<>();
     public ArrayList<Technology> upgrades = new ArrayList<>();
+    public String buildingName = "I forgot to give name";
+    
+    
+    
+    
 
   //  public BuildingTemplate(Resource cost, ArrayList<UnitFactory> deploy, ArrayList<Technology> upgrades) {
   //      this.cost = cost;
   //      this.deploy = deploy;
   //      this.upgrades = upgrades;
   //  }
+
+    
     
    
 }

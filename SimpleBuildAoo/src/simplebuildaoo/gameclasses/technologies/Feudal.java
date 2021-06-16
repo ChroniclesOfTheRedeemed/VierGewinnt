@@ -34,6 +34,7 @@ public class Feudal extends Technology {
         
         //change to existing building requirement
         // new requirememt will be researched technology
+        int count = 0;
         boolean result;
         if (currentTechTree.buildingsThatQualifyForFeudal.size() > 0) {
             boolean quickResult = false;
@@ -41,17 +42,18 @@ public class Feudal extends Technology {
 
                 quickResult = false;
                 for (Building existingBuilding : IGO.buildings) {
-                    if (existingBuilding.getClass().getName().equals(neededBuilding.getName())) {
+                    if (existingBuilding.getClass().getName().equals(neededBuilding.tmp.buildingName)) {
                         quickResult = true;
+                        count++;
                         break;
                     }
                 }
-                if (!quickResult) {
+                if (count>=2) {
                     
                     break;
                 }
             }
-            result = quickResult;
+            result = count>=2;
         } else {
             result = true;
         }

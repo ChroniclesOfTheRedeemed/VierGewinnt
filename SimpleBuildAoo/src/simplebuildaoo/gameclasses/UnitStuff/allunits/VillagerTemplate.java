@@ -16,7 +16,7 @@ import simplebuildaoo.gameclasses.buildingStuff.BuildingFactory;
  * @author Mike
  */
 public class VillagerTemplate extends UnitTemplate {
-    
+     
     public VillagerGatherableResource currentlyCollecting = VillagerGatherableResource.NONE;
     
     public ArrayList<BuildingFactory> possibleBuildings = new ArrayList<>();

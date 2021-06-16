@@ -20,8 +20,13 @@ import simplebuildaoo.gameclasses.UnitStuff.allunits.VillagerTemplate;
 import simplebuildaoo.gameclasses.UnitStuff.allunits.military.Scout;
 import simplebuildaoo.gameclasses.UnitStuff.allunits.military.ScoutTemplate;
 import simplebuildaoo.gameclasses.buildingStuff.BuildingFactory;
+import simplebuildaoo.gameclasses.buildingStuff.BuildingTemplate;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.House;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.HouseTemplate;
+import simplebuildaoo.gameclasses.buildingStuff.allbuilding.Lumbercamp;
+import simplebuildaoo.gameclasses.buildingStuff.allbuilding.LumbercampTemplate;
+import simplebuildaoo.gameclasses.buildingStuff.allbuilding.Mill;
+import simplebuildaoo.gameclasses.buildingStuff.allbuilding.Milltemplate;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.TownCenter;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.TownCenterTemplate;
 import simplebuildaoo.gameclasses.technologies.DarkAge;
@@ -32,29 +37,26 @@ import simplebuildaoo.gameclasses.technologies.Feudal;
  * @author absea
  */
 public class TechTreeSheet {
-    
+
     public Player ownedBy;
-    
+
     public ArrayList<BuildingFactory> buildingsThatQualifyForFeudal;
     public ArrayList<BuildingFactory> buildingsThatQualifyForCastle;
     public ArrayList<BuildingFactory> buildingsThatQualifyForImperial;
-    
-    public Resource startResources = new Resource(200, 200, 100, 200, 0, 0);
-    
-    public VillagerTemplate vtmp = new VillagerTemplate(VillagerGatherableResource.NONE, new ArrayList<>());
-    
-    public ScoutTemplate sctmp = new ScoutTemplate();
-    
-    public TownCenterTemplate tctmp = new TownCenterTemplate();
 
-    public TechTreeSheet(Civ civ){
-        
+    public Resource startResources = new Resource(200, 200, 100, 200, 0, 0);
+
+    public VillagerTemplate vtmp = new VillagerTemplate(VillagerGatherableResource.NONE, new ArrayList<>());
+
+    public ScoutTemplate sctmp = new ScoutTemplate();
+
+    public TechTreeSheet(Civ civ) {
+
     }
-    
+
     public Technology darkAge = new DarkAge();
     public Technology feudal = new Feudal();
-    
-    
+
     public UnitFactory VillagerFactory = new UnitFactory() {
         @Override
         public Unit createUnit() {
@@ -74,7 +76,7 @@ public class TechTreeSheet {
             return Villager.class.getName();
         }
     };
-    
+
     public UnitFactory scoutFactory = new UnitFactory() {
         @Override
         public Unit createUnit() {
@@ -87,54 +89,43 @@ public class TechTreeSheet {
         }
     };
 
-    public BuildingFactory townCenterBuilder = new BuildingFactory() {
+    public BuildingFactory<TownCenter> townCenterBuilder = new BuildingFactory<TownCenter>(TownCenter.class.getSimpleName()) {
+
+        
+        
         @Override
-        public Building createBuilding() {
-            TownCenter result = new TownCenter(tctmp);
-          //  tctmp.deploy.add(VillagerFactory);
-          //  TownCenter = new TownCenterTemplate();
-          
+        public TownCenter createBuilding() {
+            TownCenter result = new TownCenter(tmp);
             return result;
         }
+    };
+
+    public BuildingFactory housebuilder = new BuildingFactory(House.class.getSimpleName()) {
 
         @Override
-        public String getName() {
-            return TownCenter.class.getName();
-        }
-
-        @Override
-        public Resource getCost() {
-            return tctmp.cost;
+        public House createBuilding() {
+            return new House(tmp);
         }
     };
-    
-    public HouseTemplate housetmp = new HouseTemplate();
-    
-    public BuildingFactory housebuilder = new BuildingFactory() {
+
+    public BuildingFactory lumberjackbuilder = new BuildingFactory(Lumbercamp.class.getSimpleName()) {
+        @Override
+        public Lumbercamp createBuilding() {
+            return new Lumbercamp(tmp);
+        }
+    };
+
+    public BuildingFactory millFactory = new BuildingFactory(Mill.class.getSimpleName()) {
         @Override
         public Building createBuilding() {
-            return new House(housetmp);
-        }
-
-        @Override
-        public String getName() {
-            return House.class.getName();
-        }
-
-        @Override
-        public Resource getCost() {
-            return housetmp.cost;
+            return new Mill(tmp);
         }
     };
-    
+
     public TechTreeSheet(ArrayList<Civ> AlliedCivs, Civ completeBuildSheet) {
-        
+
     }
-    
-    public void test(){
-        
-    }
-    
+
     public double constructionSpeed;
     public double boarcColectSpeed;
     public double sheepCollectSpeed;
@@ -146,9 +137,8 @@ public class TechTreeSheet {
     public double goldCollectSpeed;
     public double goldByTradeCollectSpeed;
     public double stoneCollectSpeed;
-    
-    
-    public Resource getCollectionSpeedByResouceType(VillagerGatherableResource type){
+
+    public Resource getCollectionSpeedByResouceType(VillagerGatherableResource type) {
         Resource result = new Resource();
         switch (type) {
             case BERRIES:
@@ -181,7 +171,7 @@ public class TechTreeSheet {
             case NONE:
                 break;
             default:
-                result.food = 1/0;
+                result.food = 1 / 0;
         }
         return result;
     }
