@@ -92,7 +92,7 @@ public class Player {
                     vill.task = to;
                     boolean a = getAllVillagersFromTask(from).remove(vill);
                     getAllVillagersFromTask(to).add(vill);
-                    System.out.println("Villager confverted from " + a + from.name() + " to " + to.name());
+                    System.out.println("Villager confverted from " + a + from.name() + " to " + to.name() + " at " + this.IGO.currentResources.time);
                     //vill.currentlyCollecting = to;
                 }
             }
@@ -136,11 +136,16 @@ public class Player {
     public void reassignStuff(VillagerActivities from, VillagerActivities to, ResourceUnit source, int amount) {
         ArrayList<Villager> fromVils = getDoingAct(from, amount);
         ArrayList<Villager> toVils = getDoingAct(to, amount);
+        
+        int count = amount;
+        
         for (int i = 0; i < amount && !fromVils.isEmpty(); i++) {
             Villager nes = fromVils.remove(0);
             nes.task = to;
+            System.out.println("Villager confverted from " + from.name() + " to " + to.name() + " at " + this.IGO.currentResources.time);
             if (from.equals(VillagerActivities.COLLECTOR)) {
                 IGO.collectingVillagers.remove(nes);
+                count--;
             }
             if (to.equals(VillagerActivities.COLLECTOR)) {
                 IGO.collectingVillagers.add(nes);
@@ -149,6 +154,9 @@ public class Player {
             }
             nes.currentlyCollecting = source.meGather;
             toVils.add(nes);
+        }
+        if(count > 0){
+            System.err.println("Couldnt assign everyone to " + source.toString() + " at " + this.IGO.currentResources.time);
         }
     }
 
@@ -217,7 +225,6 @@ public class Player {
 
     public void build(String buildingName, VillagerActivities from, int amount) {
         for (BuildingFactory build : CTS.vtmp.possibleBuildings) {
-            System.out.println("comparing " + build.tmp.buildingName + " " + buildingName);
             if (build.tmp.buildingName.equals(buildingName)) {
                 pay(build.tmp.cost);
                 Event buildEvent = new Event((int) (build.tmp.cost.time + 0.5), (Consumer) (Object t) -> {
