@@ -6,10 +6,7 @@
 package simplebuildaoo.gameclasses.buildingStuff;
 
 import resources.VillagerGatherableResource;
-import resources.Resources;
 import java.util.ArrayList;
-import simplebuildaoo.gameclasses.InGameOverview;
-import simplebuildaoo.gameclasses.TechTreeSheet;
 import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
 
 /**

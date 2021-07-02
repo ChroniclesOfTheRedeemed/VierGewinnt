@@ -104,7 +104,7 @@ public class SimpleBuildAoo {
         player1.IGO.waitUp(25);
         logResources(player1.IGO, mySheep.get(0));
         player1.IGO.waitUp(700);
-        logResources(player1.IGO, mySheep.get(0));
+        logResources(player1.IGO, mySheep.get(1));
         player1.toThing(mySheep.get(0), VillagerActivities.NONE, 1);
         player1.IGO.waitUp(25);
         logResources(player1.IGO, mySheep.get(0));
