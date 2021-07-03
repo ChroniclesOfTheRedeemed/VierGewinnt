@@ -20,15 +20,10 @@ import simplebuildaoo.gameclasses.UnitStuff.allunits.VillagerTemplate;
 import simplebuildaoo.gameclasses.UnitStuff.allunits.military.Scout;
 import simplebuildaoo.gameclasses.UnitStuff.allunits.military.ScoutTemplate;
 import simplebuildaoo.gameclasses.buildingStuff.BuildingFactory;
-import simplebuildaoo.gameclasses.buildingStuff.BuildingTemplate;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.House;
-import simplebuildaoo.gameclasses.buildingStuff.allbuilding.HouseTemplate;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.Lumbercamp;
-import simplebuildaoo.gameclasses.buildingStuff.allbuilding.LumbercampTemplate;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.Mill;
-import simplebuildaoo.gameclasses.buildingStuff.allbuilding.Milltemplate;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.TownCenter;
-import simplebuildaoo.gameclasses.buildingStuff.allbuilding.TownCenterTemplate;
 import simplebuildaoo.gameclasses.technologies.DarkAge;
 import simplebuildaoo.gameclasses.technologies.Feudal;
 
@@ -91,8 +86,6 @@ public class TechTreeSheet {
 
     public BuildingFactory<TownCenter> townCenterBuilder = new BuildingFactory<TownCenter>(TownCenter.class.getSimpleName()) {
 
-        
-        
         @Override
         public TownCenter createBuilding() {
             TownCenter result = new TownCenter(tmp);

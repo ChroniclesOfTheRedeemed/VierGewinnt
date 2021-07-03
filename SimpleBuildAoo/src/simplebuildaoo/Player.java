@@ -244,7 +244,12 @@ public class Player {
         IGO.currentResources.wood -= res.wood;
         IGO.currentResources.stone -= res.stone;
         IGO.currentResources.gold -= res.gold;
-        IGO.currentResources.popLimit -= res.popLimit;
+        if(res.popLimit > 0){
+            IGO.currentResources.popLimit += res.popLimit;
+        } else {
+            IGO.totalPop -= res.popLimit;
+        }
+        
     }
 
     private ArrayList<Villager> getDoing(VillagerGatherableResource resource, int amount) {

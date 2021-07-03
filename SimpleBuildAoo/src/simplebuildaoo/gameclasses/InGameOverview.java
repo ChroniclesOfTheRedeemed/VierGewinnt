@@ -27,6 +27,7 @@ import simplebuildaoo.gameclasses.buildingStuff.Building;
 public class InGameOverview {
 
     public Resource currentResources = new Resource();
+    public double totalPop = 0;
     public ArrayList<Building> buildings = new ArrayList<>();
     public ArrayList<Unit> units = new ArrayList<>();
     public ArrayList<Villager> collectingVillagers = new ArrayList<>();
@@ -100,7 +101,8 @@ public class InGameOverview {
             foodLine.addValue(currentResources.food, "Food", Double.valueOf(currentResources.time));
             stoneLine.addValue(currentResources.stone, "Stone", Double.valueOf(currentResources.time));
             goldLine.addValue(currentResources.gold, "Gold", Double.valueOf(currentResources.time));
-            popLimit.addValue(currentResources.popLimit, "Poplimit", Double.valueOf(currentResources.time));
+            popLimit.addValue(currentResources.popLimit, "current Poplimit", Double.valueOf(currentResources.time));
+            popLimit.addValue(totalPop, "total Poplimit", Double.valueOf(currentResources.time));
             builderLine.addValue(this.buildingVils.size(), "Builder", Double.valueOf(currentResources.time));
             builderLine.addValue(this.collectingVillagers.size(), "Collectors", Double.valueOf(currentResources.time));
             builderLine.addValue(this.freeVils.size(), "Freewills", Double.valueOf(currentResources.time));
