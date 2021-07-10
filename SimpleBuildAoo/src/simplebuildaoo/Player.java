@@ -65,7 +65,6 @@ public class Player {
         IGO.currentResources.wood += IGO.resourcePerSecond.wood;
         IGO.currentResources.gold += IGO.resourcePerSecond.gold;
         IGO.currentResources.stone += IGO.resourcePerSecond.stone;
-
     }
 
     public void calculateResourcesPerSecond(InGameOverview InGameOverview) {
@@ -83,7 +82,6 @@ public class Player {
 
     //guess I have to do it correct once
     private boolean reassignTaskonVillagers(VillagerActivities from, VillagerActivities to, int count) {
-
         for (int i = 0; i < IGO.units.size() && count > 0; i++) {
             if (this.IGO.units.get(i) instanceof Villager) { // to be optimized - extract Villager from other Units
                 Villager vill = (Villager) this.IGO.units.get(i);
@@ -136,9 +134,9 @@ public class Player {
     public void reassignStuff(VillagerActivities from, VillagerActivities to, ResourceUnit source, int amount) {
         ArrayList<Villager> fromVils = getDoingAct(from, amount);
         ArrayList<Villager> toVils = getDoingAct(to, amount);
-        
+
         int count = amount;
-        
+
         for (int i = 0; i < amount && !fromVils.isEmpty(); i++) {
             Villager nes = fromVils.remove(0);
             nes.task = to;
@@ -155,7 +153,7 @@ public class Player {
             nes.currentlyCollecting = source.meGather;
             toVils.add(nes);
         }
-        if(count > 0){
+        if (count > 0) {
             System.err.println("Couldnt assign everyone to " + source.toString() + " at " + this.IGO.currentResources.time);
         }
     }
@@ -244,12 +242,12 @@ public class Player {
         IGO.currentResources.wood -= res.wood;
         IGO.currentResources.stone -= res.stone;
         IGO.currentResources.gold -= res.gold;
-        if(res.popLimit > 0){
+        if (res.popLimit > 0) {
             IGO.currentResources.popLimit += res.popLimit;
         } else {
             IGO.totalPop -= res.popLimit;
         }
-        
+
     }
 
     private ArrayList<Villager> getDoing(VillagerGatherableResource resource, int amount) {
@@ -277,44 +275,4 @@ public class Player {
         }
         return result;
     }
-    /*
-    private ArrayList<Villager> mapResourceTypeToArray(VillagerGatherableResource type) {
-        ArrayList<Villager> result;
-        switch (type) {
-            case BERRIES:
-                result = IGO.foodVils;
-                break;
-            case BOAR:
-                food += this.CTS.boarcColectSpeed;
-                break;
-            case DEER:
-                food += this.CTS.berriesCollectSpeed;
-                break;
-            case FARM:
-                food += this.CTS.farmCollectSpeed;
-                break;
-            case GOLD:
-                gold += this.CTS.goldCollectSpeed;
-                break;
-            case GOLDBYTRADE:
-                gold += this.CTS.goldByTradeCollectSpeed;
-                break;
-            case NONE:
-                break;
-            case SHEEP:
-                food += this.CTS.sheepCollectSpeed;
-                break;
-            case SHOREFISH:
-                food += this.CTS.berriesCollectSpeed;
-                break;
-            case STONE:
-                stone += this.CTS.stoneCollectSpeed;
-                break;
-            case WOOD:
-                wood += this.CTS.woodCollectSpeed;
-                break;
-        }
-    }*/
-    //what are
-
 }

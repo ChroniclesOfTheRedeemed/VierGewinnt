@@ -6,9 +6,7 @@
 package simplebuildaoo.gameclasses;
 
 import resources.Resource;
-import OtherStuff.VillagerActivities;
 import java.util.ArrayList;
-import java.util.function.Consumer;
 import javax.swing.JDialog;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
