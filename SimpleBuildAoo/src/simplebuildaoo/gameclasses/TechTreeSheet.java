@@ -7,7 +7,7 @@ package simplebuildaoo.gameclasses;
 
 import resources.Resource;
 import OtherStuff.VillagerActivities;
-import resources.VillagerGatherableResource;
+import resources.GatherableResource;
 import simplebuildaoo.gameclasses.buildingStuff.Building;
 import java.util.ArrayList;
 import java.util.function.Consumer;
@@ -41,7 +41,7 @@ public class TechTreeSheet {
 
     public Resource startResources = new Resource(200, 200, 100, 200, 0, 0);
 
-    public VillagerTemplate vtmp = new VillagerTemplate(VillagerGatherableResource.NONE, new ArrayList<>());
+    public VillagerTemplate vtmp = new VillagerTemplate(GatherableResource.NONE, new ArrayList<>());
 
     public ScoutTemplate sctmp = new ScoutTemplate();
 
@@ -55,11 +55,11 @@ public class TechTreeSheet {
     public UnitFactory VillagerFactory = new UnitFactory() {
         @Override
         public Unit createUnit() {
-            Villager result = new Villager(vtmp, VillagerActivities.NONE);
+            Villager result = new Villager(vtmp, VillagerActivities.IDLING);
             result.ownedBy = ownedBy;
-            result.ownedBy.pay(vtmp.cost);
+            result.ownedBy.IGO.resman.pay(vtmp.cost);
             Event deployEvent = new Event((int) (vtmp.cost.time + 0.5), (Consumer) (Object t) -> {
-                ownedBy.IGO.freeVils.add(result);
+                ownedBy.IGO.vilman.freeVils.add(result); // you sure ? 
                 ownedBy.IGO.units.add(result);
             });
             ownedBy.IGO.events.add(deployEvent);
@@ -131,7 +131,7 @@ public class TechTreeSheet {
     public double goldByTradeCollectSpeed;
     public double stoneCollectSpeed;
 
-    public Resource getCollectionSpeedByResouceType(VillagerGatherableResource type) {
+    public Resource getCollectionSpeedByResouceType(GatherableResource type) {
         Resource result = new Resource();
         switch (type) {
             case BERRIES:

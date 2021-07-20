@@ -5,15 +5,18 @@
  */
 package resources;
 
+import ingame.ResourceManager;
+
 /**
  *
  * @author absea
  */
 public class Boar extends ResourceUnit{
 
-    public Boar() {
+    public Boar(ResourceManager e) {
+        super(e);
         this.currentHoldingResource = new Resource(340, 0, 0, 0, 0, 0);
         this.depletionSpeed = new Resource(10, 0, 0, 0, 0, 25);
-        this.meGather = VillagerGatherableResource.BOAR;
+        this.meGather = GatherableResource.BOAR;
     }
 }

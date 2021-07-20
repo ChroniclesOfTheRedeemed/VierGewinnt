@@ -6,7 +6,7 @@
 
 package simplebuildaoo.gameclasses.buildingStuff.allbuilding;
 
-import resources.VillagerGatherableResource;
+import resources.GatherableResource;
 import simplebuildaoo.gameclasses.buildingStuff.BuildingTemplate;
 import simplebuildaoo.gameclasses.buildingStuff.ResourceCollectingBuilding;
 
@@ -21,8 +21,8 @@ public class Lumbercamp extends ResourceCollectingBuilding {
     }
 
     @Override
-    public boolean collectableHere(VillagerGatherableResource res) {
-        return res.equals(VillagerGatherableResource.WOOD);
+    public boolean collectableHere(GatherableResource res) {
+        return res.equals(GatherableResource.WOOD);
 
     }
 

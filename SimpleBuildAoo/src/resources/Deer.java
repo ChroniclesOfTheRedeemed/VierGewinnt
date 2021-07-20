@@ -5,15 +5,18 @@
  */
 package resources;
 
+import ingame.ResourceManager;
+
 /**
  *
  * @author absea
  */
 public class Deer extends ResourceUnit{
 
-    public Deer() {
+    public Deer(ResourceManager e) {
+        super(e);
         this.currentHoldingResource = new Resource(140, 0, 0, 0, 0, 0);
         this.depletionSpeed = new Resource(10, 0, 0, 0, 0, 40);
-        this.meGather = VillagerGatherableResource.DEER;
+        this.meGather = GatherableResource.DEER;
     }
 }

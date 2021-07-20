@@ -10,7 +10,7 @@ package OtherStuff;
  * @author absea
  */
 public enum VillagerActivities {
-    NONE,
+    IDLING,
     WALKING,
     BUILDER,
     FORAGER,

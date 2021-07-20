@@ -7,10 +7,8 @@
 package simplebuildaoo.gameclasses.UnitStuff.allunits;
 
 import OtherStuff.VillagerActivities;
-import resources.VillagerGatherableResource;
+import resources.GatherableResource;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;
-import simplebuildaoo.gameclasses.UnitStuff.Unit;
-import simplebuildaoo.gameclasses.buildingStuff.Building;
 
 /**__DATE__ , __TIME__
  *
@@ -19,8 +17,8 @@ import simplebuildaoo.gameclasses.buildingStuff.Building;
 public class Villager extends Unit {
     
     public VillagerTemplate tmp;
-    public VillagerGatherableResource currentlyCollecting = VillagerGatherableResource.NONE;
-    public VillagerActivities task = VillagerActivities.NONE;
+    public GatherableResource currentlyCollecting = GatherableResource.NONE;
+    public VillagerActivities task = VillagerActivities.IDLING;
 
 
     public Villager(VillagerTemplate tmp, VillagerActivities task) {

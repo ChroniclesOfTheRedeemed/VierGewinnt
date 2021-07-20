@@ -5,16 +5,19 @@
  */
 package resources;
 
+import ingame.ResourceManager;
+
 /**
  *
  * @author absea
  */
 public class Sheep extends ResourceUnit {
 
-    public Sheep() {
+    public Sheep(ResourceManager e) {
+        super(e);
         this.currentHoldingResource = new Resource(100, 0, 0, 0, 0, 0);
         this.depletionSpeed = new Resource(10, 0, 0, 0, 0, 40);
-        this.meGather = VillagerGatherableResource.SHEEP;
+        this.meGather = GatherableResource.SHEEP;
     }
     
 }

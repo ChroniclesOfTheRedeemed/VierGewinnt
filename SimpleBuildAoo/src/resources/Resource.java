@@ -30,11 +30,40 @@ public class Resource {
         this.popLimit = 0;
         this.time = 0;
     }
+    
+    public Resource(Resource r) {
+        this.food = r.food;
+        this.wood = r.wood;
+        this.gold = r.gold;
+        this.stone = r.stone;
+        this.popLimit = r.popLimit;
+        this.time = r.time;
+    }
  
     public double total() {
         return this.food
                 + this.wood
                 + this.gold
                 + this.stone;
+    }
+    
+    public static Resource sum(Resource... a){
+        Resource result = new Resource();
+        for (Resource ina : a) {
+            result.food += ina.food;
+            result.wood += ina.wood;
+            result.stone += ina.stone;
+            result.gold += ina.gold;
+        }
+        return result;
+    }
+    
+    public Resource factor(double factor){
+        food *= factor;
+        wood *= factor;
+        gold *= factor;
+        stone *= factor;
+        return this;
+        
     }
 }

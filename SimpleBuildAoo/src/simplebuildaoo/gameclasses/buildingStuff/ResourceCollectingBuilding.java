@@ -5,7 +5,7 @@
  */
 package simplebuildaoo.gameclasses.buildingStuff;
 
-import resources.VillagerGatherableResource;
+import resources.GatherableResource;
 import java.util.ArrayList;
 import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
 
@@ -21,7 +21,7 @@ public abstract class ResourceCollectingBuilding extends Building {
         super(tmp);
     }
     
-    public void addVillager(ArrayList<Villager> vil, VillagerGatherableResource res){
+    public void addVillager(ArrayList<Villager> vil, GatherableResource res){
         if(collectableHere(res)){
 
             
@@ -29,14 +29,14 @@ public abstract class ResourceCollectingBuilding extends Building {
         }
     }
     
-    public ArrayList<Villager> removeVillagerFrom(VillagerGatherableResource res, int amount){
+    public ArrayList<Villager> removeVillagerFrom(GatherableResource res, int amount){
         ArrayList<Villager> result = new ArrayList<>();
         if(collectableHere(res)){
             //add to result
             ArrayList<Villager> freeVils = new ArrayList<>();
             ArrayList<Villager> rest = new ArrayList<>();
             for (Villager leaver: workingVillagers) {
-                if(leaver.currentlyCollecting.equals(VillagerGatherableResource.NONE)){
+                if(leaver.currentlyCollecting.equals(GatherableResource.NONE)){
                     freeVils.add(leaver);
                 } else if (leaver.currentlyCollecting.equals(res)) {
                     rest.add(leaver);
@@ -59,10 +59,10 @@ public abstract class ResourceCollectingBuilding extends Building {
 
     private void removeVill(Villager leaver) {
         workingVillagers.remove(leaver);
-        ownedBy.IGO.collectingVillagers.remove(leaver);
+        ownedBy.IGO.vilman.collectingVillagers.remove(leaver);
 
     }
 
 
-    public abstract boolean collectableHere(VillagerGatherableResource res);
+    public abstract boolean collectableHere(GatherableResource res);
 }

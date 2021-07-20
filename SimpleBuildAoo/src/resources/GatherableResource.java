@@ -9,7 +9,7 @@ package resources;
  *
  * @author absea
  */
-public enum VillagerGatherableResource {
+public enum GatherableResource {
     NONE,
     DEER, 
     BERRIES,

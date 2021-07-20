@@ -6,7 +6,7 @@
 
 package simplebuildaoo.gameclasses.UnitStuff.allunits;
 
-import resources.VillagerGatherableResource;
+import resources.GatherableResource;
 import java.util.ArrayList;
 import simplebuildaoo.gameclasses.UnitStuff.UnitTemplate;
 import simplebuildaoo.gameclasses.buildingStuff.BuildingFactory;
@@ -17,14 +17,14 @@ import simplebuildaoo.gameclasses.buildingStuff.BuildingFactory;
  */
 public class VillagerTemplate extends UnitTemplate {
      
-    public VillagerGatherableResource currentlyCollecting = VillagerGatherableResource.NONE;
+    public GatherableResource currentlyCollecting = GatherableResource.NONE;
     
     public ArrayList<BuildingFactory> possibleBuildings = new ArrayList<>();
     public void build(String buildingName){
         
     }
 
-    public VillagerTemplate(VillagerGatherableResource currentlyCollecting, ArrayList<BuildingFactory> possibleBuildings) {
+    public VillagerTemplate(GatherableResource currentlyCollecting, ArrayList<BuildingFactory> possibleBuildings) {
         this.currentlyCollecting = currentlyCollecting;
         this.possibleBuildings = possibleBuildings;
     }

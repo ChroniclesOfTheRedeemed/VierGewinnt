@@ -5,15 +5,18 @@
  */
 package resources;
 
+import ingame.ResourceManager;
+
 /**
  *
  * @author absea
  */
 public class Woodline extends ResourceUnit{
 
-    public Woodline() {
+    public Woodline(ResourceManager e) {
+        super(e);
         this.currentHoldingResource = new Resource(0, 1000, 0, 0, 0, 0);
         this.depletionSpeed = new Resource(0, 0, 0, 0, 0, 40);
-        this.meGather = VillagerGatherableResource.WOOD;
+        this.meGather = GatherableResource.WOOD;
     }
 }
