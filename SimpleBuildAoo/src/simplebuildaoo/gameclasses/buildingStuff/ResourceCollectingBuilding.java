@@ -59,7 +59,7 @@ public abstract class ResourceCollectingBuilding extends Building {
 
     private void removeVill(Villager leaver) {
         workingVillagers.remove(leaver);
-        ownedBy.IGO.vilman.collectingVillagers.remove(leaver);
+        //ownedBy.IGO.vilman.collectingVillagers.remove(leaver);
 
     }
 

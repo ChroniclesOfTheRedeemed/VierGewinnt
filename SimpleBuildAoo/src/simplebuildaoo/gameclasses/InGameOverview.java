@@ -29,6 +29,7 @@ public class InGameOverview {
 
     public ArrayList<Building> buildings = new ArrayList<>();
     public ArrayList<Unit> units = new ArrayList<>();
+    
     //public ArrayList<Villager> woodVils = new ArrayList();
     //public ArrayList<Villager> shephardVils = new ArrayList();
     //public ArrayList<Villager> boarHunterVils = new ArrayList();
@@ -41,6 +42,7 @@ public class InGameOverview {
     public InGameOverview(TechTreeSheet CTS) {
         vilman.CTS = CTS;
         vilman.IGO = this;
+        resman.CTS = CTS;
     }
 
     public Building getBuilding(String name) {

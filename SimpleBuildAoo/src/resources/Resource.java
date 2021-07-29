@@ -47,15 +47,13 @@ public class Resource {
                 + this.stone;
     }
     
-    public static Resource sum(Resource... a){
-        Resource result = new Resource();
+    public void add(Resource... a){
         for (Resource ina : a) {
-            result.food += ina.food;
-            result.wood += ina.wood;
-            result.stone += ina.stone;
-            result.gold += ina.gold;
+            food += ina.food;
+            wood += ina.wood;
+            stone += ina.stone;
+            gold += ina.gold;
         }
-        return result;
     }
     
     public Resource factor(double factor){
@@ -65,5 +63,14 @@ public class Resource {
         stone *= factor;
         return this;
         
+    }
+    
+    @Override
+    public String toString(){
+        return "food: " + this.food + "\n"
+        + "wood: " + this.wood +"\n"
+        +"gold: " + this.gold +"\n"
+        +"stone: " + this.stone +"\n";
+                
     }
 }

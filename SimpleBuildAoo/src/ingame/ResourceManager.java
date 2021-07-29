@@ -3,25 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ingame;
 
 import java.util.ArrayList;
 import resources.Resource;
+import resources.ResourceUnit;
 import simplebuildaoo.gameclasses.TechTreeSheet;
 import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
 
-/**__DATE__ , __TIME__
+/**
+ * __DATE__ , __TIME__
  *
  * @author Mike
  */
 public class ResourceManager {
-    
+
     public Resource currentResources = new Resource();
     public double totalPop = 0;
     public Resource resourcePerSecond = new Resource();
-    
-    
+    public ArrayList<ResourceUnit> income = new ArrayList<>();
+
+    public TechTreeSheet CTS;
+
     private void addResourcesForSecond() {
         currentResources.time += 0;
         currentResources.food += resourcePerSecond.food;
@@ -30,7 +33,6 @@ public class ResourceManager {
         currentResources.stone += resourcePerSecond.stone;
     }
 
-    
     //shall be changed to use ResourceUnit harvesting soon TM
     public void calculateResourcesPerSecond(ArrayList<Villager> vils, TechTreeSheet CTS) {
         Resource newe = new Resource();
@@ -42,18 +44,27 @@ public class ResourceManager {
             newe.stone += news.stone;
         }
 
-        resourcePerSecond = newe;
+        //resourcePerSecond = newe;
     }
-    
-    
-    public void wait(int seconds) {
+
+    public void waitOld(int seconds) {
+        System.out.println(resourcePerSecond.toString());
         currentResources.food += this.resourcePerSecond.food * seconds;
         currentResources.wood += this.resourcePerSecond.wood * seconds;
         currentResources.stone += this.resourcePerSecond.stone * seconds;
         currentResources.gold += this.resourcePerSecond.gold * seconds;
         currentResources.time += seconds;
     }
-    
+
+    public void wait(int seconds) {
+        currentResources.time += seconds;
+        for (ResourceUnit unit : income) {
+            currentResources.add(
+                    unit.updateHoldingOnResource(CTS)
+            );
+        }
+    }
+
     public void pay(Resource res) {
         currentResources.food -= res.food;
         currentResources.wood -= res.wood;

@@ -27,17 +27,24 @@ public class VillagerManager {
 
     public TechTreeSheet CTS;
     public InGameOverview IGO;
-    
+
     public ArrayList<Villager> allVills = new ArrayList<>();
 
-    public ArrayList<Villager> collectingVillagers = new ArrayList<>();
-    public ArrayList<Villager> freeVils = new ArrayList();
-    public ArrayList<Villager> buildingVils = new ArrayList();
-    public ArrayList<Villager> walkingVills = new ArrayList();
-
+//    public ArrayList<Villager> collectingVillagers = new ArrayList<>();
+//    public ArrayList<Villager> freeVils = new ArrayList();
+//    public ArrayList<Villager> buildingVils = new ArrayList();
+//    public ArrayList<Villager> walkingVills = new ArrayList();
     public ArrayList<Villager> getAllVillagersFromTask(VillagerActivities task) {
         ArrayList<Villager> result = new ArrayList<>();
-        switch (task) {
+        for (Villager vil : allVills) {
+            if (vil.task.equals(task)) {
+                result.add(vil);
+            }
+//            System.out.println(vil.task);
+        }
+        //System.out.println("");
+        //System.out.println("");
+        /*switch (task) {
             case BUILDER:
                 result = buildingVils;
                 break;
@@ -60,67 +67,134 @@ public class VillagerManager {
                 result = walkingVills;
             default:
             //error
+        }*/
+        return result;
+    }
+    
+    public ArrayList<Villager> getVillagersFromTask(VillagerActivities task, int count) {
+      ArrayList<Villager> result = new ArrayList<>();
+        for (int i = 0; i < allVills.size() && count > 0; i++) {
+            // to be optimized - extract Villager from other Units
+            Villager vill = allVills.get(i);
+            if (vill.task.equals(task)) {
+                count--;
+                result.add(vill);
+                //boolean a = getAllVillagersFromTask(from).remove(vill);
+                //getAllVillagersFromTask(to).add(vill);
+                
+                //System.out.println("Villager confverted from " + a + from.name() + " to " + to.name() + " at " + this.currentResources.time);
+                //vill.currentlyCollecting = to;
+            }
         }
         return result;
     }
 
-    public void toResource(VillagerActivities from, VillagerActivities to, ResourceUnit source, int amount) {
-        ArrayList<Villager> fromVils = aquireVillagers(from, amount);
-        ArrayList<Villager> toVils = aquireVillagers(to, amount);
+//    
+//    //???
+//    public void toResource(VillagerActivities from, VillagerActivities to, ResourceUnit source, int amount) {
+//        ArrayList<Villager> fromVils = aquireVillagers(from, amount);
+////        ArrayList<Villager> toVils = aquireVillagers(to, amount);
+////
+////        int count = amount;
+////
+//        for (int i = 0; i < amount && !fromVils.isEmpty(); i++) {
+//            Villager nes = fromVils.remove(0);
+//            nes.task = to;
+//            //System.out.println("Villager confverted from " + from.name() + " to " + to.name() + " at " + this.currentResources.time);
+////            if (from.equals(VillagerActivities.COLLECTOR)) {
+////                collectingVillagers.remove(nes);
+////                count--;
+////            }
+////            if (to.equals(VillagerActivities.COLLECTOR)) {
+////                collectingVillagers.add(nes);
+////                source.gatheres.add(nes);
+////            }
+//            nes.currentlyCollecting = source.meGather;
+//            toVils.add(nes);
+//        }
+//        if (count > 0) {
+//            //System.err.println("Couldnt assign everyone to " + source.toString() + " at " + this.currentResources.time);
+//        }
+//    }
 
-        int count = amount;
-
-        for (int i = 0; i < amount && !fromVils.isEmpty(); i++) {
-            Villager nes = fromVils.remove(0);
-            nes.task = to;
-            //System.out.println("Villager confverted from " + from.name() + " to " + to.name() + " at " + this.currentResources.time);
-            if (from.equals(VillagerActivities.COLLECTOR)) {
-                collectingVillagers.remove(nes);
-                count--;
-            }
-            if (to.equals(VillagerActivities.COLLECTOR)) {
-                collectingVillagers.add(nes);
-                source.gatheres.add(nes);
-
-            }
-            nes.currentlyCollecting = source.meGather;
-            toVils.add(nes);
-        }
-        if (count > 0) {
-            //System.err.println("Couldnt assign everyone to " + source.toString() + " at " + this.currentResources.time);
-        }
-    }
-
-    public boolean reassignTaskonVillagers(VillagerActivities from, VillagerActivities to, int count) {
+    public ArrayList<Villager> reassignTaskonVillagers(VillagerActivities from, VillagerActivities to, int count) {
+        ArrayList<Villager> changedVils = new ArrayList<>();
         for (int i = 0; i < allVills.size() && count > 0; i++) {
             // to be optimized - extract Villager from other Units
             Villager vill = allVills.get(i);
             if (vill.task.equals(from)) {
                 count--;
                 vill.task = to;
-                boolean a = getAllVillagersFromTask(from).remove(vill);
-                getAllVillagersFromTask(to).add(vill);
+                //boolean a = getAllVillagersFromTask(from).remove(vill);
+                //getAllVillagersFromTask(to).add(vill);
+                
+                changedVils.add(vill);
+                
                 //System.out.println("Villager confverted from " + a + from.name() + " to " + to.name() + " at " + this.currentResources.time);
                 //vill.currentlyCollecting = to;
             }
         }
-        return count <= 0;
+        return changedVils;
     }
 
-    public void toThing(ResourceUnit unit, VillagerActivities from, int amount) {
+    private VillagerActivities convert(GatherableResource gr) {
+        VillagerActivities act = null;
+        switch (gr) {
+            case BERRIES:
+                act = VillagerActivities.FORAGER;
+                break;
+            case BOAR:
+            case DEER:
+                act = VillagerActivities.HUNTER;
+            break;    
+            case FARM:
+                act = VillagerActivities.FARMER;
+                break;
+            case GOLD:
+                act = VillagerActivities.GOLDMINER;
+                break;
+            case NONE:
+                act = null;
+                break;
+            case SHEEP:
+                act = VillagerActivities.SHEPHERDER;
+                break;
+            case SHOREFISH:
+                act = null;
+                break;
+            case STONE:
+                act = VillagerActivities.STONEMINER;
+                break;
+            case WOOD:
+                act = VillagerActivities.WOODCHOPPER;
+                break;
+        }
+        return act;
+    }
+
+    public void toResourcevu(ResourceUnit unit, VillagerActivities from, int amount) {
         //Reassign all villager duties
         //reorganize Villager Arrays
         //recalculate resource speed
 
         if (unit.currentHoldingResource.total() > 0) {
 
-            unit.updateHoldingOnResource(CTS);
+            Resource d = unit.updateHoldingOnResource(CTS);
+            if (d.total() > 0) {
+                System.err.println("gjwkneöbwäefdsijhöräwfjöoäraebiherjgwuodvshjgjwkneöbwäefdsijhöräwfjöoäraebiherjgwuodvshjgjwkneöbwäefdsijhöräwfjöoäraebiherjgwuodvshjgjwkneöbwäefdsijhöräwfjöoäraebiherjgwuodvshj");
+            }
             //updateHoldingOnResourceUnit(unit);
 
-            toResource(from, VillagerActivities.COLLECTOR, unit, amount);
+            ArrayList<Villager> g = reassignTaskonVillagers(from, convert(unit.meGather), amount);
+            for (Villager vil : g) {
+                vil.currentlyCollecting = unit.meGather;
+            }
+            unit.gatheres += g.size();
+            
+            //toResource(from, convert(unit.meGather), unit, amount);
 
             double resources = unit.currentHoldingResource.total();
-            double gatherSpeed = unit.gatheres.size() * this.CTS.getCollectionSpeedByResouceType(unit.meGather).total();
+            double gatherSpeed = unit.gatheres * this.CTS.getCollectionSpeedByResouceType(unit.meGather).total();
             double depletionSpeed = unit.depletionSpeed.total() / unit.depletionSpeed.time;
             int timeUntilDepletion = (int) (resources / (gatherSpeed + depletionSpeed));
 
@@ -128,18 +202,27 @@ public class VillagerManager {
                 //free em up
                 assert (unit.currentHoldingResource.total() < 1);
                 unit.currentHoldingResource = new Resource();
-                unit.gatheres.forEach((t) -> {
-                    t.task = VillagerActivities.IDLING;
-                    t.currentlyCollecting = GatherableResource.NONE;
-                    this.collectingVillagers.remove(t);
-                    this.freeVils.add(t);
-                });
-                unit.gatheres.clear();
+                ArrayList<Villager> changlings = aquireVillagers(convert(unit.meGather), amount);
+                
+                System.out.println("unit gatheres: " + unit.gatheres + "  found: " + changlings.size());
+                for (int i = 0; i < unit.gatheres && i < changlings.size(); i++) {
+                    changlings.get(i).task = VillagerActivities.IDLING;
+                    changlings.get(i).currentlyCollecting = GatherableResource.NONE;
+                }
+//                unit.gatheres.forEach((t) -> {
+//                    t.task = VillagerActivities.IDLING;
+//                    t.currentlyCollecting = GatherableResource.NONE;
+////                    this.collectingVillagers.remove(t);
+////                    this.freeVils.add(t);
+//                });
+                unit.gatheres = 0;
+                IGO.resman.income.remove(unit);
                 IGO.resman.calculateResourcesPerSecond(allVills, CTS);
 
             };
 
             if (unit.lastlyUpdated == -1) {
+                IGO.resman.income.add(unit);
                 unit.depletionEvent = new Event((int) (IGO.resman.currentResources.time + timeUntilDepletion), resourceDepletedEvent);
                 IGO.events.add(unit.depletionEvent);
             } else {
@@ -153,9 +236,7 @@ public class VillagerManager {
         }
     }
 
-
 // to be optimized - extract Villager from other Units, IT IS DONE :)
-
     private ArrayList<Villager> aquireVillagers(VillagerActivities resource, int amount) {
         ArrayList<Villager> result = new ArrayList<>();
         for (int i = 0; result.size() < amount && i < allVills.size(); i++) {
@@ -164,7 +245,7 @@ public class VillagerManager {
                 result.add(vill);
             }
         }
-        
+
         //Check me out someday!!
         List<Villager> resulte = allVills.stream()
                 .filter(vil -> vil.task.equals(resource))

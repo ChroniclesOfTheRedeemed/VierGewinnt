@@ -59,7 +59,7 @@ public class TechTreeSheet {
             result.ownedBy = ownedBy;
             result.ownedBy.IGO.resman.pay(vtmp.cost);
             Event deployEvent = new Event((int) (vtmp.cost.time + 0.5), (Consumer) (Object t) -> {
-                ownedBy.IGO.vilman.freeVils.add(result); // you sure ? 
+                ownedBy.IGO.vilman.allVills.add(result); // you sure ? 
                 ownedBy.IGO.units.add(result);
             });
             ownedBy.IGO.events.add(deployEvent);

@@ -19,6 +19,5 @@ public enum VillagerActivities {
     SHEPHERDER,
     GOLDMINER,
     STONEMINER,
-    WOODCHOPPER,
-    COLLECTOR
+    WOODCHOPPER
 }

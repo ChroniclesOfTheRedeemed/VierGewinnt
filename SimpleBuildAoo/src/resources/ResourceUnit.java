@@ -18,7 +18,8 @@ import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
 public class ResourceUnit{
 
     public double lastlyUpdated = -1;
-    public ArrayList<Villager> gatheres = new ArrayList<>();
+    //public ArrayList<Villager> gatheres = new ArrayList<>();    not allowed because reasons
+    public int gatheres = 0;
     public Resource currentHoldingResource = new Resource();
     public Resource depletionSpeed = new Resource();
     
@@ -26,7 +27,7 @@ public class ResourceUnit{
     public GatherableResource meGather;
     
     public ResourceManager rcmg;
-          
+
     public ResourceUnit(ResourceManager e){
         rcmg = e;
     }
@@ -39,24 +40,29 @@ public class ResourceUnit{
         if (lastlyUpdated == -1) {
         } else {
             double differenceInTime = currentTime - lastlyUpdated;
+            lastlyUpdated = currentTime;
+            
             Resource collectionSpeed = CTS.getCollectionSpeedByResouceType(meGather);
             result.time = differenceInTime;
                 
-            double food = calculateRemainder(collectionSpeed.food, differenceInTime, currentHoldingResource.food, depletionSpeed.food);
-            result.food = currentHoldingResource.food - food;
-            currentHoldingResource.food = food;
+            //double raminingfood = calculateRemainder(differenceInTime, currentHoldingResource.food, depletionSpeed.food);
+            //double foodharvest = calculateRemainder(differenceInTime, currentHoldingResource.food, collectionSpeed.food * gatheres);
+            double lostfood = differenceInTime * depletionSpeed.food;
+            double harvestedFood = differenceInTime * collectionSpeed.food * gatheres;
+            result.food = harvestedFood;
+            currentHoldingResource.food -= harvestedFood - lostfood;
 
-            double wood = calculateRemainder(collectionSpeed.wood, differenceInTime, currentHoldingResource.wood, depletionSpeed.wood);
-            result.wood = currentHoldingResource.wood - wood;
-            currentHoldingResource.wood = wood;
-            
-            double stone = calculateRemainder(collectionSpeed.stone, differenceInTime, currentHoldingResource.stone, depletionSpeed.stone);
-            result.stone = currentHoldingResource.stone - stone;
-            currentHoldingResource.stone = stone;
-            
-            double gold = calculateRemainder(collectionSpeed.gold, differenceInTime, currentHoldingResource.gold, depletionSpeed.gold);
-            result.gold = currentHoldingResource.gold - gold;
-            currentHoldingResource.gold = gold;
+//            double wood = calculateRemainder(collectionSpeed.wood, differenceInTime, currentHoldingResource.wood, depletionSpeed.wood);
+//            result.wood = currentHoldingResource.wood - wood;
+//            currentHoldingResource.wood = wood;
+//            
+//            double stone = calculateRemainder(collectionSpeed.stone, differenceInTime, currentHoldingResource.stone, depletionSpeed.stone);
+//            result.stone = currentHoldingResource.stone - stone;
+//            currentHoldingResource.stone = stone;
+//            
+//            double gold = calculateRemainder(collectionSpeed.gold, differenceInTime, currentHoldingResource.gold, depletionSpeed.gold);
+//            result.gold = currentHoldingResource.gold - gold;
+//            currentHoldingResource.gold = gold;
             /* up to deletion after successfull run / debug
             if (collectionSpeed.food != 0) {
                 double depletionSpeedv2 = (gatheres.size() * CTS.getCollectionSpeedByResouceType(meGather).food
@@ -78,14 +84,25 @@ public class ResourceUnit{
         return result; //or somthing better
     }
 
-    private double calculateRemainder(double collectionSpeed, double differenceInTime, double currentHoldingResource, double depletionsPeed) {
+    private double calculateRemainder(double differenceInTime, double currentHoldingResource, double depletionsPeed) {
         double newResource = currentHoldingResource;
-        if (collectionSpeed != 0) {
-            double depletionSpeedv2 = (gatheres.size() * collectionSpeed + depletionsPeed);
-            newResource = Math.max(currentHoldingResource - differenceInTime * depletionSpeedv2, 0);
+        if (depletionsPeed != 0) {
+            //double depletionSpeedv2 = (gatheres * collectionSpeed + depletionsPeed);
+            newResource = Math.max(currentHoldingResource - differenceInTime * depletionsPeed, 0);
             //result.here = currentHoldingResource - newResource; //should be filled directly to the resource not over new object, #abstract resource from types
         }
         return newResource;
+    }
+              
+    @Override
+    public String toString(){
+        String result = "";
+        result += "lastly updated:" + lastlyUpdated;
+        result += "gatherers:" + gatheres ;
+        result += "holding:" + currentHoldingResource;
+        result += "depletion speed:" + depletionSpeed;
+        result += "resource: " + meGather;
+        return result;
     }
 
 }

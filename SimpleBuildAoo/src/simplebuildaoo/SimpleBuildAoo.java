@@ -65,58 +65,58 @@ public class SimpleBuildAoo {
         
         
         player1.IGO.waitUp(15);
-        player1.IGO.vilman.toThing(mySheep.get(0), VillagerActivities.IDLING, 4);
+        player1.IGO.vilman.toResourcevu(mySheep.get(0), VillagerActivities.IDLING, 4);
                 
         player1.IGO.waitUp(25);
         tc.tmp.deploy.get(0).createUnit();
-        player1.IGO.vilman.toThing(mySheep.get(0), VillagerActivities.IDLING, 1);
+        player1.IGO.vilman.toResourcevu(mySheep.get(0), VillagerActivities.IDLING, 1);
         
         
         player1.IGO.waitUp(25);
         tc.tmp.deploy.get(0).createUnit();
-        player1.IGO.vilman.toThing(mySheep.get(0), VillagerActivities.IDLING, 1);
+        player1.IGO.vilman.toResourcevu(mySheep.get(0), VillagerActivities.IDLING, 1);
         
         
         player1.IGO.waitUp(25);
         tc.tmp.deploy.get(0).createUnit();
-        player1.IGO.vilman.toThing(mySheep.get(0), VillagerActivities.IDLING, 1);
+        player1.IGO.vilman.toResourcevu(mySheep.get(0), VillagerActivities.IDLING, 1);
         
         player1.IGO.waitUp(25);
         tc.tmp.deploy.get(0).createUnit();
-        player1.IGO.vilman.toThing(mySheep.get(1), VillagerActivities.IDLING, 7);
+        player1.IGO.vilman.toResourcevu(mySheep.get(1), VillagerActivities.IDLING, 7);
         player1.build(Lumbercamp.class.getSimpleName(), VillagerActivities.IDLING, 1);
         
         
-        player1.IGO.vilman.toThing(mySheep.get(0), VillagerActivities.IDLING, 1);
+        player1.IGO.vilman.toResourcevu(mySheep.get(0), VillagerActivities.IDLING, 1);
         player1.IGO.waitUp(25);
         player1.build(House.class.getSimpleName(), VillagerActivities.IDLING, 1);
         logResources(player1.IGO, mySheep.get(0));
-        player1.IGO.vilman.toThing(mySheep.get(0), VillagerActivities.IDLING, 1);
+        player1.IGO.vilman.toResourcevu(mySheep.get(0), VillagerActivities.IDLING, 1);
         player1.IGO.waitUp(25);
         player1.build(House.class.getSimpleName(), VillagerActivities.IDLING, 2);
         logResources(player1.IGO, mySheep.get(0));
-        player1.IGO.vilman.toThing(mySheep.get(0), VillagerActivities.IDLING, 1);
+        player1.IGO.vilman.toResourcevu(mySheep.get(0), VillagerActivities.IDLING, 1);
         player1.IGO.waitUp(25);
         logResources(player1.IGO, mySheep.get(0));
-        player1.IGO.vilman.toThing(mySheep.get(0), VillagerActivities.IDLING, 1);
+        player1.IGO.vilman.toResourcevu(mySheep.get(0), VillagerActivities.IDLING, 1);
         ArrayList<UnitFactory> f = new ArrayList<>();
 
         TownCenter fr = new TownCenter(player1.CTS.townCenterBuilder.tmp);
 
         player1.IGO.waitUp(25);
         logResources(player1.IGO, mySheep.get(0));
-        player1.IGO.vilman.toThing(mySheep.get(0), VillagerActivities.IDLING, 1);
+        player1.IGO.vilman.toResourcevu(mySheep.get(0), VillagerActivities.IDLING, 1);
         player1.IGO.waitUp(25);
         logResources(player1.IGO, mySheep.get(0));
         player1.IGO.waitUp(700);
         logResources(player1.IGO, mySheep.get(1));
-        player1.IGO.vilman.toThing(mySheep.get(0), VillagerActivities.IDLING, 1);
+        player1.IGO.vilman.toResourcevu(mySheep.get(0), VillagerActivities.IDLING, 1);
         player1.IGO.waitUp(25);
         logResources(player1.IGO, mySheep.get(0));
-        player1.IGO.vilman.toThing(mySheep.get(0), VillagerActivities.IDLING, 1);
+        player1.IGO.vilman.toResourcevu(mySheep.get(0), VillagerActivities.IDLING, 1);
 
         System.out.println("fsudihojerzhdfjoir" + (new TownCenter(player1.CTS.townCenterBuilder.tmp).name));
-      //  player1.toThing(swwetBoar, VillagerActivities.IDLING, 5);
+      //  player1.toResourcevu(swwetBoar, VillagerActivities.IDLING, 5);
     }
 
     private static void logResources(InGameOverview igo, ResourceUnit unit) {

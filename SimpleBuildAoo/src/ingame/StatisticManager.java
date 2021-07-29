@@ -6,6 +6,7 @@
 
 package ingame;
 
+import OtherStuff.VillagerActivities;
 import javax.swing.JDialog;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -31,7 +32,7 @@ public class StatisticManager {
     public static void doStats(InGameOverview r) {
         doStats(r.resman);
         doStats(r.vilman, r.resman.currentResources.time);
-        builderLine.addValue(r.units.size(), "total", Double.valueOf(r.resman.currentResources.time));
+        //builderLine.addValue(r.units.size(), "total", Double.valueOf(r.resman.currentResources.time));
     }
 
     public static void doStats(ResourceManager r) {
@@ -45,10 +46,14 @@ public class StatisticManager {
     }
 
     public static void doStats(VillagerManager vilman, double time) {
-        builderLine.addValue(vilman.buildingVils.size(), "Builder", Double.valueOf(time));
-        builderLine.addValue(vilman.collectingVillagers.size(), "Collectors", Double.valueOf(time));
-        builderLine.addValue(vilman.freeVils.size(), "Freewills", Double.valueOf(time));
-        builderLine.addValue(vilman.walkingVills.size(), "Walkers", Double.valueOf(time));
+        builderLine.addValue(vilman.allVills.size(), "total", Double.valueOf(time));
+        builderLine.addValue(vilman.getAllVillagersFromTask(VillagerActivities.BUILDER).size(), "Builder", Double.valueOf(time));
+        builderLine.addValue(vilman.getAllVillagersFromTask(VillagerActivities.FARMER).size()+
+                vilman.getAllVillagersFromTask(VillagerActivities.FORAGER).size()+
+                vilman.getAllVillagersFromTask(VillagerActivities.HUNTER).size()+
+                vilman.getAllVillagersFromTask(VillagerActivities.SHEPHERDER).size(), "Food Guy", Double.valueOf(time));
+        builderLine.addValue(vilman.getAllVillagersFromTask(VillagerActivities.IDLING).size(), "Freewills", Double.valueOf(time));
+        builderLine.addValue(vilman.getAllVillagersFromTask(VillagerActivities.WALKING).size(), "Walkers", Double.valueOf(time));
     }
 
     public static void dos() {
