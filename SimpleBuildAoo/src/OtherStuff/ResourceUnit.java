@@ -5,11 +5,15 @@
  */
 package OtherStuff;
 
+import java.util.ArrayList;
+import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
+
 /**
  *
  * @author absea
  */
 public class ResourceUnit {
+    public ArrayList<Villager> currentlyCollecting;
     public Resource currentHoldingResource = new Resource();
     public Resource depletionSpeed = new Resource();
     public VillagerGatherableResource meGather;

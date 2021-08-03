@@ -131,7 +131,7 @@ public class Player {
 
     }
     
-    public void reassignStuff(VillagerActivities from, VillagerActivities to, VillagerGatherableResource source, int amount) {
+    public ArrayList<Villager> reassignStuff(VillagerActivities from, VillagerActivities to, VillagerGatherableResource source, int amount) {
         ArrayList<Villager> fromVils = getDoingAct(from, amount);
         ArrayList<Villager> toVils = getDoingAct(to, amount);
         for (int i = 0; i < amount && !fromVils.isEmpty(); i++) {
@@ -146,6 +146,7 @@ public class Player {
             nes.currentlyCollecting = source;
             toVils.add(nes);
         }
+        return toVils;
     }
         
     public void toThing(ResourceUnit unit, VillagerActivities from, int amount) {
@@ -153,9 +154,21 @@ public class Player {
         //reorganize Villager Arrays
         //recalculate resource speed
         
-                  
+       
         reassignStuff(from, VillagerActivities.COLLECTOR, unit.meGather, amount);
         this.calculateResourcesPerSecond(IGO);
+    }
+    
+    //we'll get back here soon
+    private void addToResource(ResourceUnit unit, ArrayList<Villager> guys){
+        unit.currentlyCollecting.addAll(guys);
+        //calculate when the resource is depleted
+        double timeUntilDepletion = unit.currentlyCollecting / CTS.getCollectionSpeedByResouceType(unit.meGather);
+        Event depletionEvent = new Event((int) timeUntilDepletion, (Objetc) -> {
+            //reassign villagers
+            reassignStuff(VillagerActivities.COLLECTOR, VillagerActivities.NONE, VillagerGatherableResource.NONE, unit.currentlyCollecting);
+            //recalculate resources (substract current gatherers)
+        });
     }
 
     public void build(String buildingName, VillagerActivities from, int amount) {

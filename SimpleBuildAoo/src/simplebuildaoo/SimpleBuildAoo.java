@@ -7,19 +7,11 @@ package simplebuildaoo;
 
 import OtherStuff.Sheep;
 import OtherStuff.VillagerActivities;
-import OtherStuff.VillagerGatherableResource;
 import java.util.ArrayList;
-import javax.swing.JDialog;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
 import simplebuildaoo.gameclasses.Civ;
 import simplebuildaoo.gameclasses.InGameOverview;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;
 import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
-import simplebuildaoo.gameclasses.buildingStuff.allbuilding.House;
 import simplebuildaoo.gameclasses.civs.Mongols;
 
 /**
@@ -68,7 +60,6 @@ public class SimpleBuildAoo {
         System.out.println(igo.resourcePerSecond.food);
         System.out.println(igo.currentResources.time);
         System.out.println("");
-        
     }
 
 }
