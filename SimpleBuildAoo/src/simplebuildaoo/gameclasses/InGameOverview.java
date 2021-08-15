@@ -36,13 +36,33 @@ public class InGameOverview {
     //public ArrayList<Villager> deerHunterVils = new ArrayList();
     //public ArrayList<Villager> farmerVils = new ArrayList();
     //public ArrayList<Villager> gathererVils = new ArrayList();
-    // public ArrayList<Villager> stoneVils = new ArrayList();
+    //public ArrayList<Villager> stoneVils = new ArrayList();
     //public ArrayList<Villager> goldVils = new ArrayList();
 
     public InGameOverview(TechTreeSheet CTS) {
         vilman.CTS = CTS;
         vilman.IGO = this;
         resman.CTS = CTS;
+    }
+    
+    public ArrayList<Unit> getAllUnits(){
+        return units;
+    }
+    
+    public void updatePoplimit(){
+        this.resman.currentResources.popLimit = 0;
+        this.resman.totalPop = 0;
+        
+        for (Unit unit : getAllUnits()) {
+            this.resman.currentResources.popLimit+=unit.tmp.cost.popLimit;
+        }
+        
+        for (Building b : buildings) {
+            TechTreeSheet 
+                    j;
+            this.resman.totalPop+=b.tmp.cost.popLimit;
+            
+        }
     }
 
     public Building getBuilding(String name) {
@@ -84,6 +104,13 @@ public class InGameOverview {
         events.set(index, now);
     }
 
+    public void waitUntil(int seconds) {
+        int wait = (int) (seconds - resman.currentResources.time);
+        if(wait >= 0){ // unnecessary if handled right
+            waitUp((int) (seconds - resman.currentResources.time));
+        }
+    }
+    
     public void waitUp(int seconds) {
         for (int i = 0; i < seconds; i++) {
             for (int j = 0; j < events.size(); j++) {

@@ -55,10 +55,11 @@ public class TechTreeSheet {
     public UnitFactory VillagerFactory = new UnitFactory() {
         @Override
         public Unit createUnit() {
+            
             Villager result = new Villager(vtmp, VillagerActivities.IDLING);
             result.ownedBy = ownedBy;
             result.ownedBy.IGO.resman.pay(vtmp.cost);
-            Event deployEvent = new Event((int) (vtmp.cost.time + 0.5), (Consumer) (Object t) -> {
+            Event deployEvent = new Event((int) (vtmp.cost.time + 0.5 + ownedBy.IGO.resman.currentResources.time), (Consumer) (Object t) -> {
                 ownedBy.IGO.vilman.allVills.add(result); // you sure ? 
                 ownedBy.IGO.units.add(result);
             });

@@ -57,8 +57,8 @@ public class Player {
     public void build(String buildingName, VillagerActivities from, int amount) {
         for (BuildingFactory build : CTS.vtmp.possibleBuildings) {
             if (build.tmp.buildingName.equals(buildingName)) {
-                IGO.resman.pay(build.tmp.cost);
-                Event buildEvent = new Event((int) (build.tmp.cost.time + 0.5), (Consumer) (Object t) -> {
+                IGO.resman.pay(build.tmp.cost); //pop delayed pay (for buildings (as well as units) not units because they reserve themselves their pop w´hen bought
+                Event buildEvent = new Event((int) (build.tmp.cost.time + 0.5 + IGO.resman.currentResources.time), (Consumer) (Object t) -> {
                     Building yes = build.createBuilding();
                     this.IGO.buildings.add(yes);
                     this.IGO.vilman.reassignTaskonVillagers(VillagerActivities.BUILDER, VillagerActivities.IDLING, amount);

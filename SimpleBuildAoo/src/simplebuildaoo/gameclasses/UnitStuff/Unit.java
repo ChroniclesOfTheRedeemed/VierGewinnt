@@ -6,7 +6,6 @@
 
 package simplebuildaoo.gameclasses.UnitStuff;
 
-import resources.Resource;
 import simplebuildaoo.Player;
 import simplebuildaoo.gameclasses.buildingStuff.Building;
 
@@ -18,4 +17,5 @@ public abstract class Unit {
 
     public Player ownedBy;
     public Building location;
+    public UnitTemplate tmp;
 }

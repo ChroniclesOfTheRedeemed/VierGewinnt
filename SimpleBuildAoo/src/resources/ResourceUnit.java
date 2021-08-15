@@ -50,7 +50,7 @@ public class ResourceUnit{
             double lostfood = differenceInTime * depletionSpeed.food;
             double harvestedFood = differenceInTime * collectionSpeed.food * gatheres;
             result.food = harvestedFood;
-            currentHoldingResource.food -= harvestedFood - lostfood;
+            currentHoldingResource.food -= harvestedFood + lostfood;
 
 //            double wood = calculateRemainder(collectionSpeed.wood, differenceInTime, currentHoldingResource.wood, depletionSpeed.wood);
 //            result.wood = currentHoldingResource.wood - wood;

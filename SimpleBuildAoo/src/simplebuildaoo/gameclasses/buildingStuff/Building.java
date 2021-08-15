@@ -8,6 +8,7 @@ package simplebuildaoo.gameclasses.buildingStuff;
 
 import java.util.ArrayList;
 import simplebuildaoo.Player;
+import simplebuildaoo.gameclasses.Technology;
 import simplebuildaoo.gameclasses.UnitStuff.Unit;
 
 /**__DATE__ , __TIME__
@@ -27,4 +28,7 @@ public class Building {
         this.tmp = tmp;
     }
 
+    public Technology getTechno(int index){//throws status working exception
+        return null;
+    }
 }

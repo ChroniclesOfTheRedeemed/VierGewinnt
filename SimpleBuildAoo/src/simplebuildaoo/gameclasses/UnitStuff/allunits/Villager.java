@@ -16,7 +16,7 @@ import simplebuildaoo.gameclasses.UnitStuff.Unit;
  */
 public class Villager extends Unit {
     
-    public VillagerTemplate tmp;
+    //public VillagerTemplate tmp;
     public GatherableResource currentlyCollecting = GatherableResource.NONE;
     public VillagerActivities task = VillagerActivities.IDLING;
 

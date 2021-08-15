@@ -27,7 +27,7 @@ public class DarkAge extends Technology {
         CTT.housebuilder.tmp.cost = new Resource(0, 40, 0, 0, -5, 40);
         CTT.townCenterBuilder.tmp.cost = new Resource(0, 275, 0, 0, -5, 180);
         CTT.townCenterBuilder.tmp.deploy.add(CTT.VillagerFactory);
-        
+        CTT.sctmp.cost = new Resource(80, 0, 0, 0, 1, 20);
         CTT.lumberjackbuilder.tmp.cost = new Resource(0, 100, 0, 0, 0, 40);
         
         CTT.vtmp.possibleBuildings.add(CTT.housebuilder);

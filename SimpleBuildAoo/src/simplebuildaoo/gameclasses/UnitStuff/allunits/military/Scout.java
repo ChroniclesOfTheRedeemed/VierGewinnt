@@ -12,7 +12,7 @@ import simplebuildaoo.gameclasses.UnitStuff.Unit;
  * @author absea
  */
 public class Scout extends Unit {
-    ScoutTemplate tmp;
+   // ScoutTemplate tmp;
 
     public Scout(ScoutTemplate tmp) {
         this.tmp = tmp;
