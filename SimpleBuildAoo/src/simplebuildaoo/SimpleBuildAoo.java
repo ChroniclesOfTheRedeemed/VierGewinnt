@@ -10,16 +10,11 @@ import resources.Sheep;
 import OtherStuff.VillagerActivities;
 import ingame.StatisticManager;
 import java.util.ArrayList;
-import resources.Boar;
 import resources.GoldStack;
 import resources.Woodline;
 import simplebuildaoo.gameclasses.Civ;
 import simplebuildaoo.gameclasses.InGameOverview;
-import simplebuildaoo.gameclasses.UnitStuff.Unit;
-import simplebuildaoo.gameclasses.UnitStuff.UnitFactory;
-import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.House;
-import simplebuildaoo.gameclasses.buildingStuff.allbuilding.Lumbercamp;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.TownCenter;
 import simplebuildaoo.gameclasses.civs.Mongols;
 
@@ -70,7 +65,7 @@ public class SimpleBuildAoo {
         player1.IGO.waitUntil(100);
         tc.tmp.deploy.get(0).createUnit();
         
-        player1.IGO.vilman.toResourcevu(mySheep.get(0), VillagerActivities.IDLING, 5);
+        player1.IGO.vilman.toResourcevu(wood1, VillagerActivities.IDLING, 5);
         
         
         player1.IGO.waitUntil(125);
@@ -79,15 +74,33 @@ public class SimpleBuildAoo {
         player1.IGO.vilman.toResourcevu(mySheep.get(0), VillagerActivities.IDLING, 1);
         
         
+        tc.tmp.deploy.get(0).createUnit();
+        tc.tmp.deploy.get(0).createUnit();
         player1.IGO.waitUntil(175);
       //  tc.tmp.deploy.get(0).createUnit();
         player1.IGO.waitUntil(250);
         
+        player1.IGO.waitUp(125);
+        player1.IGO.waitUp(125);
         player1.IGO.vilman.toResourcevu(mySheep.get(0), VillagerActivities.IDLING, 1);
         
         player1.IGO.vilman.toResourcevu(mySheep.get(1), VillagerActivities.IDLING, 5);
+        tc.tmp.deploy.get(0).createUnit();
+        tc.tmp.deploy.get(0).createUnit();
+        tc.tmp.deploy.get(0).createUnit();
+        player1.IGO.waitUp(125);
+        player1.IGO.waitUp(125);
         
+        player1.IGO.vilman.toResourcevu(wood1, VillagerActivities.IDLING, 5);
+        player1.IGO.vilman.toResourcevu(myGold, VillagerActivities.IDLING, 5);
+        player1.IGO.vilman.toResourcevu(wood1, VillagerActivities.IDLING, 5);
+        player1.IGO.vilman.toResourcevu(mySheep.get(1), VillagerActivities.IDLING, 5);
         //player1.IGO.vilman.toResource(mySheep.get(0), VillagerActivities.IDLING, 1);
+        
+        player1.IGO.waitUp(125);
+        
+        player1.IGO.waitUp(125);
+        player1.IGO.waitUp(125);
         
         
         System.out.println("fsudihojerzhdfjoir" + (new TownCenter(player1.CTS.townCenterBuilder.tmp).name));

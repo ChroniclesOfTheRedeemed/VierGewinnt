@@ -111,6 +111,11 @@ public class InGameOverview {
         }
     }
     
+    public void waitUntil(int minutes, int seconds) {
+        seconds += 60 * minutes;
+        waitUntil(seconds);
+    }
+
     public void waitUp(int seconds) {
         for (int i = 0; i < seconds; i++) {
             for (int j = 0; j < events.size(); j++) {

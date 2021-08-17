@@ -13,6 +13,7 @@ import simplebuildaoo.gameclasses.InGameOverview;
 import simplebuildaoo.gameclasses.TechTreeSheet;
 import simplebuildaoo.gameclasses.buildingStuff.Building;
 import simplebuildaoo.gameclasses.buildingStuff.BuildingFactory;
+import simplebuildaoo.gameclasses.buildingStuff.BuildingStatus;
 
 /**
  *
@@ -54,19 +55,44 @@ public class Player {
 
     }
 
+    private double buildTimeFormula(double timeForOne, int amount) {
+        return 3 * timeForOne / (2 + amount);
+    }
+
+    //should be sort of decent now
     public void build(String buildingName, VillagerActivities from, int amount) {
+        boolean buildingExists = false;
         for (BuildingFactory build : CTS.vtmp.possibleBuildings) {
             if (build.tmp.buildingName.equals(buildingName)) {
+                buildingExists = true;
+                double buildTime = buildTimeFormula(build.tmp.cost.time, amount);
+
                 IGO.resman.pay(build.tmp.cost); //pop delayed pay (for buildings (as well as units) not units because they reserve themselves their pop w´hen bought
-                Event buildEvent = new Event((int) (build.tmp.cost.time + 0.5 + IGO.resman.currentResources.time), (Consumer) (Object t) -> {
-                    Building yes = build.createBuilding();
-                    this.IGO.buildings.add(yes);
-                    this.IGO.vilman.reassignTaskonVillagers(VillagerActivities.BUILDER, VillagerActivities.IDLING, amount);
-                    // do the villager coordination thing
-                });
+
+                Building yes = build.createBuilding();
+                yes.status = BuildingStatus.CONSTRUCTING;
+                this.IGO.buildings.add(yes); // not found before finish building, hm
+                
+                //causes problem in countings who dont respect status state!!
+                // if access buldings always use is stuts constructing!!
+
                 this.IGO.vilman.reassignTaskonVillagers(from, VillagerActivities.BUILDER, amount);
+                
+                Event buildEvent = new Event((int) (buildTime + IGO.resman.currentResources.time), (Consumer) (Object t) -> {
+
+                    yes.status = BuildingStatus.IDLE;
+                    IGO.resman.totalPop -= build.tmp.cost.popLimit; // buildings only give after build successfull
+
+                    // do the villager coordination thing
+                    // yeah ressign them man, they got stuff to do
+                    this.IGO.vilman.reassignTaskonVillagers(VillagerActivities.BUILDER, VillagerActivities.IDLING, amount);
+                    
+                });
                 this.IGO.events.add(buildEvent);
-            }
+            } 
+        }
+        if (!buildingExists){
+            System.out.println("Building could not be found: "  +  buildingName);
         }
     }
 

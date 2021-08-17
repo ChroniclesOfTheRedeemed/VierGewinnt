@@ -73,7 +73,7 @@ public class ResourceManager {
         if (res.popLimit > 0) {
             currentResources.popLimit += res.popLimit;
         } else {
-            totalPop -= res.popLimit;
+            //totalPop -= res.popLimit;
         }
     }
 }
