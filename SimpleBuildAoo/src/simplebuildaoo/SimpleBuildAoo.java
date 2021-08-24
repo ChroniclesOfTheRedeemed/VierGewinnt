@@ -5,8 +5,7 @@
  */
 package simplebuildaoo;
 
-import resources.ResourceUnit;
-import resources.Sheep;
+import OtherStuff.Sheep;
 import OtherStuff.VillagerActivities;
 import ingame.StatisticManager;
 import java.util.ArrayList;
@@ -14,6 +13,8 @@ import resources.GoldStack;
 import resources.Woodline;
 import simplebuildaoo.gameclasses.Civ;
 import simplebuildaoo.gameclasses.InGameOverview;
+import simplebuildaoo.gameclasses.UnitStuff.Unit;
+import simplebuildaoo.gameclasses.UnitStuff.allunits.Villager;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.House;
 import simplebuildaoo.gameclasses.buildingStuff.allbuilding.TownCenter;
 import simplebuildaoo.gameclasses.civs.Mongols;
@@ -38,79 +39,34 @@ public class SimpleBuildAoo {
         ArrayList<Civ> team = new ArrayList<>();
         team.add(myCiv);
         Player player1 = new Player(team, myCiv);
-        
-        TownCenter tc = (TownCenter) player1.IGO.getBuilding(TownCenter.class.getName());
-        
-        StatisticManager.dos();
-        
-        //wait
-        ArrayList<Sheep> mySheep = new ArrayList<>();
-        
-        Woodline wood1 = new Woodline(player1.IGO.resman);
-        GoldStack myGold = new GoldStack(player1.IGO.resman);
-        
-        mySheep.add(new Sheep(player1.IGO.resman));
-        mySheep.add(new Sheep(player1.IGO.resman));
-        mySheep.add(new Sheep(player1.IGO.resman));
-        mySheep.add(new Sheep(player1.IGO.resman));
-        
-        tc.tmp.deploy.get(0).createUnit();
-        player1.IGO.waitUntil(1);
-        
-        player1.build(House.class.getSimpleName(), VillagerActivities.IDLING, 2);
-        player1.build(House.class.getSimpleName(), VillagerActivities.IDLING, 1);
-        
-        player1.IGO.waitUntil(50);
-        tc.tmp.deploy.get(0).createUnit();
-        player1.IGO.waitUntil(100);
-        tc.tmp.deploy.get(0).createUnit();
-        
-        player1.IGO.vilman.toResourcevu(wood1, VillagerActivities.IDLING, 5);
-        
-        
-        player1.IGO.waitUntil(125);
-        tc.tmp.deploy.get(0).createUnit();
-        
-        player1.IGO.vilman.toResourcevu(mySheep.get(0), VillagerActivities.IDLING, 1);
-        
-        
-        tc.tmp.deploy.get(0).createUnit();
-        tc.tmp.deploy.get(0).createUnit();
-        player1.IGO.waitUntil(175);
-      //  tc.tmp.deploy.get(0).createUnit();
-        player1.IGO.waitUntil(250);
-        
-        player1.IGO.waitUp(125);
-        player1.IGO.waitUp(125);
-        player1.IGO.vilman.toResourcevu(mySheep.get(0), VillagerActivities.IDLING, 1);
-        
-        player1.IGO.vilman.toResourcevu(mySheep.get(1), VillagerActivities.IDLING, 5);
-        tc.tmp.deploy.get(0).createUnit();
-        tc.tmp.deploy.get(0).createUnit();
-        tc.tmp.deploy.get(0).createUnit();
-        player1.IGO.waitUp(125);
-        player1.IGO.waitUp(125);
-        
-        player1.IGO.vilman.toResourcevu(wood1, VillagerActivities.IDLING, 5);
-        player1.IGO.vilman.toResourcevu(myGold, VillagerActivities.IDLING, 5);
-        player1.IGO.vilman.toResourcevu(wood1, VillagerActivities.IDLING, 5);
-        player1.IGO.vilman.toResourcevu(mySheep.get(1), VillagerActivities.IDLING, 5);
-        //player1.IGO.vilman.toResource(mySheep.get(0), VillagerActivities.IDLING, 1);
-        
-        player1.IGO.waitUp(125);
-        
-        player1.IGO.waitUp(125);
-        player1.IGO.waitUp(125);
-        
-        
-        System.out.println("fsudihojerzhdfjoir" + (new TownCenter(player1.CTS.townCenterBuilder.tmp).name));
-      //  player1.toResourcevu(swwetBoar, VillagerActivities.IDLING, 5);
-    }
+        InGameOverview.dos();
+        ArrayList<Unit> vils = player1.IGO.getUnits(Villager.class.getName());
 
-    private static void logResources(InGameOverview igo, ResourceUnit unit) {
-     
-        System.out.println("unit has " + unit.currentHoldingResource.food);
+        //wait
+        Sheep mySheep = new Sheep();
+        player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        player1.IGO.waitUp(25);
+        logResources(player1.IGO);
+        player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        player1.IGO.waitUp(25);
+        logResources(player1.IGO);
+        player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        player1.IGO.waitUp(25);
+        logResources(player1.IGO);
+        player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        player1.IGO.waitUp(25);
+        logResources(player1.IGO);
+        player1.toThing(mySheep, VillagerActivities.NONE, 1);
+        player1.IGO.waitUp(25);
+        logResources(player1.IGO);
+    }
+    
+    private static void logResources(InGameOverview igo){
+        System.out.println(igo.currentResources.food);
+        System.out.println(igo.resourcePerSecond.food);
+        System.out.println(igo.currentResources.time);
         System.out.println("");
+        
     }
 
 }

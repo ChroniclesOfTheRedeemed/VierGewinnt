@@ -59,7 +59,37 @@ public class Player {
         return 3 * timeForOne / (2 + amount);
     }
 
-    //should be sort of decent now
+    public void fromTof(ArrayList<Villager> from, Building building, int count) {
+
+    }
+    
+    public void reassignStuff(VillagerActivities from, VillagerActivities to, VillagerGatherableResource source, int amount) {
+        ArrayList<Villager> fromVils = getDoingAct(from, amount);
+        ArrayList<Villager> toVils = getDoingAct(to, amount);
+        for (int i = 0; i < amount && !fromVils.isEmpty(); i++) {
+            Villager nes = fromVils.remove(0);
+            nes.task = to;
+            if(from.equals(VillagerActivities.COLLECTOR)){
+                IGO.collectingVillagers.remove(nes);
+            }
+            if(to.equals(VillagerActivities.COLLECTOR)){
+                IGO.collectingVillagers.add(nes);
+            }
+            nes.currentlyCollecting = source;
+            toVils.add(nes);
+        }
+    }
+        
+    public void toThing(ResourceUnit unit, VillagerActivities from, int amount) {
+        //Reassign all villager duties
+        //reorganize Villager Arrays
+        //recalculate resource speed
+        
+                  
+        reassignStuff(from, VillagerActivities.COLLECTOR, unit.meGather, amount);
+        this.calculateResourcesPerSecond(IGO);
+    }
+
     public void build(String buildingName, VillagerActivities from, int amount) {
         boolean buildingExists = false;
         for (BuildingFactory build : CTS.vtmp.possibleBuildings) {
