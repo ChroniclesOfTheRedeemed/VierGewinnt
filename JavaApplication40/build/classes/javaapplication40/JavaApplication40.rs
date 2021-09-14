@@ -1,3 +1,0 @@
-javaapplication40.Quadrant
-javaapplication40.Dim
-javaapplication40.Player

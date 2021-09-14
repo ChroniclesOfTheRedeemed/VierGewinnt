@@ -1,21 +1,0 @@
-\CA\FE\BA\BE\00\00\004\00{
-\00\00\00\00\00\00java/lang/Object\00<init>\00()V\00\00'simplebuildaoo/gameclasses/civs/Mongols
-\00\00\00\00java/util/ArrayList
-\00\00M	\00N\00O	\00A\00P	\00Q\00R
-\00S\00T	\00A\00U	\00Q\00V\00W
-\00S\00X\00Y\00Z\00<init>\00()V\00Code\00LineNumberTable\00LocalVariableTable\00this\00Lsimplebuildaoo/SimpleBuildAoo;\00main\00([Ljava/lang/String;)V\00args\00[Ljava/lang/String;\00myCiv\00 Lsimplebuildaoo/gameclasses/Civ;\00team\00Ljava/util/ArrayList;\00player1\00Lsimplebuildaoo/Player;\00vils\00mySheep\00LOtherStuff/Sheep;\00LocalVariableTypeTable\007Ljava/util/ArrayList<Lsimplebuildaoo/gameclasses/Civ;>;\00BLjava/util/ArrayList<Lsimplebuildaoo/gameclasses/UnitStuff/Unit;>;\00logResources\00.(Lsimplebuildaoo/gameclasses/InGameOverview;)V\00igo\00+Lsimplebuildaoo/gameclasses/InGameOverview;\00
-SourceFile\00SimpleBuildAoo.java\00\00\00'simplebuildaoo/gameclasses/civs/Mongols\00java/util/ArrayList\00[\00\\00simplebuildaoo/Player\00\00]\00^\00_\00\00`\008\006simplebuildaoo/gameclasses/UnitStuff/allunits/Villager\00a\00b\00c\00d\00e\00OtherStuff/Sheep\00f\00g\00h\00i\00j\00k\00l\005\006\00m\00n\00o\00p\00q\00r\00s\00t\00u\00v\00w\00x\00q\00y\00t\00\00\00v\00z\00simplebuildaoo/SimpleBuildAoo\00java/lang/Object\00add\00(Ljava/lang/Object;)Z\008(Ljava/util/ArrayList;Lsimplebuildaoo/gameclasses/Civ;)V\00)simplebuildaoo/gameclasses/InGameOverview\00dos\00IGO\00java/lang/Class\00getName\00()Ljava/lang/String;\00getUnits\00)(Ljava/lang/String;)Ljava/util/ArrayList;\00OtherStuff/VillagerActivities\00NONE\00LOtherStuff/VillagerActivities;\00toThing\00<(LOtherStuff/ResourceUnit;LOtherStuff/VillagerActivities;I)V\00waitUp\00(I)V\00java/lang/System\00out\00Ljava/io/PrintStream;\00currentResources\00LOtherStuff/Resource;\00OtherStuff/Resource\00food\00D\00java/io/PrintStream\00println\00(D)V\00resourcePerSecond\00time\00(Ljava/lang/String;)V\00!\00\00\00\00\00\00\00\00\00\00\00\00 \00\00\00/\00\00\00\00\00*\B7\00\B1\00\00\00\00!\00\00\00\00\00\00\00\00"\00\00\00\00\00\00\00\00#\00$\00\00\00	\00%\00&\00\00 \00\00\8D\00\00\00\00\00\BD\BB\00Y\B7\00L\BB\00Y\B7\00M,+\B6\00W\BB\00Y,+\B7\00N\B8\00	-\B4\00
-\B6\00\B6\00
-:\BB\00Y\B7\00:-\B2\00\B6\00-\B4\00
-\B6\00-\B4\00
-\B8\00-\B2\00\B6\00-\B4\00
-\B6\00-\B4\00
-\B8\00-\B2\00\B6\00-\B4\00
-\B6\00-\B4\00
-\B8\00-\B2\00\B6\00-\B4\00
-\B6\00-\B4\00
-\B8\00-\B2\00\B6\00-\B4\00
-\B6\00-\B4\00
-\B8\00\B1\00\00\00\00!\00\00\00^\00\00\00\00 \00\00!\00\00"\00\00#\00 \00$\00#\00%\001\00(\00:\00)\00D\00*\00M\00+\00T\00,\00^\00-\00g\00.\00n\00/\00x\000\00\81\001\00\88\002\00\92\003\00\9B\004\00\A2\005\00\AC\006\00\B5\007\00\BC\008\00"\00\00\00>\00\00\00\00\BD\00'\00(\00\00\00\00\B5\00)\00*\00\00\00\AD\00+\00,\00\00 \00\9D\00-\00.\00\001\00\8C\00/\00,\00\00:\00\83\000\001\00\002\00\00\00\00\00\00\AD\00+\003\00\001\00\8C\00/\004\00\00
-\005\006\00\00 \00\00\00j\00\00\00\00\000\B2\00*\B4\00\B4\00\B6\00\B2\00*\B4\00\B4\00\B6\00\B2\00*\B4\00\B4\00\B6\00\B2\00\B6\00\B1\00\00\00\00!\00\00\00\00\00\00\00;\00
-\00<\00\00=\00'\00>\00/\00?\00"\00\00\00\00\00\00\000\007\008\00\00\00\009\00\00\00\00\00\00
