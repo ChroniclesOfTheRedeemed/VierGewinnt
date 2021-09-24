@@ -72,6 +72,10 @@ public class VierGewinntSpiel implements Game{
     }
     
     private void playerMadeMove(int move) throws GameStateException, InvalidMoveException {
+        
+        // we will change this code, no more playermadeMoveStuff
+        // I already did some changes, I really wonder if they'll show up 
+        // at an unnice point
         if (currentGameStatus == GameResult.GameStillProgressing) {
             
             

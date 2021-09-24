@@ -28,7 +28,6 @@ import Statistics.Statistic;
 import Enums.GameType;
 import viergewinntpraxis.GameParticipants;
 import Games.VierGewinnt.VierGewinntSpiel;
-import Interfaces.InputListener;
 import java.awt.event.ActionListener;
 
 /**
