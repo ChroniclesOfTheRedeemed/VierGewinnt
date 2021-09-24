@@ -25,7 +25,7 @@ public class VierGewinntSpiel implements Game{
     private static final Boolean FeldLeer = null, Spieler1Markierung = false, Spieler2Markierung = true;   
     private static final int Four = 4;
     
-    //Spiel ablaufsVariablen
+    // Spiel ablaufsVariablen
     public final int MaxMoves; //realitätsgebunden, denn manchmal reichen die Chips einfach nicht für ein ganzes Spiel
     public static Integer FirstMove = -1;
     private int movesDone;
@@ -33,10 +33,11 @@ public class VierGewinntSpiel implements Game{
     private Boolean[][] SpielFeld; //Coordinate element access  Implementation
     private GameResult currentGameStatus; 
     
-    //Interfaces
+    // Interfaces
     private final VierGewinntPlayer player1;
     private final VierGewinntPlayer player2;
     private final ArrayList<GameWatcher> spectators;
+    
     
     public VierGewinntSpiel(int maxMoves, GameParticipants gameParticipants) {
         this.player1 = (VierGewinntPlayer) gameParticipants.player1;
@@ -283,7 +284,7 @@ public class VierGewinntSpiel implements Game{
                 throw new GameStateException();
             }
         };
-        player1.gameStarted(this,player1moveListener, true);
+        player1.gameStarted(this, player1moveListener, true);
         player2.gameStarted(this, player2moveListener, false);
         //do not change to functional operation, because spectator can leave the queue during the loop
         for (GameWatcher spectator : spectators) {
@@ -296,13 +297,31 @@ public class VierGewinntSpiel implements Game{
     //to the move they don't even yet know of
 
     //therefore of course the spectator notify function should be as fast as possible
+    
+    
+    // threading would completely annihilate the above text, nothing will be changed though because:
+    // of the following:
+    // now it comes:
+    // When the player gets the ball, everything in this class has to be clean and cleaned up BEFORE 
+    // the player returns the ball
+    
+    // for example (since I dont thread spectators), one spectator suddenly takes 5 seconds, player 2 done it's move and playerMadeMove executes.
+    //  now spectator that still runs is executed twice (not my problem I guess), but if he's then suddenly faster, the next spectator gets the second move before the first
+    //  und so on, bugs bound to appear everywhere, where one is written
+    
+    // else (sure written a lot already, phew) I'd have to make sure that both cases are done before I start the next playerMadeMove:
+    //  player x has done his next move
+    //  all spectators have gotten their numbers.
+    
+    // why care so much for spectators? Because I'm not heartless (:
+    
         for (GameWatcher spectator : spectators) {
             spectator.moveSet(spaltenNummer);
         }
         if (Objects.equals(getMarkOfLastMove(spaltenNummer), Spieler2Markierung)) {
-            player1.makeMove(spaltenNummer);
+            (new Thread(() -> player1.makeMove(spaltenNummer))).start();
         } else {
-            player2.makeMove(spaltenNummer);
+            (new Thread(() -> player2.makeMove(spaltenNummer))).start();
         }
     }
 
