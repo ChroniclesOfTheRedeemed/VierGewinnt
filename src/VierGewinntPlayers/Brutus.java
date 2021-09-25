@@ -7,6 +7,7 @@ package VierGewinntPlayers;
 
 import Exceptions.GameStateException;
 import Exceptions.InvalidMoveException;
+import Games.VierGewinnt.VierGewinntSpiel;
 import static Games.VierGewinnt.VierGewinntSpiel.SpielFeldBreite;
 import static Games.VierGewinnt.VierGewinntSpiel.SpielFeldHöhe;
 import Interfaces.Game;
@@ -15,6 +16,7 @@ import static Interfaces.Game.GameResult.GameWonForPlayer1;
 import static Interfaces.Game.GameResult.GameWonForPlayer2;
 import Interfaces.InputListener;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,54 +26,59 @@ import java.util.logging.Logger;
  */
 public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
 
-    int maxDepth = 5+1;
-    boolean amPlayer1;
-    GameState concurrentGameState = new GameState(new Boolean[SpielFeldBreite][SpielFeldHöhe], GameResult.GameStillProgressing);
-    PseudoSpiel4G myGame = new PseudoSpiel4G();
+    static final Logger logger = Logger.getLogger(Brutus.class.getName());
     
+    int maxDepth = 5 + 1;
+    boolean amPlayer1;
+    GameState initialGameState = new GameState(new Boolean[SpielFeldBreite][SpielFeldHöhe], GameResult.GameStillProgressing);
+    PseudoSpiel4G testGame = new PseudoSpiel4G();
+
     @Override
     public void gameEnded(Integer finishingMove, Game.GameResult gameResult) {
-        myGame = new PseudoSpiel4G();
-        concurrentGameState = new GameState(new Boolean[SpielFeldBreite][SpielFeldHöhe], GameResult.GameStillProgressing);
-        }
-    
+        testGame = new PseudoSpiel4G();
+        initialGameState = new GameState(new Boolean[SpielFeldBreite][SpielFeldHöhe], GameResult.GameStillProgressing);
+    }
 
     @Override
     public void makeMove(Integer enemyMove) {
         try {
-            
-            myGame.move(enemyMove);
+            if (!Objects.equals(enemyMove, VierGewinntSpiel.FirstMove)) {
+                testGame.move(enemyMove);
+            }
         } catch (InvalidMoveException ex) {
+            logger.log(Level.SEVERE, "Brutus Test Game crashed." , ex);
             //Logger.getLogger(Brutus.class.getName()).log(Level.SEVERE, null, ex);
         } catch (GameStateException ex) {
-            Logger.getLogger(Brutus.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Brutus.class.getName()).log(Level.SEVERE, "Brutus Test Game Crashed.", ex);
         }
-        concurrentGameState = myGame.getGameState();
-        recursiveValue d;
+        initialGameState = testGame.getGameState();
+        InvestigationResult recursingValue;
         try {
-            d = investigateMove(concurrentGameState, maxDepth);
+            recursingValue = investigateMove(initialGameState, maxDepth);
         } catch (GameStateException ex) {
-            d = null;
-            Logger.getLogger(Brutus.class.getName()).log(Level.SEVERE, null, ex);
+            recursingValue = null;
+            Logger.getLogger(Brutus.class.getName()).log(Level.SEVERE, "Brutus Test Game Crashed.", ex);
         }
-        
+
         int returnMove;
-        if(PersonalResult.IWIN.equals(d.result)){
-            log("I choose you " + d.preferedMove, maxDepth);
-            returnMove = d.preferedMove;
+        
+        if (recursingValue.result.equals(PersonalResult.IWIN)) {
+            log("Wining Path found, commencing with " + recursingValue.winnningMove, maxDepth, 5);
+            returnMove = recursingValue.winnningMove;
         } else {
-            System.out.println("complete random is " + (int)(Math.random()*d.preferedMoves.size()));
-            if(d.preferedMoves.isEmpty()){
-                System.err.println("ooops I lost");
+            //System.out.println("complete random is " + (int) (Math.random() * recursingValue.antiLoseMoves.size()));
+            if (recursingValue.antiLoseMoves.isEmpty()) {
+                log("ooops I lost", maxDepth, 3);
                 returnMove = 0;
             } else {
-                returnMove = d.preferedMoves.get((int)(Math.random()*1.0*d.preferedMoves.size()));
+                returnMove = recursingValue.antiLoseMoves.get((int) (Math.random() * 1.0 * recursingValue.antiLoseMoves.size()));
+                log("go for random move " + returnMove, maxDepth, 4);
             }
         }
-        
+
         try {
-            System.out.println(d.preferedMoves.toString());
-            myGame.move(returnMove);
+            System.out.println(recursingValue.antiLoseMoves.toString());
+            testGame.move(returnMove);
             inputListener.inputGiven(returnMove);
         } catch (InvalidMoveException ex) {
             Logger.getLogger(Brutus.class.getName()).log(Level.SEVERE, null, ex);
@@ -79,59 +86,57 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
             Logger.getLogger(Brutus.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    protected recursiveValue investigateMove(GameState state, int depth) throws GameStateException{
-        depth--;
-        ArrayList<Integer> randomMoves = new ArrayList<>();
-        PersonalResult gamResult = PersonalResult.GAMEGOESON;
+
+    protected InvestigationResult investigateMove(GameState state, int depth) throws GameStateException {
+        //depth--;
+        ArrayList<Integer> notLosingMoves = new ArrayList<>();
+        PersonalResult specificMoveResult = PersonalResult.GAMEGOESON;
         int highestGameDepth = 0;
-        
-        int preferedMove = -1;
+
+        int winningMove = -1;
         for (int col = 0; col < state.SpielFeld.length; col++) {
-            log("i move " + col, depth);
-            PseudoSpiel4G game = new PseudoSpiel4G();
-            game.playNewGame();
-            game.setGameState(state);
-            boolean work = true;
+            log("i move " + col, depth, 1);
+            PseudoSpiel4G bsGame = new PseudoSpiel4G();
+            bsGame.playNewGame();
+            bsGame.setGameState(state);
+            boolean test = true;
             try {
-                game.move(col);
+                bsGame.move(col);
                 //VierGewinntSpiel game = new VierGewinntSpiel(gameParticipants);
             } catch (InvalidMoveException ex) {
                 //System.err.println("Top reached");
-                work = false;
+                test = false;
             } catch (GameStateException ex) {
                 Logger.getLogger(Brutus.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if (work) {
-                randomMoves.add(col);
+            if (test) {
+                notLosingMoves.add(col);
 
-                if (iWon(game.currentGameStatus)) {
-                    preferedMove = col;
-                    gamResult = PersonalResult.IWIN;
+                if (iWon(bsGame.currentGameStatus)) {
+                    winningMove = col;
+                    specificMoveResult = PersonalResult.IWIN;
                     highestGameDepth = depth;
-                    log("I win with " + col, depth);
+                    log("I win with " + col, depth, 2);
                     break;
-                }
-
-                else if (game.currentGameStatus == GameResult.GameStillProgressing) {
+                } else if (bsGame.currentGameStatus == GameResult.GameStillProgressing) {
                     if (depth > 0) {
-                        recursiveValue recOvject = investigateEnemyMove(game.getGameState(), depth);
-                        
-                        switch (recOvject.result) {
+                        InvestigationResult invResult = investigateEnemyMove(bsGame.getGameState(), depth-1);
+
+                        switch (invResult.result) {
                             case ILOSE:
                             case DRAW:
-                                log("remove move " + col + " not winnable", depth);
-                                randomMoves.remove((Integer) col);
+                                log("remove move " + col + " not winnable", depth, 1);
+                                notLosingMoves.remove((Integer) col);
                                 break;
                             case IWIN:
-                                if (recOvject.depth > highestGameDepth) { // ?
-                                    highestGameDepth = recOvject.depth;// ?
-                                    gamResult = PersonalResult.IWIN;
-                                    preferedMove = col;
-                                    log("Gotta Win With " + col, depth);
+                                if (invResult.depth > highestGameDepth) { // ?
+                                    highestGameDepth = invResult.depth;// ?
+                                    specificMoveResult = PersonalResult.IWIN;
+                                    winningMove = col;
+                                    log("Gotta Win With " + col, depth, 2);
                                 }
                             case GAMEGOESON:
-                                log("Game goes on", depth);
+                                log("Game goes on", depth, 1);
                                 break;
                             default:
                                 System.err.println("uncaught case error");
@@ -140,62 +145,63 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
                 }
             }
         }
-        recursiveValue val;
-        if (!randomMoves.isEmpty()) {
-            val = new recursiveValue(gamResult, highestGameDepth, randomMoves, preferedMove);
-        } else/* if(gamResult != PersonalResult.IWIN)*/{
-            val = new recursiveValue(PersonalResult.ILOSE, highestGameDepth, randomMoves, preferedMove);
+        InvestigationResult val;
+        if (notLosingMoves.isEmpty()) /* if(gamResult != PersonalResult.IWIN)*/ {
+            val = new InvestigationResult(PersonalResult.ILOSE, highestGameDepth, notLosingMoves, winningMove);
+        } else{
+            val = new InvestigationResult(specificMoveResult, highestGameDepth, notLosingMoves, winningMove);
         }
         return val;
     }
-    
-    protected recursiveValue investigateEnemyMove(GameState state, int depth) throws GameStateException{
-        depth--;
-        PersonalResult gameResut = PersonalResult.GAMEGOESON;
+
+    protected InvestigationResult investigateEnemyMove(GameState state, int depth) throws GameStateException {
+        //depth--;
+        PersonalResult gameResult = PersonalResult.GAMEGOESON;
         int highestWinDepth = 0;
-        ArrayList<GameState> gameStatelist = new ArrayList<>();
-        
-        for (int col = 0; col < state.SpielFeld.length ;col++) {
+        ArrayList<GameState> unkownGameStates = new ArrayList<>();
+
+        for (int col = 0; col < state.SpielFeld.length; col++) {
             PseudoSpiel4G game = new PseudoSpiel4G();
             game.playNewGame();
             game.setGameState(state);
             boolean work = true;
-            
+
             try {
                 game.move(col);
-               // System.err.println("Top reached");
+                // System.err.println("Top reached");
             } catch (InvalidMoveException ex) {
                 work = false;
             } catch (GameStateException ex) {
                 Logger.getLogger(Brutus.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
             if (work) {
-                if (game.currentGameStatus != GameResult.GameStillProgressing) {
-                    if (!iWon(game.currentGameStatus)) { //-niet
-                        gameResut = PersonalResult.ILOSE;
-                        log("I bims 1 bigz nubz " + col, depth);
-                        break;
-                    } else {
-                        System.out.println("Meep Meep Meep");
-                    }
+                if (game.currentGameStatus == GameResult.GameStillProgressing) {
+                    unkownGameStates.add(game.getGameState());
+                } else if (!iWon(game.currentGameStatus)) { //-niet
+                    gameResult = PersonalResult.ILOSE;
+                    log("I bims 1 bigz nubz " + col, depth, 2);
+                    break;
                 } else {
-                    gameStatelist.add(game.getGameState());
+                    // I can't possibly win after the enemy did a turn.
+                    // This if case should never occur.
+                    System.err.println("You found me");
                 }
             }
         }
         boolean completeVictory = false;
-        if(depth > 0){
-            if(gameResut==PersonalResult.GAMEGOESON){
+        if (depth > 0) {
+            if (gameResult == PersonalResult.GAMEGOESON) {
                 completeVictory = true;
-                for (int col = 0; col < gameStatelist.size(); col++) {
-                    log("enemy Move" + col, depth);
-                    recursiveValue val = investigateMove(gameStatelist.get(col), depth);
+                for (int col = 0; col < unkownGameStates.size(); col++) {
+                    log("enemy Move" + col, depth, 1);
+                    InvestigationResult val = investigateMove(unkownGameStates.get(col), depth-1);
                     switch (val.result) {
                         case ILOSE:
                         case DRAW:
-                            gameResut = val.result;
+                            gameResult = val.result;
                             completeVictory = false; //originally not included 
-                            log("enemy wins with " + col, depth);//also shouldnt i write complete Victory false herre??
+                            log("enemy wins with " + col, depth, 2);//also shouldnt i write complete Victory false herre??
                             break;
                         case IWIN:
                             if (highestWinDepth < val.depth) {
@@ -212,55 +218,66 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
                 }
             }
         }
-        if (completeVictory){
-            log("complete Victory", depth);
-            gameResut = PersonalResult.IWIN;
+        if (completeVictory) {
+            log("complete Victory", depth, 3);
+            gameResult = PersonalResult.IWIN;
         }
-        recursiveValue valu = new recursiveValue(
-                gameResut, highestWinDepth, null, 0);
+        InvestigationResult valu = new InvestigationResult(
+                gameResult, highestWinDepth, null, 0);
         return valu;
     }
-    
 
     private boolean iWon(GameResult res) {
         return amPlayer1 ? res.equals(GameWonForPlayer1) : res.equals(GameWonForPlayer2);
     }
 
-    protected void log(String message, int depth) {
-//        String tabs = "";
-//        for (int tab = 0; tab < maxDepth-depth; tab++) {
-//            tabs += "|\t";
-//        }
-//        System.out.println(tabs + message);
+    protected void log(String message, int depth, int worth) {
+        if(worth > 2){
+        String tabs = "";
+        for (int tab = 0; tab < maxDepth-depth; tab++) {
+            tabs += "|\t";
+        }
+        System.out.println(tabs + message);
+        }
     }
 
     InputListener<Integer> inputListener;
-    
+
     @Override
     public void gameStarted(Game gameRef, InputListener<Integer> inputListener, boolean youHaveFirstMove) {
         amPlayer1 = youHaveFirstMove;
         this.inputListener = inputListener;
         try {
-            myGame.playNewGame();
+            testGame.playNewGame();
         } catch (GameStateException ex) {
             Logger.getLogger(Brutus.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    class recursiveValue{
+
+    class InvestigationResult {
+
         public PersonalResult result;
         public int depth;
-        public ArrayList<Integer> preferedMoves = new ArrayList<>();
-        public int preferedMove;
+        public ArrayList<Integer> antiLoseMoves = new ArrayList<>();
+        public int winnningMove;
+        
+        public ArrayList<Prediction> winningPredicitions = new ArrayList<>();
+        public ArrayList<Prediction> losingPredicitions = new ArrayList<>();
+        
 
-        public recursiveValue(PersonalResult result, int depth, ArrayList<Integer> preferedMoves, int preferedMove) {
+        public InvestigationResult(PersonalResult result, int depth, ArrayList<Integer> antiLoseMoves, int winningMoves) {
             this.result = result;
             this.depth = depth;
-            this.preferedMoves = preferedMoves;
-            this.preferedMove = preferedMove;
+            this.antiLoseMoves = antiLoseMoves;
+            this.winnningMove = winningMoves;
         }
-        public recursiveValue(){
-            
+
+        public InvestigationResult() {
+
         }
+    }
+    class Prediction {
+        public PersonalResult result;
+        public ArrayList<Integer> alternatingMoves = new ArrayList<>();
     }
 }
