@@ -29,12 +29,10 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
 
     static final Logger logger = Logger.getLogger(Brutus.class.getName());
 
-    int maxDepth = 5 + 1;
+    int maxDepth = 6 + 1;
     boolean amPlayer1;
     GameState initialGameState = new GameState(new Boolean[SpielFeldBreite][SpielFeldHöhe], GameResult.GameStillProgressing);
     PseudoSpiel4G testGame = new PseudoSpiel4G();
-
-    
 
     InputListener<Integer> inputListener;
 
@@ -48,7 +46,7 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
             Logger.getLogger(Brutus.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void gameEnded(Integer finishingMove, Game.GameResult gameResult) {
         testGame = new PseudoSpiel4G();
@@ -115,7 +113,7 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
             if (bsGame != null) {
                 notLosingMoves.add(col);
 
-                switch(makeItPersonal(bsGame.currentGameStatus)){
+                switch (makeItPersonal(bsGame.currentGameStatus)) {
                     case DRAW:
                     case ILOSE:
                         break;
@@ -164,6 +162,9 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
 
         InvestigationResult val;
         if (notLosingMoves.isEmpty()) /* if(gamResult != PersonalResult.IWIN)*/ {
+            if (specificMoveResult.equals(PersonalResult.IWIN)) {
+                System.err.println("Not good");
+            }
             val = new InvestigationResult(PersonalResult.ILOSE, highestGameDepth, notLosingMoves, winningMove);
         } else {
             val = new InvestigationResult(specificMoveResult, highestGameDepth, notLosingMoves, winningMove);
@@ -187,7 +188,10 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
                         log("I bims 1 bigz nubz " + col, depth, 2);
                         break;
                     case GAMEGOESON:
-                        unkownGameStates.add(bsGame.getGameState());
+
+                        if (depth > 0) {
+                            unkownGameStates.add(bsGame.getGameState());
+                        }
                         break;
                     case IWIN:
                         // I can't possibly win after the enemy did a turn.
@@ -201,32 +205,31 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
             }
         }
         boolean completeVictory = false;
-        if (depth > 0) {
-            if (gameResult == PersonalResult.GAMEGOESON) {
-                completeVictory = true;
-                for (int col = 0; col < unkownGameStates.size(); col++) {
-                    //log("enemy Move" + col, depth, 1);
-                    InvestigationResult val = investigateMove(unkownGameStates.get(col), depth - 1);
-                    switch (val.result) {
-                        case ILOSE:
-                        case DRAW:
-                            gameResult = val.result;
-                            completeVictory = false; //originally not included 
-                            //log("enemy wins with " + col, depth, 2);//also shouldnt i write complete Victory false herre??
-                            break;
-                        case IWIN:
-                            if (highestWinDepth < val.depth) {
-                                highestWinDepth = val.depth;//?
-                            }
-                            break;
-                        case GAMEGOESON:
-                            completeVictory = false;
-                            break;
-                        default:
-                            System.err.println("errr waht am i doing");
-                    }
+        if (gameResult == PersonalResult.GAMEGOESON) {
+            completeVictory = true;
+            for (int col = 0; col < unkownGameStates.size(); col++) {
+                //log("enemy Move" + col, depth, 1);
+                InvestigationResult val = investigateMove(unkownGameStates.get(col), depth - 1);
+                switch (val.result) {
+                    case ILOSE:
+                    case DRAW:
+                        gameResult = val.result;
+                        completeVictory = false; //originally not included 
+                        //log("enemy wins with " + col, depth, 2);//also shouldnt i write complete Victory false herre??
+                        break;
+                    case IWIN:
+                        if (highestWinDepth < val.depth) {
+                            highestWinDepth = val.depth;//?
+                        }
+                        break;
+                    case GAMEGOESON:
+                        completeVictory = false;
+                        break;
+                    default:
+                        System.err.println("errr waht am i doing");
                 }
             }
+
         }
         if (completeVictory) {
             log("complete Victory", depth, 3);
@@ -258,7 +261,7 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
     }
 
     protected void log(String message, int depth, int worth) {
-        if (worth > 2) {
+        if (worth > 3) {
             String tabs = "";
             for (int tab = 0; tab < maxDepth - depth; tab++) {
                 tabs += "|\t";
@@ -266,8 +269,6 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
             System.out.println(tabs + message);
         }
     }
-    
-    
 
     private PseudoSpiel4G doGhostMove(GameState shadowState, int col) throws GameStateException {
         PseudoSpiel4G bsGame = new PseudoSpiel4G();
@@ -283,11 +284,14 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
             bsGame = null; // yes this is questionable, if you need to change it, put this exact try and catch with a boolean back to where it came from
             // DO NOT optimize anything prematurely here, please
             // you're not a hero.
+
         } catch (GameStateException ex) {
-            Logger.getLogger(Brutus.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Brutus.class
+                    .getName()).log(Level.SEVERE, null, ex);
             bsGame = null;
         }
         return bsGame;
+
     }
 
     class InvestigationResult {
