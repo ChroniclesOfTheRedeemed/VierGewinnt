@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package viergewinntpraxis;
+package util;
 
 import java.awt.Container;
 import javax.swing.JDialog;

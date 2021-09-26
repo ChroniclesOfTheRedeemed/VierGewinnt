@@ -15,7 +15,7 @@ import Interfaces.InputListener;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Objects;
-import viergewinntpraxis.GameParticipants;
+import util.GameParticipants;
 
 /**__DATE__ , __TIME__
  *

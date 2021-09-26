@@ -9,7 +9,7 @@ package PlayerInterface.Swing;
 import Interfaces.Game;
 import Interfaces.InputListener;
 import java.awt.Container;
-import viergewinntpraxis.EasyDialog;
+import util.EasyDialog;
 import PlayerInterface.GameField;
 
 /**__DATE__ , __TIME__

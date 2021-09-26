@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package viergewinntpraxis;
+package util;
 
 import Interfaces.GameWatcher;
 import Interfaces.Player;

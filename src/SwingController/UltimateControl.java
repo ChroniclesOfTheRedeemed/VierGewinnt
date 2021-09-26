@@ -26,7 +26,7 @@ import VierGewinntPlayers.randyplayer;
 import Games.VierGewinnt.Recorder;
 import Statistics.Statistic;
 import Enums.GameType;
-import viergewinntpraxis.GameParticipants;
+import util.GameParticipants;
 import Games.VierGewinnt.VierGewinntSpiel;
 import java.awt.event.ActionListener;
 

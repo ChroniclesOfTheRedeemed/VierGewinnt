@@ -13,7 +13,7 @@ import Interfaces.GameWatcher;
 import Interfaces.InputListener;
 import java.util.ArrayList;
 import java.util.Objects;
-import viergewinntpraxis.GameParticipants;
+import util.GameParticipants;
 
 /**Erstellung am 30.09.18
  *

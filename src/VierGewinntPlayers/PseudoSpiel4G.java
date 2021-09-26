@@ -12,7 +12,9 @@ import Interfaces.Game;
 import Interfaces.InputListener;
 import java.util.ArrayList;
 import java.util.Arrays;
-import viergewinntpraxis.GameParticipants;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import util.GameParticipants;
 
 /**
  *
@@ -58,6 +60,19 @@ public class PseudoSpiel4G extends Dev4GSpiel {
     
     public void moveP2(int move) throws InvalidMoveException, GameStateException{
         ((PseudoPlayer) player2).simulatemove(move);
+    }
+    
+    public ArrayList<Integer> getEligetebleMoves(){
+        ArrayList<Integer> res = new ArrayList<>();
+        for (int i = 0; i < this.getSpielFeldBreite(); i++) {
+            try{
+                this.checkMove(i);
+                res.add(i);
+            } catch (InvalidMoveException ex) {
+                
+            }
+        }
+        return res;
     }
 
     public static Boolean[][] deepCopy(Boolean[][] original) {

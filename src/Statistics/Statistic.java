@@ -10,7 +10,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import viergewinntpraxis.EasyDialog;
+import util.EasyDialog;
 
 /**
  *
