@@ -16,8 +16,8 @@ import Interfaces.BotFactory;
 public enum ChompPlayer2Enum {
     
     ContainerPlayer(() -> SteadyClass.containerPlayer),
-    Randy(() -> new VierGewinntPlayers.ChompRandy()),
-    Triva(() -> new VierGewinntPlayers.Triva());
+    Randy(() -> new ChompPlayers.ChompRandy()),
+    Triva(() -> new ChompPlayers.Triva());
     
     ChompPlayer2Enum(BotFactory exactplayer){
         thePlayer = exactplayer;

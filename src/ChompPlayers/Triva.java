@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package VierGewinntPlayers;
+package ChompPlayers;
 
 import Exceptions.GameStateException;
 import Exceptions.InvalidMoveException;
 import Games.Chomp.ChompPlayer;
 import Interfaces.Game;
 import Interfaces.InputListener;
+import VierGewinntPlayers.randyplayer;
 import java.awt.Dimension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
