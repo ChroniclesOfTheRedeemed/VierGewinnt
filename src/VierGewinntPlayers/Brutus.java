@@ -77,7 +77,7 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
         int returnMove;
 
         if (recursingValue.result.equals(PersonalResult.IWIN)) {
-            log("Wining Path found, commencing with " + recursingValue.winnningMove, maxDepth, 5);
+            log("Winning Path found, commencing with " + recursingValue.winnningMove, maxDepth, 5);
             returnMove = recursingValue.winnningMove;
         } else {
             //System.out.println("complete random is " + (int) (Math.random() * recursingValue.antiLoseMoves.size()));
