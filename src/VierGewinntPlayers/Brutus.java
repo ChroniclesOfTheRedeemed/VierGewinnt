@@ -99,7 +99,7 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
         }
     }
 
-    protected InvestigationResult investigateMove(GameState state, int depth) throws GameStateException {
+    protected InvestigationResult investigateMove(GameState state, int depth, ArrayList<Integer> currentPredictBranch) throws GameStateException {
         ArrayList<Integer> notLosingMoves = new ArrayList<>();
         ArrayList<Pair<GameState, Integer>> unkownGameStates = new ArrayList<>();
         PersonalResult specificMoveResult = PersonalResult.GAMEGOESON;
@@ -136,7 +136,7 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
         }
         if (!specificMoveResult.equals(PersonalResult.IWIN)) {
             for (Pair<GameState, Integer> unkownGameState : unkownGameStates) {
-                InvestigationResult invResult = investigateEnemyMove((GameState) unkownGameState.getKey(), depth - 1);
+                InvestigationResult invResult = investigateEnemyMove((GameState) unkownGameState.getKey(), depth - 1, currentPredictBranch);
 
                 switch (invResult.result) {
                     case ILOSE:
@@ -172,7 +172,7 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
         return val;
     }
 
-    protected InvestigationResult investigateEnemyMove(GameState state, int depth) throws GameStateException {
+    protected InvestigationResult investigateEnemyMove(GameState state, int depth, ArrayList<Integer> currentPredictBranch) throws GameStateException {
         PersonalResult gameResult = PersonalResult.GAMEGOESON;
         int highestWinDepth = 0;
         ArrayList<GameState> unkownGameStates = new ArrayList<>();
@@ -209,7 +209,7 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
             completeVictory = true;
             for (int col = 0; col < unkownGameStates.size(); col++) {
                 //log("enemy Move" + col, depth, 1);
-                InvestigationResult val = investigateMove(unkownGameStates.get(col), depth - 1);
+                InvestigationResult val = investigateMove(unkownGameStates.get(col), depth - 1, currentPredictBranch);
                 switch (val.result) {
                     case ILOSE:
                     case DRAW:
@@ -320,5 +320,7 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
 
         public PersonalResult result;
         public ArrayList<Integer> alternatingMoves = new ArrayList<>();
+        
+        
     }
 }
