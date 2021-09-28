@@ -16,6 +16,7 @@ import static Interfaces.Game.GameResult.GameWonForPlayer1;
 import static Interfaces.Game.GameResult.GameWonForPlayer2;
 import Interfaces.InputListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,10 +35,16 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
     GameState initialGameState = new GameState(new Boolean[SpielFeldBreite][SpielFeldHöhe], GameResult.GameStillProgressing);
     PseudoSpiel4G testGame = new PseudoSpiel4G();
 
+    public ArrayList<Prediction> winningPredicitions = new ArrayList<>();
+    public ArrayList<Prediction> losingPredicitions = new ArrayList<>();
+
+    ArrayList<Integer> alternatingMovesState = new ArrayList<>();
+
     InputListener<Integer> inputListener;
 
     @Override
     public void gameStarted(Game gameRef, InputListener<Integer> inputListener, boolean youHaveFirstMove) {
+        alternatingMovesState = new ArrayList<>();
         amPlayer1 = youHaveFirstMove;
         this.inputListener = inputListener;
         try {
@@ -68,7 +75,7 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
         initialGameState = testGame.getGameState();
         InvestigationResult recursingValue;
         try {
-            recursingValue = investigateMove(initialGameState, maxDepth);
+            recursingValue = investigateMove(initialGameState, maxDepth, alternatingMovesState);
         } catch (GameStateException ex) {
             recursingValue = null;
             Logger.getLogger(Brutus.class.getName()).log(Level.SEVERE, "Brutus Test Game Crashed.", ex);
@@ -90,6 +97,17 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
             }
         }
 
+        System.out.println("Winning Predictions");
+        for (Prediction wPred : winningPredicitions) {
+            System.out.println(wPred.alternatingMoves);
+        }
+        System.out.println(winningPredicitions.size());
+        
+        System.out.println("Losing Predictions");
+        for (Prediction wPred : losingPredicitions) {
+            System.out.println(wPred.alternatingMoves);
+        }
+        System.out.println(losingPredicitions.size());
         try {
             System.out.println(recursingValue.antiLoseMoves.toString());
             testGame.move(returnMove);
@@ -127,6 +145,11 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
                         specificMoveResult = PersonalResult.IWIN;
                         highestGameDepth = depth;
                         log("I win with " + col, depth, 2);
+                         {
+                            currentPredictBranch.add(col);
+                            this.winningPredicitions.add(new Prediction(specificMoveResult, currentPredictBranch));
+                            currentPredictBranch.remove(currentPredictBranch.size() - 1);
+                        }
                         break;
                 }
                 if (specificMoveResult.equals(PersonalResult.IWIN)) {
@@ -136,7 +159,14 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
         }
         if (!specificMoveResult.equals(PersonalResult.IWIN)) {
             for (Pair<GameState, Integer> unkownGameState : unkownGameStates) {
+                currentPredictBranch.add(unkownGameState.getValue());
                 InvestigationResult invResult = investigateEnemyMove((GameState) unkownGameState.getKey(), depth - 1, currentPredictBranch);
+
+                if (!Objects.equals(currentPredictBranch.get(currentPredictBranch.size()-1), unkownGameState.getValue())) {
+                    System.err.println("Not good, Bug");
+                }
+
+                currentPredictBranch.remove(currentPredictBranch.size() - 1);
 
                 switch (invResult.result) {
                     case ILOSE:
@@ -149,6 +179,11 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
                             highestGameDepth = invResult.depth;// ?
                             specificMoveResult = PersonalResult.IWIN;
                             winningMove = unkownGameState.getValue();
+                            {
+                                currentPredictBranch.add(winningMove);
+                                this.winningPredicitions.add(new Prediction(specificMoveResult, currentPredictBranch));
+                                currentPredictBranch.remove(currentPredictBranch.size() - 1);
+                            }
                             log("Gotta Win With " + unkownGameState.getValue(), depth, 2);
                         }
                     case GAMEGOESON:
@@ -175,7 +210,7 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
     protected InvestigationResult investigateEnemyMove(GameState state, int depth, ArrayList<Integer> currentPredictBranch) throws GameStateException {
         PersonalResult gameResult = PersonalResult.GAMEGOESON;
         int highestWinDepth = 0;
-        ArrayList<GameState> unkownGameStates = new ArrayList<>();
+        ArrayList<Pair<GameState, Integer>> unkownGameStates = new ArrayList<>();
 
         for (int col = 0; col < state.SpielFeld.length; col++) {
             PseudoSpiel4G bsGame
@@ -185,12 +220,18 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
                     case DRAW:
                     case ILOSE:
                         gameResult = PersonalResult.ILOSE;
+                         {
+                            currentPredictBranch.add(col);
+                            this.losingPredicitions.add(new Prediction(gameResult, currentPredictBranch));
+                            currentPredictBranch.remove(currentPredictBranch.size() - 1);
+                        }
+
                         log("I bims 1 bigz nubz " + col, depth, 2);
                         break;
                     case GAMEGOESON:
 
                         if (depth > 0) {
-                            unkownGameStates.add(bsGame.getGameState());
+                            unkownGameStates.add(new Pair(bsGame.getGameState(), col));
                         }
                         break;
                     case IWIN:
@@ -209,13 +250,25 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
             completeVictory = true;
             for (int col = 0; col < unkownGameStates.size(); col++) {
                 //log("enemy Move" + col, depth, 1);
-                InvestigationResult val = investigateMove(unkownGameStates.get(col), depth - 1, currentPredictBranch);
+                currentPredictBranch.add(unkownGameStates.get(col).getValue());
+                InvestigationResult val = investigateMove(unkownGameStates.get(col).getKey(), depth - 1, currentPredictBranch);
+
+                if (!Objects.equals(currentPredictBranch.get(currentPredictBranch.size()-1), unkownGameStates.get(col).getValue())) {
+                    System.err.println("Not good, Bug, enemy Move");
+                }
+                currentPredictBranch.remove(currentPredictBranch.size()-1);
+
                 switch (val.result) {
                     case ILOSE:
                     case DRAW:
                         gameResult = val.result;
-                        completeVictory = false; //originally not included 
-                        //log("enemy wins with " + col, depth, 2);//also shouldnt i write complete Victory false herre??
+                         {
+                            currentPredictBranch.add(unkownGameStates.get(col).getValue());
+                            this.losingPredicitions.add(new Prediction(gameResult, currentPredictBranch));
+                            currentPredictBranch.remove(currentPredictBranch.size() - 1);
+                        }
+                        completeVictory = false; // originally not included 
+                        // log("enemy wins with " + col, depth, 2);//also shouldnt i write complete Victory false herre??
                         break;
                     case IWIN:
                         if (highestWinDepth < val.depth) {
@@ -234,10 +287,16 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
         if (completeVictory) {
             log("complete Victory", depth, 3);
             gameResult = PersonalResult.IWIN;
+
+            {
+                //currentPredictBranch.add(unkownGameStates.get(col).getValue());
+                this.winningPredicitions.add(new Prediction(gameResult, currentPredictBranch));
+                //currentPredictBranch.remove(currentPredictBranch.size() - 1);
+            }
         }
-        InvestigationResult valu = new InvestigationResult(
+        InvestigationResult value = new InvestigationResult(
                 gameResult, highestWinDepth, null, 0);
-        return valu;
+        return value;
     }
 
     private PersonalResult makeItPersonal(GameResult res) {
@@ -301,9 +360,6 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
         public ArrayList<Integer> antiLoseMoves = new ArrayList<>();
         public int winnningMove;
 
-        public ArrayList<Prediction> winningPredicitions = new ArrayList<>();
-        public ArrayList<Prediction> losingPredicitions = new ArrayList<>();
-
         public InvestigationResult(PersonalResult result, int depth, ArrayList<Integer> antiLoseMoves, int winningMoves) {
             this.result = result;
             this.depth = depth;
@@ -320,7 +376,10 @@ public class Brutus implements Games.VierGewinnt.VierGewinntPlayer {
 
         public PersonalResult result;
         public ArrayList<Integer> alternatingMoves = new ArrayList<>();
-        
-        
+
+        public Prediction(PersonalResult result, ArrayList<Integer> alternatingMoves) {
+            this.alternatingMoves = new ArrayList<>(alternatingMoves);
+            this.result = result;
+        }
     }
 }
